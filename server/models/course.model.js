@@ -6,7 +6,11 @@ const courseSchema = new Schema({
     description: String,
     inversions: Number,
     length: Number,
-    imageUrl: String
+    imageUrl: String,
+    owner: {
+        type: Schema.Types.ObjectId,
+        rel: 'User'
+    }
 }, {
     timestamps: true
 })

@@ -6,7 +6,8 @@ const corsOptions = {
     origin: (origin, cb) => {
         const originIsWhitelisted = whitelist.includes(origin)
         cb(null, originIsWhitelisted)
-    }
+    },
+    credentials: true
 }
 
 
