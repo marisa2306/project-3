@@ -4,7 +4,7 @@ import './App.css'
 
 function App() {
   return (
-    <h2>A ver si hay conflictos o no</h2>
+    <h1>Hola de nuevo</h1>
   )
 }
 
