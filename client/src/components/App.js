@@ -7,8 +7,8 @@ import { Switch, Route, Redirect } from 'react-router-dom'
 
 import Navigation from './layout/navigation/Navigation'
 import CoursesList from './pages/Courses-list/Courses-list'
-// import CoasterDetails from './pages/Coaster-details/Coaster-details'
-// import CoasterForm from './pages/Coaster-form/Coaster-form'
+import CourseDetails from './pages/Course-details/Course-details'
+import NewCourseForm from './pages/Course-form/New-Course-form'
 // import Signup from './pages/Signup/Signup'
 // import Login from './pages/Login/Login'
 // import Profile from './pages/Profile/Profile'
@@ -32,7 +32,7 @@ class App extends Component {
   }
 
 
-  setTheUser = user => this.setState({ loggedInUser: user }, () => console.log('El nuevo estado de App es:', this.state))
+  setTheUser = user => this.setState({ loggedInUser: user }, () => console.log('New state of the de App is:', this.state))
 
   render() {
 
@@ -43,11 +43,11 @@ class App extends Component {
         <main>
           <Switch>
             <Route path="/courses" exact render={() => <CoursesList loggedUser={this.state.loggedInUser} />} />
-            {/* <Route path="/montañas/:coaster_id" render={props => <CoasterDetails {...props} />} />
-            <Route path="/crear" render={() => <CoasterForm />} />
-            <Route path="/registro" render={props => <Signup storeUser={this.setTheUser} {...props} />} />
-            <Route path="/inicio-sesion" render={props => <Login storeUser={this.setTheUser} {...props} />} />
-            <Route path="/perfil" render={() => this.state.loggedInUser ? <Profile loggedUser={this.state.loggedInUser} /> : <Redirect to="/inicio-sesion" />} /> */}
+            <Route path="/courses/:course_id" render={props => <CourseDetails {...props} />} />
+            <Route path="/create" render={() => <NewCourseForm />} />
+            {/* <Route path="/signup" render={props => <Signup storeUser={this.setTheUser} {...props} />} />
+            <Route path="/login" render={props => <Login storeUser={this.setTheUser} {...props} />} />
+            <Route path="/profile" render={() => this.state.loggedInUser ? <Profile loggedUser={this.state.loggedInUser} /> : <Redirect to="/inicio-sesion" />} /> */}
           </Switch>
         </main>
       </>
