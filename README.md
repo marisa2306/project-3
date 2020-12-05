@@ -18,6 +18,8 @@ API COURSE
 
 API AUTH
 
+|   Route   | HTTP Verb |   Description   |
+|-----------|-----------|-----------------|
 | `/api/login` |    POST   | manage log in form |
 | `/api/signup` |    POST   | manage sign up form |
 | `/api/logout` |    POST   | manage log out |
