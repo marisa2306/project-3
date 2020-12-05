@@ -3,6 +3,7 @@ const Course = require('./../models/course.model')
 //DATABASE
 mongoose.connect('mongodb://localhost/eLearning')
 //mongoose.connect(process.env.DB_REMOTE)
+Course.collection.drop()
 
 
 const courses = [

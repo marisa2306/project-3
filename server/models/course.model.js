@@ -22,6 +22,11 @@ const courseSchema = new Schema({
         enum: ['Design', 'Development', 'Marketing', 'Music', 'Other'],
         default: 'Other'
     },
+    difficultyLevel: {
+        type: String,
+        enum: ['Beginner', 'Intermidiate', 'Advanced'],
+        default: 'Beginner'
+    },
     description: {
         type: String,
         default: 'Unknown'
