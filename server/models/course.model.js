@@ -14,26 +14,39 @@ const courseSchema = new Schema({
         type: String,
         unique: true,
         required: true,
-        default: 'unknown',
+        default: 'Unknown',
         maxlength: 60
     },
     category: {
         type: String,
-        enum: ['Design', 'Development', 'Marketing', 'Music'],
-        default: 'unknown'
+        enum: ['Design', 'Development', 'Marketing', 'Music', 'Other'],
+        default: 'Other'
     },
     description: {
         type: String,
-        default: 'unknown'
+        default: 'Unknown'
     },
     whatYouWillLearn: {
         type: [String],
-        default: 'unknown'
+        default: 'Unknown'
     },
-    price: {
-        type: Number,
-        required: true
-    },
+    priceRanges: [
+        {
+            type: { type: String },
+            currency: {
+                type: String,
+                default: 'EUR'
+            },
+            min: {
+                type: Number,
+                default: 0
+            },
+            max: {
+                type: Number,
+                required: true
+            }
+        }
+    ],
     duration: {
         type: Number,
         required: true

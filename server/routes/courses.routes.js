@@ -44,4 +44,15 @@ router.put('/editCourse/:course_id', (req, res) => {
 })
 
 
+router.delete('/deleteCourse/:course_id', (req, res) => {
+
+    Course
+        .findByIdAndDelete(req.params.course_id)
+        .then(() => res.json({ message: 'Course Deleted' }))
+        .catch(err => res.status(500).json(err))
+})
+
+
+
+
 module.exports = router
