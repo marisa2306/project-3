@@ -14,7 +14,7 @@ const CourseCard = ({ _id, courseImg, title, category, difficultyLevel, priceRan
                     <Card.Text>{category} | {difficultyLevel} | {priceRanges.max} {priceRanges.currency}  | {duration}{' '}
                     </Card.Text>
 
-
+                    <Link className="btn btn-dark btn-block btn-sm" to={`/courses/${_id}`}>View details</Link>
 
                 </Card.Body>
             </Card>
