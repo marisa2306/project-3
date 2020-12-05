@@ -6,7 +6,7 @@ import React, { Component } from 'react'
 import { Switch, Route, Redirect } from 'react-router-dom'
 
 import Navigation from './layout/navigation/Navigation'
-// import CoasterList from './pages/Coasters-list/Coasters-list'
+import CoursesList from './pages/Courses-list/Courses-list'
 // import CoasterDetails from './pages/Coaster-details/Coaster-details'
 // import CoasterForm from './pages/Coaster-form/Coaster-form'
 // import Signup from './pages/Signup/Signup'
@@ -40,16 +40,16 @@ class App extends Component {
       <>
         <Navigation storeUser={this.setTheUser} loggedUser={this.state.loggedInUser} />
 
-        {/* <main>
+        <main>
           <Switch>
-            <Route path="/montañas" exact render={() => <CoasterList loggedUser={this.state.loggedInUser} />} />
-            <Route path="/montañas/:coaster_id" render={props => <CoasterDetails {...props} />} />
+            <Route path="/courses" exact render={() => <CoursesList loggedUser={this.state.loggedInUser} />} />
+            {/* <Route path="/montañas/:coaster_id" render={props => <CoasterDetails {...props} />} />
             <Route path="/crear" render={() => <CoasterForm />} />
             <Route path="/registro" render={props => <Signup storeUser={this.setTheUser} {...props} />} />
             <Route path="/inicio-sesion" render={props => <Login storeUser={this.setTheUser} {...props} />} />
-            <Route path="/perfil" render={() => this.state.loggedInUser ? <Profile loggedUser={this.state.loggedInUser} /> : <Redirect to="/inicio-sesion" />} />
+            <Route path="/perfil" render={() => this.state.loggedInUser ? <Profile loggedUser={this.state.loggedInUser} /> : <Redirect to="/inicio-sesion" />} /> */}
           </Switch>
-        </main> */}
+        </main>
       </>
     )
   }
