@@ -20,7 +20,7 @@ class App extends Component {
   constructor() {
     super()
     this.state = { loggedInUser: undefined }
-    this.authServices = new AuthServices
+    this.authServices = new AuthServices()
   }
 
   componentDidMount = () => {
