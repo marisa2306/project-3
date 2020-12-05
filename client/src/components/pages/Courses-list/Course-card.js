@@ -14,24 +14,7 @@ const CourseCard = ({ _id, courseImg, title, category, difficultyLevel, priceRan
                     <Card.Text>{category} | {difficultyLevel} | {priceRanges.max} {priceRanges.currency}  | {duration}{' '}
                     </Card.Text>
 
-                    {
-                        owner === loggedUser._id
-                            ?
-                            <ButtonGroup aria-label="Basic example">
-                                {/* <Button className="btn btn-dark">Edit</Button>
 
-                                <Modal show={this.state.showModal} onHide={() => this.handleModal(false)}>
-                                <Modal.Body>
-                                <EditCourseForm closeModal={() => this.handleModal(false)} updateList={this.refreshCourses} loggedUser={this.props.loggedUser} />
-                                </Modal.Body>
-                                </Modal>
-
-                                <Button className="btn btn-dark">Delete</Button> */}
-                                <Link className="btn btn-dark" to={`/courses/${_id}`}>View details</Link>
-                            </ButtonGroup>
-                            :
-                            <Link className="btn btn-dark btn-block btn-sm" to={`/courses/${_id}`}>View details</Link>
-                    }
 
                 </Card.Body>
             </Card>
