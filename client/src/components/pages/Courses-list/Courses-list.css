@@ -1,0 +1,8 @@
+.course-card {
+    margin-bottom: 30px;
+}
+
+.course-card img {
+    height: 140px;
+    object-fit: cover;
+} 
