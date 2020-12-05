@@ -3,15 +3,25 @@
 ## Here's the route we will be using:
 
 
-SERVER
+SERVER 
+
+API COURSE
 
 |   Route   | HTTP Verb |   Description   |
 |-----------|-----------|-----------------|
 | `/api/courses/getAllCourses` |    GET    | show all Courses |
-| `/getOneCourse/:course_id` |    GET    | show one Course |
+| `/api/getOneCourse/:course_id` |    GET    | show one Course |
 | `/api/courses/newCourse` |    POST    | Create new Course |
 | `/api/courses/editCourse/:course_id` |    PUT    | Edit Course |
 | `/api/courses/deleteCourse/:course_id` |    DELETE   | Delete Course |
+
+
+API AUTH
+
+| `/api/login` |    POST   | manage log in form |
+| `/api/signup` |    POST   | manage sign up form |
+| `/api/logout` |    POST   | manage log out |
+| `/api/loggedin` |    GET   | manage session |
 
 CLIENT
 
@@ -23,10 +33,7 @@ CLIENT
 | `/farms/:farm_id`|    GET   | show farm details|
 | `/products` |    GET   | show products list |
 | `/products/:product_id`|    GET   | show product details|
-| `/auth/log-in` |    GET   | show log in form|
-| `/auth/log-in` |    POST   | manage log in form |
-| `/auth/sign-up` |    GET   | show sign up form|
-| `/auth/sign-up` |    POST   | manage sign up form |
+
 |  Role : Student                          |
 | `/profile` |    GET    | show user profile data |
 | `/profile/edit-user` |    GET    | show edit user form|

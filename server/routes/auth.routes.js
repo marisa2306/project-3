@@ -7,15 +7,15 @@ const User = require("../models/user.model")
 
 router.post('/signup', (req, res) => {
 
-    const { username, password } = req.body
+    const { name, surname, username, password, email, role } = req.body
 
     if (!username || !password) {
-        res.status(400).json({ message: 'Rellena todos los campos' }) // TO-DO
+        res.status(400).json({ message: 'Fill all the fields' })
         return
     }
 
     if (password.length < 2) {
-        res.status(400).json({ message: 'Contraseña insegura' })  // TO-DO
+        res.status(400).json({ message: 'Unsafe password' })
         return
     }
 
@@ -23,7 +23,7 @@ router.post('/signup', (req, res) => {
         .findOne({ username })
         .then(foundUser => {
             if (foundUser) {
-                res.status(400).json({ message: 'El usuario ya existe' }) // TO-DO
+                res.status(400).json({ message: 'The user already exists' })
                 return
             }
 
@@ -31,8 +31,8 @@ router.post('/signup', (req, res) => {
             const hashPass = bcrypt.hashSync(password, salt)
 
             User
-                .create({ username, password: hashPass })
-                .then(newUser => req.login(newUser, err => err ? res.status(500).json({ message: 'Login error' }) : res.status(200).json(newUser))) // TO-DO
+                .create({ name, surname, username, password: hashPass, email, role })
+                .then(newUser => req.login(newUser, err => err ? res.status(500).json({ message: 'Login error' }) : res.status(200).json(newUser)))
                 .catch(() => res.status(500).json({ message: 'Error saving user to DB' }))
         })
 })
