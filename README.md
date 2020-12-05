@@ -2,6 +2,19 @@
 
 ## Here's the route we will be using:
 
+
+SERVER
+
+|   Route   | HTTP Verb |   Description   |
+|-----------|-----------|-----------------|
+| `/api/courses/getAllCourses` |    GET    | show all Courses |
+| `/getOneCourse/:course_id` |    GET    | show one Course |
+| `/api/courses/newCourse` |    POST    | Create new Course |
+| `/api/courses/editCourse/:course_id` |    PUT    | Edit Course |
+| `/api/courses/deleteCourse/:course_id` |    DELETE   | Delete Course |
+
+CLIENT
+
 |   Route   | HTTP Verb |   Description   |
 |-----------|-----------|-----------------|
 | `/` |    GET    | show index with Google Map |
