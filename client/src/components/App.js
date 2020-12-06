@@ -11,7 +11,7 @@ import CoursesList from './pages/Courses-list/Courses-list'
 import CourseDetails from './pages/Course-details/Course-details'
 import NewCourseForm from './pages/Course-form/New-Course-form'
 import Signup from './pages/Signup/Signup'
-import Profile from './pages/Profile/Profile'
+import UserProfile from './pages/Profile/UserProfile'
 
 class App extends Component {
   constructor() {
@@ -43,7 +43,7 @@ class App extends Component {
             <Route path="/courses/:course_id" render={props => <CourseDetails {...props} />} />
             <Route path="/create" render={() => <NewCourseForm />} />
             <Route path="/signup" render={props => <Signup storeUser={this.setTheUser} {...props} />} />
-            <Route path="/profile" render={() => this.state.loggedInUser ? <Profile loggedUser={this.state.loggedInUser} /> : <Redirect to="/signup" />} />
+            <Route path="/profile" render={() => this.state.loggedInUser ? <UserProfile loggedUser={this.state.loggedInUser} /> : <Redirect to="/signup" />} />
           </Switch>
         </main>
       </>
