@@ -22,8 +22,11 @@ const CourseCard = ({ _id, courseImg, title, category, difficultyLevel, priceRan
                                 {/* <Link className="btn btn-dark" to={`/courses/${_id}`}>View details</Link> */}
                             {/* </ButtonGroup> */}
                             {/* : */}
-                            <Link className="btn btn-dark btn-block btn-sm" to={`/courses/${_id}`}>View details</Link>
+                            {/* <Link className="btn btn-dark btn-block btn-sm" to={`/courses/${_id}`}>View details</Link> */}
                     {/* } */}
+
+                    <Link className="btn btn-dark btn-block btn-sm" to={`/courses/${_id}`}>View details</Link>
+
                 </Card.Body>
             </Card>
         </Col>
