@@ -14,7 +14,7 @@ class Navigation extends Component {
         }
         this.authService = new AuthService()
     }
-    
+
     logOut = () => {
         this.authService
             .logout()
@@ -27,7 +27,7 @@ class Navigation extends Component {
     render() {
 
         return (
-            <>    
+            <>
                 <Modal centered show={this.state.showModal} onHide={() => this.handleModal(false)}>
                     <Modal.Body>
                         <LoginForm closeModal={() => this.handleModal(false)} storeUser={this.props.storeUser} />
@@ -57,31 +57,31 @@ class Navigation extends Component {
                             {
                                 this.props.loggedUser && this.props.isRoleTeacher
                                     ?
-                                <>
-                                    <Nav.Link as="div" onClick={this.logOut}>Log out</Nav.Link>
-                                        
-                                    <Link to="/teacher-profile">
-                                        <Nav.Link as="div">{`Welcome, ${this.props.loggedUser.username}`}</Nav.Link>
-                                    </Link>   
-                                </>
+                                    <>
+                                        <Nav.Link as="div" onClick={this.logOut}>Log out</Nav.Link>
+
+                                        <Link to="/teacher-profile">
+                                            <Nav.Link as="div">{`Welcome, ${this.props.loggedUser.username}`}</Nav.Link>
+                                        </Link>
+                                    </>
                                     :
-                                this.props.loggedUser && this.props.isRoleTeacher === false
+                                    this.props.loggedUser && this.props.isRoleTeacher === false
                                         ?
-                                <>
-                                    <Nav.Link as="div" onClick={this.logOut}>Log out</Nav.Link>
-                                            
-                                    <Link to="/student-profile">
-                                        <Nav.Link as="div">{`Welcome, ${this.props.loggedUser.username}`}</Nav.Link>
-                                    </Link>     
-                                </>
-                                    :
-                                <>
-                                    <Link to="/signup">
-                                        <Nav.Link as="div">Sign up</Nav.Link>
-                                    </Link>
-                                    
-                                    <Nav.Link as="div" onClick={() => this.handleModal(true)}>Log in</Nav.Link>
-                                </>
+                                        <>
+                                            <Nav.Link as="div" onClick={this.logOut}>Log out</Nav.Link>
+
+                                            <Link to="/student-profile">
+                                                <Nav.Link as="div">{`Welcome, ${this.props.loggedUser.username}`}</Nav.Link>
+                                            </Link>
+                                        </>
+                                        :
+                                        <>
+                                            <Link to="/signup">
+                                                <Nav.Link as="div">Sign up</Nav.Link>
+                                            </Link>
+
+                                            <Nav.Link as="div" onClick={() => this.handleModal(true)}>Log in</Nav.Link>
+                                        </>
                             }
                         </Nav>
                     </Navbar.Collapse>

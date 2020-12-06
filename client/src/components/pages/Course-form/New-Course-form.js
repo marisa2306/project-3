@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import CoursesService from './../../../service/auth.service'
+import CoursesService from './../../../service/courses.service'
 
 import { Form, Button } from 'react-bootstrap'
 

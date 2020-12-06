@@ -11,8 +11,11 @@ import CoursesList from './pages/Courses-list/Courses-list'
 import CourseDetails from './pages/Course-details/Course-details'
 import NewCourseForm from './pages/Course-form/New-Course-form'
 import Signup from './pages/Signup/Signup'
-import UserProfile from './pages/Profile/UserProfile'
-import TeacherProfile from './pages/Profile/TeacherProfile'
+import UserProfile from './pages/Profiles/UserProfile/UserProfile'
+import TeacherProfile from './pages/Profiles/TeacherProfile/TeacherProfile'
+import NewTeacherForm from './pages/Profiles/TeacherProfile/Create-Teacher-form'
+
+
 
 class App extends Component {
   constructor() {
@@ -35,10 +38,10 @@ class App extends Component {
   setTheUser = (user) => this.setState({ loggedInUser: user, isTeacher: user && user.role === 'Teacher' }, () => console.log('New state of the de App is:', this.state))
 
   render() {
-    
+
     return (
       <>
-        <Navigation storeUser={this.setTheUser} loggedUser={this.state.loggedInUser} isRoleTeacher={this.state.isTeacher}/>
+        <Navigation storeUser={this.setTheUser} loggedUser={this.state.loggedInUser} isRoleTeacher={this.state.isTeacher} />
 
         <main>
           <Switch>
@@ -47,8 +50,9 @@ class App extends Component {
             <Route path="/courses/:course_id" render={props => <CourseDetails {...props} />} />
             <Route path="/create" render={() => <NewCourseForm />} />
             <Route path="/signup" render={props => <Signup storeUser={this.setTheUser} {...props} />} />
-            <Route path="/teacher-profile" render={() => this.state.isTeacher ? <TeacherProfile loggedUser={this.state.loggedInUser} /> : <Redirect to='/signup' />} />
+            <Route path="/teacher-profile" exact render={() => this.state.isTeacher ? <TeacherProfile loggedUser={this.state.loggedInUser} /> : <Redirect to='/signup' />} />
             <Route path="/student-profile" render={() => this.state.loggedInUser && !this.state.isTeacher ? <UserProfile loggedUser={this.state.loggedInUser} /> : <Redirect to='/signup' />} />
+            <Route path="/teacher-profile/create-teacher" render={props => <NewTeacherForm loggedUser={this.state.loggedInUser} {...props} />} />
           </Switch>
         </main>
       </>
