@@ -4,7 +4,6 @@ import AuthService from '../../../service/auth.service'
 import { Container, Form, Button } from 'react-bootstrap'
 
 class LoginForm extends Component {
-
     constructor(props) {
         super(props)
         this.state = {
@@ -28,11 +27,9 @@ class LoginForm extends Component {
             .catch(err => console.log({ err }))
     }
 
-
     render() {
 
         return (
-
           <Container>
             <h1>Log In</h1>
             <hr />
@@ -46,7 +43,7 @@ class LoginForm extends Component {
                     <Form.Label>Password</Form.Label>
                     <Form.Control type="password" name="password" value={this.state.password} onChange={this.handleInputChange} />
                 </Form.Group>
-                <Button variant="dark" type="submit">Enter</Button>
+                    <Button variant="dark" type="submit">Enter</Button>
             </Form>
           </Container>
         )

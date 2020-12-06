@@ -3,18 +3,18 @@ import { Link } from 'react-router-dom'
 import AuthService from './../../../service/auth.service'
 import logo from './logo.png'
 import { Navbar, Nav, Modal } from 'react-bootstrap'
-import LoginForm from '../../pages/login-form/LoginForm'
+import LoginForm from '../../pages/Login-form/LoginForm'
 import './Navigation.css'
 
 class Navigation extends Component {
-    constructor() {
-        super()
+    constructor(props) {
+        super(props)
         this.state = {
             showModal: false
         }
         this.authService = new AuthService()
     }
-
+    
     logOut = () => {
         this.authService
             .logout()
@@ -30,7 +30,7 @@ class Navigation extends Component {
             <>    
                 <Modal centered show={this.state.showModal} onHide={() => this.handleModal(false)}>
                     <Modal.Body>
-                        <LoginForm closeModal={() => this.handleModal(false)} loggedUser={this.props.loggedUser} />
+                        <LoginForm closeModal={() => this.handleModal(false)} storeUser={this.props.storeUser} />
                     </Modal.Body>
                 </Modal>
 
@@ -63,11 +63,12 @@ class Navigation extends Component {
                                         <Link to="/signup">
                                             <Nav.Link as="div">Sign up</Nav.Link>
                                         </Link>
+                                        
                                         <Nav.Link as="div" onClick={() => this.handleModal(true)}>Log in</Nav.Link>
                                     </>
                             }
                             <Link to="/profile">
-                                <Nav.Link as="div">Hi, {this.props.loggedUser ? this.props.loggedUser.username : 'guest'}</Nav.Link>
+                                <Nav.Link as="div">{this.props.loggedUser ? `Welcome, ${this.props.loggedUser.username}` : 'Welcome!'}</Nav.Link>
                             </Link>
                         </Nav>
                     </Navbar.Collapse>
