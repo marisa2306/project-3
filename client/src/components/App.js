@@ -12,11 +12,15 @@ import CourseDetails from './pages/Course-details/Course-details'
 import NewCourseForm from './pages/Course-form/New-Course-form'
 import Signup from './pages/Signup/Signup'
 import UserProfile from './pages/Profile/UserProfile'
+import TeacherProfile from './pages/Profile/TeacherProfile'
 
 class App extends Component {
   constructor() {
     super()
-    this.state = { loggedInUser: undefined }
+    this.state = {
+      loggedInUser: undefined,
+      isTeacher: false
+    }
     this.authServices = new AuthServices()
   }
 
@@ -28,13 +32,13 @@ class App extends Component {
       .catch(err => this.setTheUser(undefined))
   }
 
-  setTheUser = user => this.setState({ loggedInUser: user }, () => console.log('New state of the de App is:', this.state))
+  setTheUser = (user) => this.setState({ loggedInUser: user, isTeacher: user && user.role === 'Teacher' }, () => console.log('New state of the de App is:', this.state))
 
   render() {
-
+    
     return (
       <>
-        <Navigation storeUser={this.setTheUser} loggedUser={this.state.loggedInUser} />
+        <Navigation storeUser={this.setTheUser} loggedUser={this.state.loggedInUser} isRoleTeacher={this.state.isTeacher}/>
 
         <main>
           <Switch>
@@ -43,7 +47,8 @@ class App extends Component {
             <Route path="/courses/:course_id" render={props => <CourseDetails {...props} />} />
             <Route path="/create" render={() => <NewCourseForm />} />
             <Route path="/signup" render={props => <Signup storeUser={this.setTheUser} {...props} />} />
-            <Route path="/profile" render={() => this.state.loggedInUser ? <UserProfile loggedUser={this.state.loggedInUser} /> : <Redirect to="/signup" />} />
+            <Route path="/teacher-profile" render={() => this.state.isTeacher ? <TeacherProfile loggedUser={this.state.loggedInUser} /> : <Redirect to='/signup' />} />
+            <Route path="/student-profile" render={() => this.state.loggedInUser && !this.state.isTeacher ? <UserProfile loggedUser={this.state.loggedInUser} /> : <Redirect to='/signup' />} />
           </Switch>
         </main>
       </>
