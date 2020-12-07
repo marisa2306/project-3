@@ -12,7 +12,10 @@ const teacherSchema = new Schema({
     },
     links: [
         {
-            name: String,
+            name: {
+                type: String,
+                default: 'School'
+            },
             url: {
                 type: String,
                 default: 'https://www.ironhack.com/es/madrid'

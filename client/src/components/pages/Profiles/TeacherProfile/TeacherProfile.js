@@ -14,10 +14,9 @@ class TeacherProfile extends Component {
   }
 
   componentDidMount = () => {
-    console.log('estas son las props', this.props)
     this.teacherServices
       .getTeacher(this.props.loggedUser._id)
-      .then(response => this.setState({ teacher: response.data[0] }, () => console.log('Esto es el new', this.state)))
+      .then(response => this.setState({ teacher: response.data[0] }, () => console.log('New Teacher state', this.state)))
       .catch(err => console.log(err))
   }
 
