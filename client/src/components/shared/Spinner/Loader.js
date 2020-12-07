@@ -1,2 +1,12 @@
 import './Loader.css'
-export default () => <div className="loader"></div>
+export default () => {
+  return (
+    <div className="loader">
+      <span></span>
+      <span></span>
+      <span></span>
+      <span></span>
+    </div>
+
+  )
+}
