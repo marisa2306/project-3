@@ -25,7 +25,6 @@ class Navigation extends Component {
     handleModal = visible => this.setState({ showModal: visible })
 
     render() {
-
         return (
             <>
                 <Modal centered show={this.state.showModal} onHide={() => this.handleModal(false)}>
@@ -61,16 +60,16 @@ class Navigation extends Component {
                                         <Nav.Link as="div" onClick={this.logOut}>Log out</Nav.Link>
 
                                         <Link to="/profile">
-                                            <Nav.Link as="div">{`Welcome, ${this.props.loggedUser.username}`}</Nav.Link>
+                                            <Nav.Link as="div">{`Welcome back, ${this.props.loggedUser.username}`}</Nav.Link>
                                         </Link>
                                     </>
                                     :
                                     <>
+                                        <Nav.Link as="div" onClick={() => this.handleModal(true)}>Log in</Nav.Link>
+
                                         <Link to="/signup">
                                             <Nav.Link as="div">Sign up</Nav.Link>
                                         </Link>
-
-                                        <Nav.Link as="div" onClick={() => this.handleModal(true)}>Log in</Nav.Link>
                                     </>
                             }
                         </Nav>

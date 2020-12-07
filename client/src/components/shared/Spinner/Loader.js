@@ -1,5 +1,5 @@
 import './Loader.css'
-export default () => {
+const Loader = () => {
   return (
     <div className="loader">
       <span></span>
@@ -10,3 +10,5 @@ export default () => {
 
   )
 }
+
+export default Loader

@@ -2,20 +2,6 @@ const mongoose = require('mongoose')
 const Schema = mongoose.Schema
 
 const userSchema = new Schema({
-    name: {
-        type: String,
-        required: true,
-        default: 'unknown',
-        trim: true,
-        set: text => text.charAt(0).toUpperCase() + text.substring(1)
-    },
-    surname: {
-        type: String,
-        required: true,
-        default: 'unknown',
-        trim: true,
-        set: text => text.charAt(0).toUpperCase() + text.substring(1)
-    },
     username: {
         type: String,
         required: true,
@@ -36,12 +22,8 @@ const userSchema = new Schema({
         default: 'Student'
     },
     profileImg: {
-        imageName: String,
-        path: {
-            type: String,
-            default: 'https://www.cmcaindia.org/wp-content/uploads/2015/11/default-profile-picture-gmail-2.png'
-        },
-        originalName: String
+        type: String,
+        default: 'https://www.cmcaindia.org/wp-content/uploads/2015/11/default-profile-picture-gmail-2.png'
     },
     favorites: [{
         type: Schema.Types.ObjectId,

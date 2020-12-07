@@ -8,12 +8,14 @@ class NewTeacherForm extends Component {
     constructor(props) {
         super(props)
         this.state = {
+            name: '',
+            surname: '',
             jobOccupation: '',
             description: '',
-            links: [{
-                name: '',
-                url: ''
-            }],
+            // links: [{
+            //     name: '',
+            //     url: ''
+            // }],
             user: this.props.loggedUser ? this.props.loggedUser._id : ''
         }
         this.teachersService = new TeachersService()
@@ -26,17 +28,21 @@ class NewTeacherForm extends Component {
 
         this.teachersService
             .saveTeacher(this.state)
+            .then(() => this.props.history.push('/profile'))
             .then(res => {
-                // this.props.updateList()
-                // this.props.closeModal()
-                this.props.history.push('/teacher-profile')
+                this.setState({
+                    name: '',
+                    surname: '',
+                    jobOccupation: '',
+                    description: '',
+                    user: ''
+                })
             })
             .catch(err => console.log(err))
     }
 
 
     render() {
-
         return (
             <Container>
                 <Row>
@@ -45,7 +51,16 @@ class NewTeacherForm extends Component {
                     <hr />
 
                     <Form onSubmit={this.handleSubmit}>
-                        <Form.Group controlId="title">
+                        <Form.Group controlId="name">
+                            <Form.Label>Name</Form.Label>
+                            <Form.Control type="text" name="name" value={this.state.name} onChange={this.handleInputChange} />
+                        </Form.Group>
+                        <Form.Group controlId="surname">
+                            <Form.Label>Surname</Form.Label>
+                            <Form.Control type="text" name="surname" value={this.state.surname} onChange={this.handleInputChange} />
+                        </Form.Group>
+                       
+                        <Form.Group controlId="jobOccupation">
                             <Form.Label>Job Occupation</Form.Label>
                             <Form.Control type="text" name="jobOccupation" value={this.state.jobOccupation} onChange={this.handleInputChange} />
                         </Form.Group>

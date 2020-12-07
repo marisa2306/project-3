@@ -1,16 +1,14 @@
 import React, { Component } from 'react'
+import { Link } from 'react-router-dom'
 import CoursesService from './../../../service/courses.service'
 
+import { Container, Row, Col } from 'react-bootstrap'
 import './Course-details.css'
 
 import Loader from './../../shared/Spinner/Loader'
 
-import { Container, Row, Col } from 'react-bootstrap'
-
-import { Link } from 'react-router-dom'
 
 class CourseDetails extends Component {
-
     constructor() {
         super()
         this.state = {
@@ -20,7 +18,6 @@ class CourseDetails extends Component {
     }
 
     componentDidMount = () => {
-
         const course_id = this.props.match.params.course_id
 
         this.coursesService
@@ -30,7 +27,6 @@ class CourseDetails extends Component {
     }
 
     render() {
-
         return (
             <Container className="course-details">
                 {this.state.course
@@ -41,7 +37,7 @@ class CourseDetails extends Component {
                         <hr />
                         <Row>
                             <Col md={{ span: 6, offset: 1 }} >
-                                <img src={this.state.course.courseImg.path} alt={this.state.course.title} />
+                                <img src={this.state.course.courseImg} alt={this.state.course.title} />
                             </Col>
                             <Col md={4}>
                                 <h3>Description</h3>

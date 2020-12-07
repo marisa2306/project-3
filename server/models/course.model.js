@@ -3,12 +3,8 @@ const Schema = mongoose.Schema
 
 const courseSchema = new Schema({
     courseImg: {
-        imageName: String,
-        path: {
-            type: String,
-            default: 'https://images.unsplash.com/photo-1501504905252-473c47e087f8'
-        },
-        originalName: String
+        type: String,
+        default: 'https://images.unsplash.com/photo-1501504905252-473c47e087f8'
     },
     title: {
         type: String,
@@ -35,23 +31,20 @@ const courseSchema = new Schema({
         type: [String],
         default: 'Unknown'
     },
-    priceRanges: [
-        {
-            type: { type: String },
-            currency: {
-                type: String,
-                default: 'EUR'
-            },
-            min: {
-                type: Number,
-                default: 0
-            },
-            max: {
-                type: Number,
-                required: true
-            }
+    priceRanges: {
+        currency: {
+            type: String,
+            default: 'EUR'
+        },
+        min: {
+            type: Number,
+            default: 0
+        },
+        max: {
+            type: Number,
+            required: true
         }
-    ],
+    },
     duration: {
         type: Number,
         required: true

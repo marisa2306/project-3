@@ -1,6 +1,5 @@
 import { Container, Image, Col, Row } from 'react-bootstrap'
 import { Link } from 'react-router-dom'
-//import TeacherServices from '../../../../service/teachers.service'
 import React, { Component } from 'react'
 import './UserProfile.css'
 
@@ -8,21 +7,11 @@ class UserProfile extends Component {
   constructor() {
     super()
     this.state = {
-      teacher: undefined
+      teacher: undefined    // cambiará
     }
-    //this.teacherServices = new TeacherServices()
   }
 
-  // componentDidMount = () => {
-  //   console.log('estas son las props', this.props)
-  //   this.teacherServices
-  //     .getTeacher(this.props.loggedUser._id)
-  //     .then(response => this.setState({ teacher: response.data[0] }, () => console.log('Esto es el new', this.state)))
-  //     .catch(err => console.log(err))
-  // }
-
   render() {
-
     return (
 
       <Container>
@@ -31,11 +20,9 @@ class UserProfile extends Component {
         {/* User details */}
         <Row>
           <Col md={1}>
-            <Image src={this.props.loggedUser.profileImg.path} className="user-img" roundedCircle alt={this.props.loggedUser.name, this.props.loggedUser.surname} />
+            <Image src={this.props.loggedUser.profileImg} className="user-img" roundedCircle alt={this.props.loggedUser.username} />
           </Col>
           <Col md={{ span: 10, offset: 1 }}>
-            <p><strong>Name:</strong> {this.props.loggedUser.name} </p>
-            <p><strong>Surname:</strong> {this.props.loggedUser.surname}</p>
             <p><strong>Username:</strong> {this.props.loggedUser.username}</p>
             <p><strong>Email:</strong> {this.props.loggedUser.email}</p>
             <p><strong>Role:</strong> {this.props.loggedUser.role}</p>

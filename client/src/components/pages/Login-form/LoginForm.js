@@ -24,11 +24,14 @@ class LoginForm extends Component {
               this.props.storeUser(theLoggedInUser.data)
               this.props.closeModal()
             })
+            .then(() => this.setState({
+                username: '',
+                password: ''
+            }))
             .catch(err => console.log({ err }))
     }
 
     render() {
-
         return (
           <Container>
             <h1>Log In</h1>

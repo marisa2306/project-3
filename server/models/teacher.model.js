@@ -2,6 +2,20 @@ const mongoose = require('mongoose')
 const Schema = mongoose.Schema
 
 const teacherSchema = new Schema({
+    name: {
+        type: String,
+        required: true,
+        default: 'unknown',
+        trim: true,
+        set: text => text.charAt(0).toUpperCase() + text.substring(1)
+    },
+    surname: {
+        type: String,
+        required: true,
+        default: 'unknown',
+        trim: true,
+        set: text => text.charAt(0).toUpperCase() + text.substring(1)
+    },
     jobOccupation: {
         type: String,
         default: 'unknown'
@@ -9,6 +23,10 @@ const teacherSchema = new Schema({
     description: {
         type: String,
         default: 'unknown'
+    },
+    teacherImg: {
+        type: String,
+        default: 'https://images.unsplash.com/photo-1503676260728-1c00da094a0b'
     },
     links: [
         {

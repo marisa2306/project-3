@@ -1,22 +1,16 @@
 import React, { Component } from 'react'
 import CoursesService from './../../../service/courses.service'
 
-import CourseCard from './Course-card'
+import CourseCard from '../../shared/CourseCard/Course-card'
 import Loader from './../../shared/Spinner/Loader'
-import NewCourseForm from './../Course-form/New-Course-form'
 
-import { Container, Row, Button, Modal } from 'react-bootstrap'
-
-
-import './Courses-list.css'
+import { Container, Row } from 'react-bootstrap'
 
 class CoursesList extends Component {
-
     constructor() {
         super()
         this.state = {
-            courses: undefined,
-            showModal: false
+            courses: undefined
         }
         this.coursesService = new CoursesService()
     }
@@ -30,16 +24,12 @@ class CoursesList extends Component {
             .catch(err => console.log(err))
     }
 
-    handleModal = visible => this.setState({ showModal: visible })
-
     render() {
         return (
             <>
                 <Container>
 
                     <h1>Our courses</h1>
-
-                    {this.props.loggedUser && <Button onClick={() => this.handleModal(true)} variant="dark" size="sm">Create new course</Button>}
 
                     <Row>
                         {
@@ -51,14 +41,6 @@ class CoursesList extends Component {
                         }
                     </Row>
                 </Container>
-
-
-                <Modal show={this.state.showModal} onHide={() => this.handleModal(false)}>
-                    <Modal.Body>
-                        <NewCourseForm closeModal={() => this.handleModal(false)} updateList={this.refreshCourses} loggedUser={this.props.loggedUser} />
-                    </Modal.Body>
-                </Modal>
-
             </>
         )
     }
