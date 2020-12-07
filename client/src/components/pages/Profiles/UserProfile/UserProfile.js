@@ -1,6 +1,6 @@
 import { Container, Image, Col, Row } from 'react-bootstrap'
 import { Link } from 'react-router-dom'
-import TeacherServices from '../../../../service/teachers.service'
+//import TeacherServices from '../../../../service/teachers.service'
 import React, { Component } from 'react'
 import './UserProfile.css'
 
@@ -10,16 +10,16 @@ class UserProfile extends Component {
     this.state = {
       teacher: undefined
     }
-    this.teacherServices = new TeacherServices()
+    //this.teacherServices = new TeacherServices()
   }
 
-  componentDidMount = () => {
-    console.log('estas son las props', this.props)
-    this.teacherServices
-      .getTeacher(this.props.loggedUser._id)
-      .then(response => this.setState({ teacher: response.data[0] }, () => console.log('Esto es el new', this.state)))
-      .catch(err => console.log(err))
-  }
+  // componentDidMount = () => {
+  //   console.log('estas son las props', this.props)
+  //   this.teacherServices
+  //     .getTeacher(this.props.loggedUser._id)
+  //     .then(response => this.setState({ teacher: response.data[0] }, () => console.log('Esto es el new', this.state)))
+  //     .catch(err => console.log(err))
+  // }
 
   render() {
 
@@ -45,10 +45,10 @@ class UserProfile extends Component {
         <hr></hr>
         <Row className="mt-5">
           <Col md={6}>
-            {this.props.loggedUser.role === 'Teacher' && this.state.teacher
+            {this.props.loggedUser.role === 'Teacher' && this.props.teacherInfo
               ?
-              <Link to='/profile/profile-teacher' className="btn btn-warning" >View your teacher profile</Link>
-              : this.props.loggedUser.role === 'Teacher' && !this.state.teacher ?
+              <Link to='/profile-teacher' className="btn btn-warning" >View your teacher profile</Link>
+              : this.props.loggedUser.role === 'Teacher' && !this.props.teacherInfo ?
                 <Link to='/profile/create-teacher' className="btn btn-success">Create your teacher profile</Link>
                 : null
             }

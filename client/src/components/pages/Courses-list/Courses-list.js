@@ -45,7 +45,7 @@ class CoursesList extends Component {
                         {
                             this.state.courses
                                 ?
-                                this.state.courses.map(elm => <CourseCard key={elm._id} {...elm} loggedUser={this.props.loggedUser} />)
+                                this.state.courses.map(elm => <CourseCard key={elm._id} {...elm} userInfo={this.props.loggedUser} teacher={this.props.teacherInfo} />)
                                 :
                                 <Loader />
                         }
