@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import TeachersService from './../../../../service/teachers.service'
 
-import { Form, Button } from 'react-bootstrap'
+import { Container, Row, Col, Form, Button } from 'react-bootstrap'
 
 class NewTeacherForm extends Component {
 
@@ -10,7 +10,10 @@ class NewTeacherForm extends Component {
         this.state = {
             jobOccupation: '',
             description: '',
-            // links: '',
+            links: [{
+                name: '',
+                url: ''
+            }],
             user: this.props.loggedUser ? this.props.loggedUser._id : ''
         }
         this.teachersService = new TeachersService()
@@ -35,28 +38,39 @@ class NewTeacherForm extends Component {
     render() {
 
         return (
-            <>
-                <h1>Create your teacher Profile</h1>
-                <hr />
+            <Container>
+                <Row>
+                    <Col md={{ span: 8, offset: 2}}>
+                    <h1>Create your teacher Profile</h1>
+                    <hr />
 
-                <Form onSubmit={this.handleSubmit}>
-                    <Form.Group controlId="title">
-                        <Form.Label>Job Occupation</Form.Label>
-                        <Form.Control type="text" name="jobOccupation" value={this.state.jobOccupation} onChange={this.handleInputChange} />
-                    </Form.Group>
-                    <Form.Group controlId="description">
-                        <Form.Label>Description</Form.Label>
-                        <Form.Control type="text" name="description" value={this.state.description} onChange={this.handleInputChange} />
-                    </Form.Group>
-                    {/* <Form.Group controlId="category">
-                        <Form.Label>Links</Form.Label>
-                        <Form.Control type="text" name="links" value={this.state.links} onChange={this.handleInputChange} />
-                    </Form.Group> */}
+                    <Form onSubmit={this.handleSubmit}>
+                        <Form.Group controlId="title">
+                            <Form.Label>Job Occupation</Form.Label>
+                            <Form.Control type="text" name="jobOccupation" value={this.state.jobOccupation} onChange={this.handleInputChange} />
+                        </Form.Group>
+                        <Form.Group controlId="description">
+                            <Form.Label>Description</Form.Label>
+                            <Form.Control type="text" name="description" value={this.state.description} onChange={this.handleInputChange} />
+                        </Form.Group>
+                            
+                        {/* <Form.Label><strong>Links</strong></Form.Label> 
+                        <Form.Row>
+                            <Form.Group as={Col} md='6' controlId="linkName">
+                                <Form.Label>Name</Form.Label>
+                                <Form.Control type="text" name="name" value={this.state.links.name} onChange={this.handleInputChange} />
+                            </Form.Group>
+                            <Form.Group as={Col} md='6' controlId="linkUrl">
+                                <Form.Label>Url</Form.Label>
+                                <Form.Control type="text" name="url" value={this.state.links.url} onChange={this.handleInputChange} />
+                            </Form.Group>
+                        </Form.Row> */}
 
-
-                    <Button variant="dark" type="submit">Create Teacher profile</Button>
-                </Form>
-            </>
+                        <Button variant="dark" type="submit">Create Teacher profile</Button>
+                        </Form>
+                    </Col>
+                </Row>
+            </Container>
         )
     }
 }

@@ -5,7 +5,7 @@
 
 SERVER 
 
-API COURSE
+API COURSES
 
 |   Route   | HTTP Verb |   Description   |
 |-----------|-----------|-----------------|
@@ -15,6 +15,15 @@ API COURSE
 | `/api/courses/editCourse/:course_id` |    PUT    | Edit Course |
 | `/api/courses/deleteCourse/:course_id` |    DELETE   | Delete Course |
 
+API TEACHERS
+
+|   Route   | HTTP Verb |   Description   |
+|-----------|-----------|-----------------|
+| `/api/teachers/getAllTeachers` |    GET    | show all Teachers |
+| `/api/getOneTeacher/:user_id` |    GET    | show one Teacher card (User Profile) |
+| `/api/teachers/newTeacher` |    POST    | Create new Teacher |
+| `/api/teachers/editTeacher/:teacher_id` |    PUT    | Edit Teacher |
+| `/api/courses/deleteTeacher/:teacher_id` |    DELETE   | Delete Teacher |
 
 API AUTH
 
@@ -27,28 +36,4 @@ API AUTH
 
 CLIENT
 
-|   Route   | HTTP Verb |   Description   |
-|-----------|-----------|-----------------|
-| `/` |    GET    | show index with Google Map |
-| `/api/farms` |    GET   | json farm list |
-| `/farms` |    GET   | show farms list |
-| `/farms/:farm_id`|    GET   | show farm details|
-| `/products` |    GET   | show products list |
-| `/products/:product_id`|    GET   | show product details|
 
-|  Role : Student                          |
-| `/profile` |    GET    | show user profile data |
-| `/profile/edit-user` |    GET    | show edit user form|
-| `/profile/edit-user` |    POST    | manage edit user form|
-|  Role : Teacher                           |
-| `/profile` |    GET    | show user profile data |
-| `/profile/edit-user` |    GET    | show edit user form|
-| `/profile/edit-user` |    POST    | manage edit user form|
-| `/profile/create-farm?id=XXX` |    GET    | show create farm form |
-| `/profile/create-farm?id=XXX` |    POST   | manage create farm form|
-| `/profile/myfarm/:id` |    GET    | show farm data |
-| `/profile/myfarm/:id/create-product` |    GET    | show create new product form|
-| `/profile/myfarm/:id/create-product` |    POST   | manage create new product form|
-| `/profile/myfarm/:id/edit-product?id=XXX` |    GET    | show edit product form|
-| `/profile/myfarm/:id/edit-product?id=XXX` |    POST   | manage edit product form|
-| `/profile/myfarm/:id/delete-product?id=XXX` |    GET    | delete product|

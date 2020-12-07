@@ -3,7 +3,6 @@ import { Col, Card } from 'react-bootstrap'
 import { Link } from 'react-router-dom'
 
 const TeacherCard = (props) => {
-    console.log(props)
     return (
         <Col lg={6}>
             <Card className="course-card">
@@ -13,7 +12,6 @@ const TeacherCard = (props) => {
                 </Card.Body>
                 <Link to='/teacher-profile' className="btn btn-success" >View your Teacher Page</Link>
             </Card>
-
         </Col>
     )
 }

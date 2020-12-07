@@ -49,10 +49,11 @@ class App extends Component {
             <Route exact path="/courses" render={() => <CoursesList loggedUser={this.state.loggedInUser} />} />
             <Route path="/courses/:course_id" render={props => <CourseDetails {...props} />} />
             <Route path="/create" render={() => <NewCourseForm />} />
-            <Route path="/signup" render={props => <Signup storeUser={this.setTheUser} {...props} />} />
+            <Route path="/signup" render={props => this.state.loggedInUser ? <Redirect to='/courses' /> : <Signup storeUser={this.setTheUser} {...props} />} />
             <Route exact path="/profile" render={() => this.state.loggedInUser ? <UserProfile loggedUser={this.state.loggedInUser} /> : <Redirect to='/signup' />} />
             <Route path="/profile/create-teacher" render={props => <NewTeacherForm loggedUser={this.state.loggedInUser} {...props} />} />
             <Route path="/profile/profile-teacher" render={() => <TeacherProfile loggedUser={this.state.loggedInUser} />} />
+
           </Switch>
         </main>
       </>
