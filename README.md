@@ -10,10 +10,15 @@ API COURSES
 |   Route   | HTTP Verb |   Description   |
 |-----------|-----------|-----------------|
 | `/api/courses/getAllCourses` |    GET    | show all Courses |
-| `/api/getOneCourse/:course_id` |    GET    | show one Course |
+| `api/courses/getTeacherCourses/:teacher_id` |    GET    | show all Teacher Courses |
+| `/api/courses/getOneCourse/:course_id` |    GET    | show one Course |
 | `/api/courses/newCourse` |    POST    | Create new Course |
 | `/api/courses/editCourse/:course_id` |    PUT    | Edit Course |
 | `/api/courses/deleteCourse/:course_id` |    DELETE   | Delete Course |
+
+
+
+
 
 API TEACHERS
 

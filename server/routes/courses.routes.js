@@ -14,6 +14,25 @@ router.get('/getAllCourses', (req, res) => {
 })
 
 
+
+router.get('/getTeacherCourses/:teacher_id', (req, res) => {
+
+    const teacherId = req.params.teacher_id
+
+    if (!mongoose.Types.ObjectId.isValid(teacherId)) {
+        res.status(404).json({ message: 'Invalid ID' })
+        return
+    }
+
+    Course
+        .find({ owner: teacherId })
+        .then(response => res.json(response))
+        .catch(err => res.status(500).json(err))
+})
+
+
+
+
 router.get('/getOneCourse/:course_id', (req, res) => {
 
     if (!mongoose.Types.ObjectId.isValid(req.params.course_id)) {
