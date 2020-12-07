@@ -45,14 +45,14 @@ class App extends Component {
 
         <main>
           <Switch>
-            <Route path="/" exact render={() => <Home />} />
-            <Route path="/courses" exact render={() => <CoursesList loggedUser={this.state.loggedInUser} />} />
+            <Route exact path="/" render={() => <Home />} />
+            <Route exact path="/courses" render={() => <CoursesList loggedUser={this.state.loggedInUser} />} />
             <Route path="/courses/:course_id" render={props => <CourseDetails {...props} />} />
             <Route path="/create" render={() => <NewCourseForm />} />
             <Route path="/signup" render={props => <Signup storeUser={this.setTheUser} {...props} />} />
-            <Route path="/teacher-profile" exact render={() => this.state.isTeacher ? <TeacherProfile loggedUser={this.state.loggedInUser} /> : <Redirect to='/signup' />} />
-            <Route path="/student-profile" render={() => this.state.loggedInUser && !this.state.isTeacher ? <UserProfile loggedUser={this.state.loggedInUser} /> : <Redirect to='/signup' />} />
-            <Route path="/teacher-profile/create-teacher" render={props => <NewTeacherForm loggedUser={this.state.loggedInUser} {...props} />} />
+            <Route exact path="/profile" render={() => this.state.loggedInUser ? <UserProfile loggedUser={this.state.loggedInUser} /> : <Redirect to='/signup' />} />
+            <Route path="/profile/create-teacher" render={props => <NewTeacherForm loggedUser={this.state.loggedInUser} {...props} />} />
+            <Route path="/profile/profile-teacher" render={() => <TeacherProfile loggedUser={this.state.loggedInUser} />} />
           </Switch>
         </main>
       </>

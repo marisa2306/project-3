@@ -55,33 +55,23 @@ class Navigation extends Component {
                                 <Nav.Link as="div">Courses</Nav.Link>
                             </Link>
                             {
-                                this.props.loggedUser && this.props.isRoleTeacher
+                                this.props.loggedUser
                                     ?
                                     <>
                                         <Nav.Link as="div" onClick={this.logOut}>Log out</Nav.Link>
 
-                                        <Link to="/teacher-profile">
+                                        <Link to="/profile">
                                             <Nav.Link as="div">{`Welcome, ${this.props.loggedUser.username}`}</Nav.Link>
                                         </Link>
                                     </>
                                     :
-                                    this.props.loggedUser && this.props.isRoleTeacher === false
-                                        ?
-                                        <>
-                                            <Nav.Link as="div" onClick={this.logOut}>Log out</Nav.Link>
+                                    <>
+                                        <Link to="/signup">
+                                            <Nav.Link as="div">Sign up</Nav.Link>
+                                        </Link>
 
-                                            <Link to="/student-profile">
-                                                <Nav.Link as="div">{`Welcome, ${this.props.loggedUser.username}`}</Nav.Link>
-                                            </Link>
-                                        </>
-                                        :
-                                        <>
-                                            <Link to="/signup">
-                                                <Nav.Link as="div">Sign up</Nav.Link>
-                                            </Link>
-
-                                            <Nav.Link as="div" onClick={() => this.handleModal(true)}>Log in</Nav.Link>
-                                        </>
+                                        <Nav.Link as="div" onClick={() => this.handleModal(true)}>Log in</Nav.Link>
+                                    </>
                             }
                         </Nav>
                     </Navbar.Collapse>

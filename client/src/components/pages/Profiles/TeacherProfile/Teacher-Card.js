@@ -11,7 +11,7 @@ const TeacherCard = (props) => {
                     <Card.Title>{props.teacherInfo.jobOccupation}</Card.Title>
                     <Card.Text></Card.Text>
                 </Card.Body>
-                <Link to='/teacher-profile' className="btn btn-success" >View more</Link>
+                <Link to='/teacher-profile' className="btn btn-success" >View your Teacher Page</Link>
             </Card>
 
         </Col>
