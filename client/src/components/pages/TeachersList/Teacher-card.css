@@ -1,0 +1,8 @@
+.teacher-card {
+    margin-bottom: 30px;
+}
+
+.teacher-card img {
+    height: 140px;
+    object-fit: cover;
+} 

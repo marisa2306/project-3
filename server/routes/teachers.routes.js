@@ -15,20 +15,20 @@ router.get('/getAllTeachers', (req, res) => {
 })
 
 // Detalles de un teacher
-// router.get('/getOneTeacher/:teacher_id', (req, res) => {
+router.get('/getTheTeacher/:teacher_id', (req, res) => {
 
-//     if (!mongoose.Types.ObjectId.isValid(req.params.teacher_id)) {
-//         res.status(404).json({ message: 'Invalid ID' })
-//         return
-//     }
+    if (!mongoose.Types.ObjectId.isValid(req.params.teacher_id)) {
+        res.status(404).json({ message: 'Invalid ID' })
+        return
+    }
 
-//     Teacher
-//         .findById(req.params.teacher_id)
-//         .then(response => res.json(response))
-//         .catch(err => res.status(500).json(err))
-// })
+    Teacher
+        .findById(req.params.teacher_id)
+        .then(response => res.json(response))
+        .catch(err => res.status(500).json(err))
+})
 
-
+// Esto es sólo para conseguir el teacher desde App.js
 router.get('/getOneTeacher/:user_id', (req, res) => {
 
     const userId = req.params.user_id

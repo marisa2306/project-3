@@ -59,6 +59,9 @@ class Navigation extends Component {
                             <Link to="/courses">
                                 <Nav.Link as="div">Courses</Nav.Link>
                             </Link>
+                            <Link to="/teachers">
+                                <Nav.Link as="div">Teachers</Nav.Link>
+                            </Link>
                             {
                                 this.props.loggedUser
                                     ?

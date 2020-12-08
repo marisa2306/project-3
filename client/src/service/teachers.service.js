@@ -11,9 +11,10 @@ export default class TeacherService {
     }
 
     getTeachers = () => this.apiHandler.get('/getAllTeachers')
+    getTheTeacher = teacherId => this.apiHandler.get(`/getTheTeacher/${teacherId}`)
     getTeacher = userId => this.apiHandler.get(`/getOneTeacher/${userId}`)
     saveTeacher = teacherInfo => this.apiHandler.post(`/newTeacher/`, teacherInfo)
-    //editTeacher = (teacherId, teacherInfo) => this.apiHandler.put(`/editTeacher/${teacherId}`, teacherInfo)
+    editTeacher = (teacherId, teacherInfo) => this.apiHandler.put(`/editTeacher/${teacherId}`, teacherInfo)
     //deleteCourse = teacherId => this.apiHandler.delete(`/deleteTeacher/${teacherId}`)
 
 }
