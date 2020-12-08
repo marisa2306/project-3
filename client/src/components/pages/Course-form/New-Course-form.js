@@ -1,54 +1,65 @@
 import React, { Component } from 'react'
 import CoursesService from './../../../service/courses.service'
-//import TeacherServices from './../../../service/teachers.service'
+import FilesService from './../../../service/upload.service'
+import Loader from '../../shared/Spinner/Loader'
+
 import { Form, Button, Container, Row, Col } from 'react-bootstrap'
 
 class NewCourseForm extends Component {
-
     constructor(props) {
         super(props)
         this.state = {
-            title: '',
-            description: '',
-            category: '',
-            difficultyLevel: '',
-            whatYouWillLearn: '',
-            // priceRanges: {
-            //     max: ''
-            // },
-            duration: '',
-            requirements: '',
-            owner: this.props.teacherInfo ? this.props.teacherInfo._id : ''
-        }
-        this.coursesService = new CoursesService()
-        //this.teacherService = new TeacherServices()
-    }
-
-    handleInputChange = e => this.setState({ [e.target.name]: e.target.value })
-
-    handleSubmit = e => {
-        e.preventDefault()
-
-        this.coursesService
-            .saveCourse(this.state)
-            .then(res => this.props.history.push('/profile-teacher'))
-            .then(() => this.setState({
+            course: {
                 title: '',
                 description: '',
                 category: '',
                 difficultyLevel: '',
                 whatYouWillLearn: [],
-                // priceRanges: '',
+                price: '',
                 duration: '',
                 requirements: [],
-                owner: ''
-            }))
+                imageUrl: '',
+                owner: this.props.teacherInfo ? this.props.teacherInfo._id : ''
+            },
+            uploadingActive: false
+        }
+        this.coursesService = new CoursesService()
+        this.filesService = new FilesService()
+    }
+
+    handleInputChange = e => this.setState({ course: { ...this.state.course, [ e.target.name ]: e.target.value }})
+
+    handleSubmit = e => {
+        e.preventDefault()
+
+        this.coursesService
+            .saveCourse(this.state.course)
+            .then(res => {
+                this.props.history.push('/profile-teacher')
+                // this.props.handleToast(true, 'Course created!')
+            })
             .catch(err => console.log(err))
+    }
+
+    handleImageUpload = e => {
+        const uploadData = new FormData()
+        uploadData.append('imageUrl', e.target.files[ 0 ])
+
+        this.setState({ uploadingActive: true })
+
+        this.filesService
+            .uploadImage(uploadData)
+            .then(response => {
+                this.setState({
+                    course: { ...this.state.course, imageUrl: response.data.secure_url },
+                    uploadingActive: false
+                })
+            })
+            .catch(err => console.log('ERRORRR!', err))
     }
 
 
     render() {
-        const nestedPrice = {...this.state.priceRanges}
         return (
             <>
                 <Container>
@@ -95,10 +106,10 @@ class NewCourseForm extends Component {
                                     <Form.Label>Main Topics</Form.Label>
                                     <Form.Control type="text" name="whatYouWillLearn" value={this.state.whatYouWillLearn} onChange={this.handleInputChange} />
                                 </Form.Group>
-                                {/* <Form.Group controlId="priceRanges">
+                                <Form.Group controlId="price">
                                     <Form.Label>Price</Form.Label>
-                                    <Form.Control type="number" name="priceRanges" value={nestedPrice.max} onChange={this.handleInputChange} min='0' />
-                                </Form.Group> */}
+                                    <Form.Control type="number" name="price" value={this.state.price} onChange={this.handleInputChange} min='0' />
+                                </Form.Group>
                                 <Form.Group controlId="duration">
                                     <Form.Label>Duration</Form.Label>
                                     <Form.Control type="number" name="duration" value={this.state.duration} onChange={this.handleInputChange} min='0' />
@@ -108,7 +119,12 @@ class NewCourseForm extends Component {
                                     <Form.Control type="text" name="requirements" value={this.state.requirements} onChange={this.handleInputChange} />
                                 </Form.Group>
 
-                                <Button variant="dark" type="submit">Create course</Button>
+                                <Form.Group>
+                                    <Form.Label>Imagen (file) {this.state.uploadingActive && <Loader />}</Form.Label>
+                                    <Form.Control type="file" onChange={this.handleImageUpload} />
+                                </Form.Group>
+
+                                <Button variant="dark" type="submit" disabled={this.state.uploadingActive}>{this.state.uploadingActive ? 'Image loading...' : 'Create course'}</Button>
                             </Form>
                         </Col>
                     </Row>

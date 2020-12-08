@@ -5,6 +5,7 @@ const mongoose = require('mongoose')
 const Teacher = require('../models/teacher.model')
 const User = require('../models/user.model')
 
+
 router.get('/getAllTeachers', (req, res) => {
 
     Teacher
@@ -13,6 +14,7 @@ router.get('/getAllTeachers', (req, res) => {
         .catch(err => res.status(500).json(err))
 })
 
+// Detalles de un teacher
 // router.get('/getOneTeacher/:teacher_id', (req, res) => {
 
 //     if (!mongoose.Types.ObjectId.isValid(req.params.teacher_id)) {
@@ -35,7 +37,6 @@ router.get('/getOneTeacher/:user_id', (req, res) => {
         res.status(404).json({ message: 'Invalid ID' })
         return
     }
-
 
     Teacher
         .find({ user: userId })

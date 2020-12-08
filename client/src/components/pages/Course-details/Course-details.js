@@ -37,7 +37,7 @@ class CourseDetails extends Component {
                         <hr />
                         <Row>
                             <Col md={{ span: 6, offset: 1 }} >
-                                <img src={this.state.course.courseImg} alt={this.state.course.title} />
+                                <img src={this.state.course.imageUrl} alt={this.state.course.title} />
                             </Col>
                             <Col md={4}>
                                 <h3>Description</h3>

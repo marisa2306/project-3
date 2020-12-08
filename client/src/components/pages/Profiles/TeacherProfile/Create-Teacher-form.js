@@ -13,7 +13,7 @@ class NewTeacherForm extends Component {
             jobOccupation: '',
             description: '',
             // links: [{
-            //     name: '',
+            //     linkName: '',
             //     url: ''
             // }],
             user: this.props.loggedUser ? this.props.loggedUser._id : ''
@@ -23,26 +23,21 @@ class NewTeacherForm extends Component {
 
     handleInputChange = e => this.setState({ [e.target.name]: e.target.value })
 
+    // handleLinksChange = e => this.setState({ links:  [{...this.state.links, [ e.target.name ]: e.target.value }] })
+    
+
     handleSubmit = e => {
         e.preventDefault()
 
         this.teachersService
             .saveTeacher(this.state)
             .then(() => this.props.history.push('/profile'))
-            .then(res => {
-                this.setState({
-                    name: '',
-                    surname: '',
-                    jobOccupation: '',
-                    description: '',
-                    user: ''
-                })
-            })
             .catch(err => console.log(err))
     }
 
 
     render() {
+        console.log('desde el formulario teacher', this.state)
         return (
             <Container>
                 <Row>
@@ -66,18 +61,18 @@ class NewTeacherForm extends Component {
                         </Form.Group>
                         <Form.Group controlId="description">
                             <Form.Label>Description</Form.Label>
-                            <Form.Control type="text" name="description" value={this.state.description} onChange={this.handleInputChange} />
+                            <Form.Control as="textarea" name="description" value={this.state.description} onChange={this.handleInputChange} />
                         </Form.Group>
                             
                         {/* <Form.Label><strong>Links</strong></Form.Label> 
                         <Form.Row>
                             <Form.Group as={Col} md='6' controlId="linkName">
                                 <Form.Label>Name</Form.Label>
-                                <Form.Control type="text" name="name" value={this.state.links.name} onChange={this.handleInputChange} />
+                                <Form.Control type="text" name="linkName" value={this.state.links.linkName} onChange={this.handleLinksChange} />
                             </Form.Group>
                             <Form.Group as={Col} md='6' controlId="linkUrl">
                                 <Form.Label>Url</Form.Label>
-                                <Form.Control type="text" name="url" value={this.state.links.url} onChange={this.handleInputChange} />
+                                <Form.Control type="text" name="url" value={this.state.links.url} onChange={this.handleLinksChange} />
                             </Form.Group>
                         </Form.Row> */}
 

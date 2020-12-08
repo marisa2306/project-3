@@ -9,6 +9,7 @@ router.get('/getAllCourses', (req, res) => {
 
     Course
         .find()
+        .populate('owner')
         .then(response => res.json(response))
         .catch(err => res.status(500).json(err))
 })
@@ -47,7 +48,7 @@ router.get('/getOneCourse/:course_id', (req, res) => {
 })
 
 router.post('/newCourse', (req, res) => {
-
+    
     Course
         .create(req.body)
         .then(response => res.json(response))

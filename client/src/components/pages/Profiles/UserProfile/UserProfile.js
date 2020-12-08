@@ -15,12 +15,12 @@ class UserProfile extends Component {
     return (
 
       <Container>
-        <h1 className="mb-5">Welcome back, teacher {this.props.loggedUser.username} !</h1>
+        <h1 className="mb-5">Welcome back {this.props.loggedUser.username} !</h1>
         <hr></hr>
         {/* User details */}
         <Row>
           <Col md={1}>
-            <Image src={this.props.loggedUser.profileImg} className="user-img" roundedCircle alt={this.props.loggedUser.username} />
+            <Image src={this.props.loggedUser.imageUrl} className="user-img" roundedCircle alt={this.props.loggedUser.username} />
           </Col>
           <Col md={{ span: 10, offset: 1 }}>
             <p><strong>Username:</strong> {this.props.loggedUser.username}</p>

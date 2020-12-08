@@ -7,36 +7,35 @@ class LoginForm extends Component {
     constructor(props) {
         super(props)
         this.state = {
-            username: '',
-            password: ''
+            formInfo: {
+                username: '',
+                password: ''
+            }
         }
         this.authService = new AuthService()
     }
 
-    handleInputChange = e => this.setState({ [e.target.name]: e.target.value })
+    handleInputChange = e => this.setState({ formInfo: { ...this.state.formInfo, [ e.target.name ]: e.target.value }})
 
     handleSubmit = e => {
         e.preventDefault()
 
         this.authService
-            .login(this.state)
+            .login(this.state.formInfo)
             .then(theLoggedInUser => {
-              this.props.storeUser(theLoggedInUser.data)
-              this.props.closeModal()
+                this.props.storeUser(theLoggedInUser.data)
+                this.props.closeModal()
+                this.props.handleToast(true, 'Log in successful!')
             })
-            .then(() => this.setState({
-                username: '',
-                password: ''
-            }))
-            .catch(err => console.log({ err }))
+            .catch(err => this.setState({ showToast: true, toastText: err.response.data.message }))
     }
 
     render() {
         return (
-          <Container>
+            <Container>
             <h1>Log In</h1>
             <hr />
-          
+        
             <Form onSubmit={this.handleSubmit}>
                 <Form.Group controlId="username">
                     <Form.Label>Usermane</Form.Label>
@@ -48,7 +47,8 @@ class LoginForm extends Component {
                 </Form.Group>
                     <Button variant="dark" type="submit">Enter</Button>
             </Form>
-          </Container>
+            
+            </Container>
         )
     }
 }

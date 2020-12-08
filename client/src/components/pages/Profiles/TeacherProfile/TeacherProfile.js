@@ -40,7 +40,7 @@ class TeacherProfile extends Component {
         <hr></hr>
         <Row>
           <Col md={1}>
-            <Image src={this.props.teacherInfo.teacherImg} className="user-img" roundedCircle alt={this.props.teacherInfo.name} />
+            <Image src={this.props.teacherInfo.imageUrl} className="user-img" roundedCircle alt={this.props.teacherInfo.name} />
           </Col>
 
           <Col md={{ span: 10, offset: 1 }}>

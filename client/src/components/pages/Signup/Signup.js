@@ -1,39 +1,56 @@
 import React, { Component } from 'react'
 import AuthService from '../../../service/auth.service'
+import FilesService from '../../../service/upload.service'
+import Loader from '../../shared/Spinner/Loader'
 import { Container, Row, Col, Form, Button } from 'react-bootstrap'
 
 class Signup extends Component {
   constructor () {
     super()
     this.state = {
-      username: '',
-      email: '',
-      password: '',
-      role: ''
+      user: {
+        username: '',
+        email: '',
+        password: '',
+        role: '',
+        imageUrl: ''
+      },
+      uploadingActive: false
     }
     this.authService = new AuthService()
+    this.filesService = new FilesService()
   }
 
-  handleInputChange = e => this.setState({ [ e.target.name ]: e.target.value })
+  handleInputChange = e => this.setState({ user: { ...this.state.user, [ e.target.name ]: e.target.value }})
   
   handleSubmit = e => {
     e.preventDefault()
 
     this.authService
-      .signup(this.state)
+      .signup(this.state.user)
       .then(newUser => {
         this.props.storeUser(newUser.data)
         this.props.history.push('/courses')
-      })
-      .then(() => {
-        this.setState({
-          username: '',
-          email: '',
-          password: '',
-          role: ''
-        })
+        // this.props.handleToast(true, 'Course created!')
       })
       .catch(err => console.log(err))
+  }
+
+  handleImageUpload = e => {
+    const uploadData = new FormData()
+    uploadData.append('imageUrl', e.target.files[ 0 ])
+
+    this.setState({ uploadingActive: true })
+
+    this.filesService
+        .uploadImage(uploadData)
+        .then(response => {
+            this.setState({
+                user: { ...this.state.user, imageUrl: response.data.secure_url },
+                uploadingActive: false
+            })
+        })
+        .catch(err => console.log('ERRORRR!', err))
   }
 
   render() {
@@ -96,7 +113,12 @@ class Signup extends Component {
               </Form.Row>
 
               <Form.Group>
-                <Button variant='dark' type='submit'>Let's started !</Button>
+                  <Form.Label>Imagen (file) {this.state.uploadingActive && <Loader />}</Form.Label>
+                  <Form.Control type="file" onChange={this.handleImageUpload} />
+              </Form.Group>
+
+              <Form.Group>
+                <Button variant='dark' type='submit' disabled={this.state.uploadingActive}>{this.state.uploadingActive ? 'Image loading...' : 'Let\'s start !'}</Button>
               </Form.Group>
             </Form>
           </Col>

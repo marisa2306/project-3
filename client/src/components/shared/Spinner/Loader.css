@@ -23,8 +23,8 @@
 .loader {
     margin: auto;
     position: relative;
-    width: 150px;
-    height: 150px;
+    width: 40px;
+    height: 40px;
     border-radius: 50%;
     background: linear-gradient(#f07e6e, #84cdfa, #5ad1cd);
     animation: animate .6s linear infinite;

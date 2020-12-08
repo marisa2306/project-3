@@ -24,13 +24,13 @@ const teacherSchema = new Schema({
         type: String,
         default: 'unknown'
     },
-    teacherImg: {
+    imageUrl: {
         type: String,
         default: 'https://images.unsplash.com/photo-1503676260728-1c00da094a0b'
     },
     links: [
         {
-            name: {
+            linkName: {
                 type: String,
                 default: 'School'
             },
