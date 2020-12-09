@@ -44,7 +44,7 @@ class CourseDetails extends Component {
                                 <p>{this.state.course.description}</p>
                                 <p>Category: {this.state.course.category}</p>
                                 <p>Difficulty Level: {this.state.course.difficultyLevel}</p>
-                                <p>Price: {this.state.course.priceRanges.max}{this.state.course.priceRanges.currency}</p>
+                                <p>Price: {this.state.course.price}</p>
                                 <p>Duration: {this.state.course.duration}</p>
                                 <p>Requirements: {this.state.course.requirements}</p>
                                 <Link to="/courses" className="btn btn-sm btn-dark">Go back</Link>

@@ -6,7 +6,7 @@ const Course = require('../models/course.model')
 
 router.get('/getAllCourses', (req, res) => {
     Course
-        .find()  
+        .find()
         .populate('owner')
         .then(response => res.json(response))
         .catch(err => res.status(500).json(err))

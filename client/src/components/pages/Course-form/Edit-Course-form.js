@@ -1,36 +1,41 @@
 import React, { Component } from 'react'
-import CoursesService from './../../../service/auth.service'
-
-import { Form, Button } from 'react-bootstrap'
-
+import CoursesService from './../../../service/courses.service'
+import FilesService from './../../../service/upload.service'
+import { Form, Button, Container, Row, Col } from 'react-bootstrap'
+import Loader from './../../shared/Spinner/Loader'
 class EditCourseForm extends Component {
 
     constructor(props) {
         super(props)
         this.state = {
-            item: {
+            course: {
                 title: '',
                 description: '',
                 category: '',
                 difficultyLevel: '',
-                whatYouWillLearn: '',
-                priceRanges: '',
+                whatYouWillLearn: [],
+                price: '',
                 duration: '',
-                requirements: '',
-                owner: this.props.loggedUser ? this.props.loggedUser._id : ''
-            }
+                requirements: [],
+                imageUrl: '',
+                owner: this.props.teacherInfo ? this.props.teacherInfo._id : ''
+            },
+            uploadingActive: false
         }
         this.coursesService = new CoursesService()
+        this.filesService = new FilesService()
     }
+
 
     // get the ID from the URL
     componentDidMount = () => {
-        //find item by ID
-        axios.get(`http://localhost:3000/courses/${this.props.match.params.id}`)
-            //set the component state to the item found
-            .then(res => {
-                this.setState({ item: res.data });
-            })
+        const course_id = this.props.match.params.course_id
+
+        this.coursesService
+            //find item by ID
+            .getCourse(course_id)
+            //set the component state to the course found
+            .then(res => this.setState({ course: res.data }))
             .catch(err => console.log(err))
     }
 
@@ -40,20 +45,34 @@ class EditCourseForm extends Component {
         e.persist()
 
         this.setState(prevState => ({
-            item: { ...prevState.item, [e.target.name]: e.target.value }
+            course: { ...prevState.course, [e.target.name]: e.target.value }
         }))
     }
 
     handleSubmit = e => {
         e.preventDefault()
-
+        const course_id = this.props.match.params.course_id
         this.coursesService
-            .editCourse(this.state)
-            .then(res => {
-                this.props.updateList()
-                this.props.closeModal()
-            })
+            .editCourse(course_id, this.state.course)
+            .then(() => this.props.history.push('/profile-teacher'))    // Cambiar a ruta de detalle profesor
             .catch(err => console.log(err))
+    }
+
+    handleImageUpload = e => {
+        const uploadData = new FormData()
+        uploadData.append('imageUrl', e.target.files[0])
+
+        this.setState({ uploadingActive: true })
+
+        this.filesService
+            .uploadImage(uploadData)
+            .then(response => {
+                this.setState({
+                    course: { ...this.state.course, imageUrl: response.data.secure_url },
+                    uploadingActive: false
+                })
+            })
+            .catch(err => console.log('ERRORRR!', err))
     }
 
 
@@ -61,45 +80,71 @@ class EditCourseForm extends Component {
 
         return (
             <>
-                <h1>Edit Course</h1>
-                <hr />
+                <Container>
+                    <Row>
+                        <Col lg={{ span: 6, offset: 3 }}>
+                            <h1>Edit Course</h1>
+                            <hr />
+                            <Form onSubmit={this.handleSubmit}>
+                                <Form.Group controlId="title">
+                                    <Form.Label>Title</Form.Label>
+                                    <Form.Control type="text" name="title" value={this.state.course.title} onChange={this.handleInputChange} />
+                                </Form.Group>
 
-                <Form onSubmit={this.handleSubmit}>
-                    <Form.Group controlId="title">
-                        <Form.Label>Title</Form.Label>
-                        <Form.Control type="text" name="title" value={this.state.item.title} onChange={this.handleInputChange} />
-                    </Form.Group>
-                    <Form.Group controlId="description">
-                        <Form.Label>Description</Form.Label>
-                        <Form.Control type="text" name="description" value={this.state.item.description} onChange={this.handleInputChange} />
-                    </Form.Group>
-                    <Form.Group controlId="category">
-                        <Form.Label>Category</Form.Label>
-                        <Form.Control type="text" name="category" value={this.state.item.category} onChange={this.handleInputChange} />
-                    </Form.Group>
-                    <Form.Group controlId="difficultyLevel">
-                        <Form.Label>Difficulty Level</Form.Label>
-                        <Form.Control type="text" name="difficultyLevel" value={this.state.item.difficultyLevel} onChange={this.handleInputChange} />
-                    </Form.Group>
-                    <Form.Group controlId="whatYouWillLearn">
-                        <Form.Label>Main Topics</Form.Label>
-                        <Form.Control type="text" name="whatYouWillLearn" value={this.state.item.whatYouWillLearn} onChange={this.handleInputChange} />
-                    </Form.Group>
-                    <Form.Group controlId="priceRanges">
-                        <Form.Label>Price</Form.Label>
-                        <Form.Control type="number" name="priceRanges" value={this.state.item.priceRanges} onChange={this.handleInputChange} />
-                    </Form.Group>
-                    <Form.Group controlId="duration">
-                        <Form.Label>Duration</Form.Label>
-                        <Form.Control type="number" name="duration" value={this.state.item.duration} onChange={this.handleInputChange} />
-                    </Form.Group>
-                    <Form.Group controlId="requirements">
-                        <Form.Label>Requirements</Form.Label>
-                        <Form.Control type="text" name="requirements" value={this.state.item.requirements} onChange={this.handleInputChange} />
-                    </Form.Group>
+                                <Form.Group controlId="description">
+                                    <Form.Label>Description</Form.Label>
+                                    <Form.Control as='textarea' name="description" value={this.state.course.description} onChange={this.handleInputChange} />
+                                </Form.Group>
 
-                    <Button variant="dark" type="submit">Create course</Button>
-                </Form>
+                                <Form.Group controlId='category'>
+                                    <Form.Label>Category</Form.Label>
+                                    <Form.Control as='select' name='category' value={this.state.course.category} onChange={this.handleInputChange}>
+                                        <option>Choose one option</option>
+                                        <option value='Design' >Design</option>
+                                        <option value='Development' >Development</option>
+                                        <option value='Marketing' >Marketing</option>
+                                        <option value='Music' >Music</option>
+                                        <option value='Other' >Other</option>
+                                    </Form.Control>
+                                </Form.Group>
+
+                                <Form.Group controlId='difficultyLevel'>
+                                    <Form.Label>Level</Form.Label>
+                                    <Form.Control as='select' name='difficultyLevel' value={this.state.course.difficultyLevel} onChange={this.handleInputChange}>
+                                        <option>Choose one option</option>
+                                        <option value='Beginner' >Beginner</option>
+                                        <option value='Intermidiate' >Intermidiate</option>
+                                        <option value='Advanced' >Advanced</option>
+                                    </Form.Control>
+                                </Form.Group>
+
+                                <Form.Group controlId="whatYouWillLearn">
+                                    <Form.Label>Main Topics</Form.Label>
+                                    <Form.Control type="text" name="whatYouWillLearn" value={this.state.course.whatYouWillLearn} onChange={this.handleInputChange} />
+                                </Form.Group>
+                                <Form.Group controlId="price">
+                                    <Form.Label>Price</Form.Label>
+                                    <Form.Control type="number" name="price" value={this.state.course.price} onChange={this.handleInputChange} min='0' />
+                                </Form.Group>
+                                <Form.Group controlId="duration">
+                                    <Form.Label>Duration</Form.Label>
+                                    <Form.Control type="number" name="duration" value={this.state.course.duration} onChange={this.handleInputChange} min='0' />
+                                </Form.Group>
+                                <Form.Group controlId="requirements">
+                                    <Form.Label>Requirements</Form.Label>
+                                    <Form.Control type="text" name="requirements" value={this.state.course.requirements} onChange={this.handleInputChange} />
+                                </Form.Group>
+
+                                <Form.Group>
+                                    <Form.Label>Imagen (file) {this.state.uploadingActive && <Loader />}</Form.Label>
+                                    <Form.Control type="file" onChange={this.handleImageUpload} />
+                                </Form.Group>
+
+                                <Button variant="dark" type="submit" disabled={this.state.uploadingActive}>{this.state.uploadingActive ? 'Image loading...' : 'Create course'}</Button>
+                            </Form>
+                        </Col>
+                    </Row>
+                </Container>
             </>
         )
     }

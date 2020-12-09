@@ -27,7 +27,7 @@ class NewCourseForm extends Component {
         this.filesService = new FilesService()
     }
 
-    handleInputChange = e => this.setState({ course: { ...this.state.course, [ e.target.name ]: e.target.value }})
+    handleInputChange = e => this.setState({ course: { ...this.state.course, [e.target.name]: e.target.value } })
 
     handleSubmit = e => {
         e.preventDefault()
@@ -43,7 +43,7 @@ class NewCourseForm extends Component {
 
     handleImageUpload = e => {
         const uploadData = new FormData()
-        uploadData.append('imageUrl', e.target.files[ 0 ])
+        uploadData.append('imageUrl', e.target.files[0])
 
         this.setState({ uploadingActive: true })
 

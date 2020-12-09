@@ -49,7 +49,7 @@ router.post('/newTeacher', (req, res) => {
 
 router.put('/editTeacher/:teacher_id', (req, res) => {
     Teacher
-        .findByIdAndUpdate(req.params.teacher_id, req.body)
+        .findByIdAndUpdate(req.params.teacher_id, req.body, { new: true })
         .then(response => res.json(response))
         .catch(err => res.status(500).json(err))
 })

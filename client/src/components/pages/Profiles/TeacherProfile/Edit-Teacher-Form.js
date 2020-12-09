@@ -25,72 +25,72 @@ class EditTeacherForm extends Component {
         this.filesService = new FilesService()
     }
 
-  componentDidMount = e => this.setState({ teacher: this.props.teacherInfo})    // Esto rellena el formulario
+    componentDidMount = e => this.setState({ teacher: this.props.teacherInfo })    // Esto rellena el formulario
 
-  handleInputChange = e => this.setState({ teacher: { ...this.state.teacher, [ e.target.name ]: e.target.value } })
+    handleInputChange = e => this.setState({ teacher: { ...this.state.teacher, [e.target.name]: e.target.value } })
 
-  // handleLinksChange = e => this.setState({ links:  [{...this.state.links, [ e.target.name ]: e.target.value }] })
-    
-  // handleInputChange = e => {
-  //   e.persist()
-  //   this.setState(prevState => ({ teacher: { ...prevState.teacher, [ e.target.name ]: e.target.value } }))
-  // }
+    // handleLinksChange = e => this.setState({ links:  [{...this.state.links, [ e.target.name ]: e.target.value }] })
+
+    // handleInputChange = e => {
+    //   e.persist()
+    //   this.setState(prevState => ({ teacher: { ...prevState.teacher, [ e.target.name ]: e.target.value } }))
+    // }
 
     handleSubmit = e => {
         e.preventDefault()
 
         this.teachersService
             .editTeacher(this.props.teacherInfo._id, this.state.teacher)
-            .then(() => this.props.history.push('/profile'))    // Cambiar a ruta de detalle profesor
+            .then(() => this.props.history.push('/profile-teacher'))
             .catch(err => console.log(err))
     }
 
     handleImageUpload = e => {
-    const uploadData = new FormData()
-    uploadData.append('imageUrl', e.target.files[ 0 ])
+        const uploadData = new FormData()
+        uploadData.append('imageUrl', e.target.files[0])
 
-    this.setState({ uploadingActive: true })
+        this.setState({ uploadingActive: true })
 
-    this.filesService
-        .uploadImage(uploadData)
-        .then(response => {
-            this.setState({
-                teacher: { ...this.state.teacher, imageUrl: response.data.secure_url },
-                uploadingActive: false
+        this.filesService
+            .uploadImage(uploadData)
+            .then(response => {
+                this.setState({
+                    teacher: { ...this.state.teacher, imageUrl: response.data.secure_url },
+                    uploadingActive: false
+                })
             })
-        })
-        .catch(err => console.log('ERRORRR!', err))
-  }
+            .catch(err => console.log('ERRORRR!', err))
+    }
 
 
-  render() {
+    render() {
         return (
             <Container>
                 <Row>
-                    <Col md={{ span: 8, offset: 2}}>
-                    <h1>Edit your teacher Profile</h1>
-                    <hr />
+                    <Col md={{ span: 8, offset: 2 }}>
+                        <h1>Edit your teacher Profile</h1>
+                        <hr />
 
-                    <Form onSubmit={this.handleSubmit}>
-                        <Form.Group controlId="name">
-                            <Form.Label>Name</Form.Label>
-                            <Form.Control type="text" name="name" value={this.state.teacher.name} onChange={this.handleInputChange} />
-                        </Form.Group>
-                        <Form.Group controlId="surname">
-                            <Form.Label>Surname</Form.Label>
-                            <Form.Control type="text" name="surname" value={this.state.teacher.surname} onChange={this.handleInputChange} />
-                        </Form.Group>
-                       
-                        <Form.Group controlId="jobOccupation">
-                            <Form.Label>Job Occupation</Form.Label>
-                            <Form.Control type="text" name="jobOccupation" value={this.state.teacher.jobOccupation} onChange={this.handleInputChange} />
-                        </Form.Group>
-                        <Form.Group controlId="description">
-                            <Form.Label>Description</Form.Label>
-                            <Form.Control as="textarea" name="description" value={this.state.teacher.description} onChange={this.handleInputChange} />
-                        </Form.Group>
-                            
-                        {/* <Form.Label><strong>Links</strong></Form.Label> 
+                        <Form onSubmit={this.handleSubmit}>
+                            <Form.Group controlId="name">
+                                <Form.Label>Name</Form.Label>
+                                <Form.Control type="text" name="name" value={this.state.teacher.name} onChange={this.handleInputChange} />
+                            </Form.Group>
+                            <Form.Group controlId="surname">
+                                <Form.Label>Surname</Form.Label>
+                                <Form.Control type="text" name="surname" value={this.state.teacher.surname} onChange={this.handleInputChange} />
+                            </Form.Group>
+
+                            <Form.Group controlId="jobOccupation">
+                                <Form.Label>Job Occupation</Form.Label>
+                                <Form.Control type="text" name="jobOccupation" value={this.state.teacher.jobOccupation} onChange={this.handleInputChange} />
+                            </Form.Group>
+                            <Form.Group controlId="description">
+                                <Form.Label>Description</Form.Label>
+                                <Form.Control as="textarea" name="description" value={this.state.teacher.description} onChange={this.handleInputChange} />
+                            </Form.Group>
+
+                            {/* <Form.Label><strong>Links</strong></Form.Label> 
                         <Form.Row>
                             <Form.Group as={Col} md='6' controlId="linkName">
                                 <Form.Label>Name</Form.Label>
@@ -101,13 +101,13 @@ class EditTeacherForm extends Component {
                                 <Form.Control type="text" name="url" value={this.state.links.url} onChange={this.handleLinksChange} />
                             </Form.Group>
                         </Form.Row> */}
-                            
-                        <Form.Group>
-                            <Form.Label>Imagen (file) {this.state.uploadingActive && <Loader />}</Form.Label>
-                            <Form.Control type="file" onChange={this.handleImageUpload} />
-                        </Form.Group>
 
-                        <Button variant="dark" type="submit" disabled={this.state.uploadingActive}> {this.state.uploadingActive ? 'Image loading...' : 'Edit Teacher profile'}</Button>
+                            <Form.Group>
+                                <Form.Label>Imagen (file) {this.state.uploadingActive && <Loader />}</Form.Label>
+                                <Form.Control type="file" onChange={this.handleImageUpload} />
+                            </Form.Group>
+
+                            <Button variant="info" type="submit" disabled={this.state.uploadingActive}> {this.state.uploadingActive ? 'Image loading...' : 'Edit Teacher profile'}</Button>
                         </Form>
                     </Col>
                 </Row>
