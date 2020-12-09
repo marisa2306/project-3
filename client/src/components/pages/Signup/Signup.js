@@ -78,6 +78,9 @@ class Signup extends Component {
                     placeholder='popinez'
                     value={this.state.username}
                     onChange={this.handleInputChange} />
+                  <Form.Text id='passwordHelpBlock' muted>
+                    Your unsername must have more than 5 characters
+                  </Form.Text>
                 </Form.Group>
 
                 <Form.Group as={Col} md='7' controlId='password'>
