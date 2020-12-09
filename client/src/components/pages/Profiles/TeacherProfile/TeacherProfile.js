@@ -1,7 +1,7 @@
-import { Container, Image, Col, Row } from 'react-bootstrap'
+import { Container, Image, Col, Row, Button } from 'react-bootstrap'
 import { Link } from 'react-router-dom'
 import CoursesServices from '../../../../service/courses.service'
-//import TeachersServices from '../../../../service/teachers.service'
+import TeachersServices from '../../../../service/teachers.service'
 import React, { Component } from 'react'
 import CourseCard from '../../../shared/CourseCard/Course-card'
 import Loader from './../../../shared/Spinner/Loader'
@@ -13,23 +13,40 @@ class TeacherProfile extends Component {
     this.state = {
       courses: undefined
     }
-    //this.teachersServices = new TeachersServices()
+    this.teachersServices = new TeachersServices()
     this.coursesServices = new CoursesServices()
   }
-
-  // componentDidMount = () => {
-  //   console.log('estas son las props que llegan', this.props)
-  //   this.teachersServices
-  //     .getTeacher(this.props.loggedUser._id)
-  //     .then(response => this.setState({ teacher: response.data[0] }, () => console.log('New Teacher state', this.state)))
-  //     .catch(err => console.log(err))
-  // }
 
   componentDidMount = () => {
     this.coursesServices
       .getTeacherCourses(this.props.teacherInfo._id)
       .then(response => this.setState({ courses: response.data }))
       .catch(err => console.log(err))
+  }
+
+  deleteTeacher = () => {
+    const teacher_Id = this.props.teacherInfo._id
+
+    if (this.state.courses) {
+      this.coursesServices
+        .deleteTeacherCourses(teacher_Id)
+        .then(() => this.teachersServices.deleteTeacher(teacher_Id))
+        .then(response => {
+          this.props.storeUser(this.props.loggedUser)
+          this.props.history.push('/profile')
+        })
+        .catch(err => console.log('error al borrar el teacher', err))   // TO-DO  Tostada
+    }
+    
+    if (!this.state.courses) {
+      this.teachersServices
+        .deleteTeacher(teacher_Id)
+        .then(response => {
+          this.props.storeUser(this.props.loggedUser)
+          this.props.history.push('/profile')
+        })
+        .catch(err => console.log('desde el catch de teacher', err))    // TO-DO  Tostada
+    }
   }
 
   render() {
@@ -45,14 +62,21 @@ class TeacherProfile extends Component {
 
           <Col md={{ span: 10, offset: 1 }}>
             <p><strong>Job Occupation</strong>{this.props.teacherInfo.jobOccupation}</p>
-            <Link to='/profile-teacher/edit-teacher' className="btn btn-info">Edit your teacher details</Link>
           </Col>
         </Row>
 
         <hr></hr>
 
         <Row>
-          <Link to='/profile-teacher/create-course' className="btn btn-success">Create new course</Link>
+          <Col md={4}>
+            <Link to='/profile-teacher/edit-teacher' className="btn btn-info btn-block">Edit your teacher details</Link>
+          </Col>
+          <Col md={4}>
+            <Link to='/profile-teacher/create-course' className="btn btn-success btn-block">Create new course</Link>
+          </Col>
+          <Col md={4}>
+            <Button onClick={this.deleteTeacher} className="btn btn-danger btn-block">Delete teacher</Button>
+          </Col>
         </Row>
         
         <Row>

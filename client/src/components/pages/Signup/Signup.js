@@ -123,7 +123,7 @@ class Signup extends Component {
               </Form.Row>
 
               <Form.Group>
-                <Form.Label>Imagen (file) {this.state.uploadingActive && <Loader />}</Form.Label>
+                <Form.Label>Image (file) {this.state.uploadingActive && <Loader />}</Form.Label>
                 <Form.Control type="file" onChange={this.handleImageUpload} />
               </Form.Group>
 

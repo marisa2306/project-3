@@ -36,7 +36,7 @@ class NewCourseForm extends Component {
             .saveCourse(this.state.course)
             .then(res => {
                 this.props.history.push('/profile-teacher')
-                // this.props.handleToast(true, 'Course created!')
+                // this.props.handleToast(true, 'Course created!')      TO-DO
             })
             .catch(err => console.log(err))
     }
@@ -120,7 +120,7 @@ class NewCourseForm extends Component {
                                 </Form.Group>
 
                                 <Form.Group>
-                                    <Form.Label>Imagen (file) {this.state.uploadingActive && <Loader />}</Form.Label>
+                                    <Form.Label>Image (file) {this.state.uploadingActive && <Loader />}</Form.Label>
                                     <Form.Control type="file" onChange={this.handleImageUpload} />
                                 </Form.Group>
 
