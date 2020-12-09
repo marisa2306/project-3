@@ -3,6 +3,7 @@ import AuthService from '../../../service/auth.service'
 import FilesService from '../../../service/upload.service'
 import Loader from '../../shared/Spinner/Loader'
 import { Container, Row, Col, Form, Button } from 'react-bootstrap'
+import Alert from '../../shared/Alert/Alert'
 
 class Signup extends Component {
   constructor () {
@@ -15,6 +16,8 @@ class Signup extends Component {
         role: '',
         imageUrl: ''
       },
+      showToast: false,
+      toastText: '',
       uploadingActive: false
     }
     this.authService = new AuthService()
@@ -31,9 +34,9 @@ class Signup extends Component {
       .then(newUser => {
         this.props.storeUser(newUser.data)
         this.props.history.push('/courses')
-        // this.props.handleToast(true, 'Course created!')
+        this.handleToast(true, 'Register successful!')
       })
-      .catch(err => console.log(err))
+      .catch(err => this.setState({ showToast: true, toastText: err.response.data.message[0].msg }))
   }
 
   handleImageUpload = e => {
@@ -50,8 +53,10 @@ class Signup extends Component {
                 uploadingActive: false
             })
         })
-        .catch(err => console.log('ERRORRR!', err))
+        .catch(err => this.setState({ showToast: true, toastText: err.response.data.message }))   // TO-DO: comprobar que el mensaje sale bien
   }
+
+  handleToast = (visible, text) => this.setState({ showToast: visible, toastText: text })
 
   render() {
     return (
@@ -85,7 +90,7 @@ class Signup extends Component {
                     value={this.state.password}
                     onChange={this.handleInputChange} />
                   <Form.Text id='passwordHelpBlock' muted>
-                    Your password must be 8-10 characters long
+                    Your password must have more than 4 characters and contain a number
                   </Form.Text>
                 </Form.Group>
               </Form.Row>
@@ -123,6 +128,8 @@ class Signup extends Component {
             </Form>
           </Col>
         </Row>
+
+        <Alert show={this.state.showToast} handleToast={this.handleToast} toastText={ this.state.toastText}/>
       </Container>
     )
   }
