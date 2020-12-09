@@ -52,6 +52,19 @@ router.put('/editCourse/:course_id', (req, res) => {
         .catch(err => res.status(500).json(err))
 })
 
+router.delete('/deleteTeacherCourses/:teacher_id', (req, res) => {
+    const teacherId = req.params.teacher_id
+
+    if (!mongoose.Types.ObjectId.isValid(teacherId)) {
+        res.status(404).json({ message: 'Invalid ID' })
+        return
+    }
+
+    Course
+        .deleteMany({ owner: teacherId })
+        .then(response => res.json(response))
+        .catch(err => res.status(500).json(err))
+})
 
 router.delete('/deleteCourse/:course_id', (req, res) => {
     Course

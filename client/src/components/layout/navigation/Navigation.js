@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
 import AuthService from './../../../service/auth.service'
 import logo from './logo.png'
-import { Navbar, Nav, Modal, Toast } from 'react-bootstrap'
+import { Navbar, Nav, Modal } from 'react-bootstrap'
 import LoginForm from '../../pages/Login-form/LoginForm'
 import Alert from '../../shared/Alert/Alert'
 

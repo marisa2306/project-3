@@ -56,6 +56,11 @@ router.put('/editTeacher/:teacher_id', (req, res) => {
 
 
 router.delete('/deleteTeacher/:teacher_id', (req, res) => {
+    if (!mongoose.Types.ObjectId.isValid(req.params.teacher_id)) {
+        res.status(404).json({ message: 'Invalid ID' })
+        return
+    }
+
     Teacher
         .findByIdAndDelete(req.params.teacher_id)
         .then(() => res.json({ message: 'Teacher Deleted' }))

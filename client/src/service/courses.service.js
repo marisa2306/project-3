@@ -16,5 +16,5 @@ export default class CourseService {
     saveCourse = courseInfo => this.apiHandler.post(`/newCourse`, courseInfo)
     //editCourse = (courseId, courseInfo) => this.apiHandler.put(`/editCourse/${courseId}`, courseInfo)
     //deleteCourse = courseId => this.apiHandler.delete(`/deleteCourse/${courseId}`)
-
+    deleteTeacherCourses = teacherId => this.apiHandler.delete(`/deleteTeacherCourses/${teacherId}`)
 }
