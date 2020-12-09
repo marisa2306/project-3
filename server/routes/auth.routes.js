@@ -21,7 +21,9 @@ router.post('/signup',
             })
         }),
 
-        check('password').isLength({ min: 4 }).withMessage('Password min 4 characters').matches(/\d/).withMessage('Password must contain a number')
+        check('password').isLength({ min: 4 }).withMessage('Password min 4 characters').matches(/\d/).withMessage('Password must contain a number'),
+
+        check('role').isIn(['Student', 'Teacher']).withMessage('You must choose a role')
     ],
     (req, res) => {
         const passCheck = validationResult(req)
@@ -67,7 +69,7 @@ router.post('/signup',
         //             .then(newUser => req.login(newUser, err => err ? res.status(500).json({ message: 'Login error' }) : res.status(200).json(newUser)))
         //             .catch(() => res.status(500).json({ message: 'Error saving user to DB' }))
         //     })
-})
+    })
 
 
 router.post('/login', (req, res, next) => {

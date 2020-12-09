@@ -6,7 +6,7 @@ import { Container, Row, Col, Form, Button } from 'react-bootstrap'
 import Alert from '../../shared/Alert/Alert'
 
 class Signup extends Component {
-  constructor () {
+  constructor() {
     super()
     this.state = {
       user: {
@@ -24,8 +24,8 @@ class Signup extends Component {
     this.filesService = new FilesService()
   }
 
-  handleInputChange = e => this.setState({ user: { ...this.state.user, [ e.target.name ]: e.target.value }})
-  
+  handleInputChange = e => this.setState({ user: { ...this.state.user, [e.target.name]: e.target.value } })
+
   handleSubmit = e => {
     e.preventDefault()
 
@@ -34,35 +34,37 @@ class Signup extends Component {
       .then(newUser => {
         this.props.storeUser(newUser.data)
         this.props.history.push('/courses')
-        this.handleToast(true, 'Register successful!')
+        this.props.handleToast(true, 'Register successful!')
       })
-      .catch(err => this.setState({ showToast: true, toastText: err.response.data.message[0].msg }))
+      //.catch(err => this.props.setState({ showToast: true, toastText: err.response.data.message[0].msg }))
+      .catch(err => this.props.handleToast(true, err.response.data.message[0].msg))
   }
 
   handleImageUpload = e => {
     const uploadData = new FormData()
-    uploadData.append('imageUrl', e.target.files[ 0 ])
+    uploadData.append('imageUrl', e.target.files[0])
 
     this.setState({ uploadingActive: true })
 
     this.filesService
-        .uploadImage(uploadData)
-        .then(response => {
-            this.setState({
-                user: { ...this.state.user, imageUrl: response.data.secure_url },
-                uploadingActive: false
-            })
+      .uploadImage(uploadData)
+      .then(response => {
+        this.setState({
+          user: { ...this.state.user, imageUrl: response.data.secure_url },
+          uploadingActive: false
         })
-        .catch(err => this.setState({ showToast: true, toastText: err.response.data.message }))   // TO-DO: comprobar que el mensaje sale bien
+      })
+      //.catch(err => this.setState({ showToast: true, toastText: err.response.data.message })) 
+      .catch(err => this.props.handleToast(true, err.response.data.message))  // TO-DO: comprobar que el mensaje sale bien
   }
 
-  handleToast = (visible, text) => this.setState({ showToast: visible, toastText: text })
+
 
   render() {
     return (
       <Container>
         <Row>
-          <Col lg={{ span: 6, offset: 3}}>
+          <Col lg={{ span: 6, offset: 3 }}>
             <h1>Sign Up</h1>
             <hr />
 
@@ -70,7 +72,7 @@ class Signup extends Component {
 
               <Form.Row>
                 <Form.Group as={Col} md='5' controlId='username'>
-                    <Form.Label>Username</Form.Label>
+                  <Form.Label>Username</Form.Label>
                   <Form.Control
                     required
                     type='text'
@@ -84,7 +86,7 @@ class Signup extends Component {
                 </Form.Group>
 
                 <Form.Group as={Col} md='7' controlId='password'>
-                    <Form.Label>Password</Form.Label>
+                  <Form.Label>Password</Form.Label>
                   <Form.Control
                     required
                     type='password'
@@ -100,7 +102,7 @@ class Signup extends Component {
 
               <Form.Row>
                 <Form.Group as={Col} md='7' controlId='email'>
-                    <Form.Label>Email address</Form.Label>
+                  <Form.Label>Email address</Form.Label>
                   <Form.Control
                     required
                     type='email'
@@ -121,8 +123,8 @@ class Signup extends Component {
               </Form.Row>
 
               <Form.Group>
-                  <Form.Label>Imagen (file) {this.state.uploadingActive && <Loader />}</Form.Label>
-                  <Form.Control type="file" onChange={this.handleImageUpload} />
+                <Form.Label>Imagen (file) {this.state.uploadingActive && <Loader />}</Form.Label>
+                <Form.Control type="file" onChange={this.handleImageUpload} />
               </Form.Group>
 
               <Form.Group>
@@ -132,7 +134,6 @@ class Signup extends Component {
           </Col>
         </Row>
 
-        <Alert show={this.state.showToast} handleToast={this.handleToast} toastText={ this.state.toastText}/>
       </Container>
     )
   }
