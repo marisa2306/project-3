@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom'
-import { Col, Card } from 'react-bootstrap'
+import { Col, Card, Button } from 'react-bootstrap'
 import './Course-card.css'
 import mine from './mine.ico'
 
@@ -21,7 +21,7 @@ const CourseCard = props => {
                         <>
 
                             <Link to={`/profile-teacher/edit-course/${props._id}`} className="btn btn-info mr-3">Edit</Link>
-                            <Link to={`/profile-teacher/delete-course/${props._id}`} className="btn btn-danger">Delete</Link>
+                            <Button to={`/profile-teacher/delete-course/${props._id}`} onClick={() => props.deleteCourse(props._id)} className="btn btn-danger">Delete</Button>
                             <span><img src={mine} style={{ width: 20, height: 20 }} alt={props.title} /></span>
                         </>
 

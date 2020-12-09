@@ -17,11 +17,22 @@ class TeacherProfile extends Component {
     this.coursesServices = new CoursesServices()
   }
 
-  componentDidMount = () => {
+
+  componentDidMount = () => this.refreshCourses()
+
+  refreshCourses = () => {
     this.coursesServices
       .getTeacherCourses(this.props.teacherInfo._id)
       .then(response => this.setState({ courses: response.data }))
       .catch(err => console.log(err))
+  }
+
+
+  deleteCourse = course_Id => {
+    this.coursesServices
+      .deleteCourse(course_Id)
+      .then(() => this.refreshCourses())
+      .catch(err => console.log('An error occured', err))
   }
 
   deleteTeacher = () => {
@@ -37,7 +48,7 @@ class TeacherProfile extends Component {
         })
         .catch(err => console.log('error al borrar el teacher', err))   // TO-DO  Tostada
     }
-    
+
     if (!this.state.courses) {
       this.teachersServices
         .deleteTeacher(teacher_Id)
@@ -78,7 +89,7 @@ class TeacherProfile extends Component {
             <Button onClick={this.deleteTeacher} className="btn btn-danger btn-block">Delete teacher</Button>
           </Col>
         </Row>
-        
+
         <Row>
           <h2 className="mt-5">Your Courses</h2>
         </Row>
@@ -86,7 +97,7 @@ class TeacherProfile extends Component {
           {
             this.state.courses
               ?
-              this.state.courses.map(elm => <CourseCard key={elm._id} {...elm} teacher={this.props.teacherInfo} userInfo={this.props.loggedUser} />)
+              this.state.courses.map(elm => <CourseCard key={elm._id} {...elm} teacher={this.props.teacherInfo} userInfo={this.props.loggedUser} deleteCourse={this.deleteCourse} />)
               :
               <Loader />
           }

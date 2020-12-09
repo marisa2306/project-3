@@ -1,15 +1,89 @@
-import { Container, Image, Col, Row } from 'react-bootstrap'
+import { Container, Image, Col, Row, Button } from 'react-bootstrap'
 import { Link } from 'react-router-dom'
 import React, { Component } from 'react'
+import UsersServices from './../../../../service/users.service'
+import CoursesServices from './../../../../service/courses.service'
 import './UserProfile.css'
 
 class UserProfile extends Component {
   constructor() {
     super()
     this.state = {
-      teacher: undefined    // cambiará
+      courses: undefined   // cambiará
     }
+
+    this.usersServices = new UsersServices()
+    this.coursesServices = new CoursesServices()
   }
+
+  // /////////////////////
+  // componentDidMount = () => {
+  //   this.coursesServices
+  //     .getTeacherCourses(this.props.teacherInfo._id)
+  //     .then(response => this.setState({ courses: response.data }))
+  //     .catch(err => console.log(err))
+  // }
+
+  // ///////////////////////////7
+
+
+  // deleteAll = () => {
+
+  //   //hay teacher?
+  //   if (this.props.teacherInfo) {
+
+  //     //hay cursos?
+  //     if (this.state.courses) {
+  //       this.deleteOnlyTeacherCourses()
+  //       this.deleteOnlyTeacher()
+  //       this.deleteOnlyUser()
+  //     }
+
+  //     //teacher no courses
+  //     if (!this.state.courses) {
+  //       this.deleteOnlyTeacher()
+  //       this.deleteOnlyUser()
+  //     }
+
+  //   }
+
+  //   //no teacher
+  //   if (!this.props.teacherInfo) {
+  //     this.deleteOnlyUser()
+  //   }
+  // }
+
+  // // delete teacher's courses 
+  // deleteOnlyTeacherCourses = () => {
+  //   this.coursesServices
+  //     .deleteTeacherCourses(this.props.teacherInfo._id)
+  //     .then(response => console.log(response))
+  //     .catch(err => console.log('error al borrar el teacher', err))   // TO-DO  Tostada
+
+  // }
+
+  // // delete teacher no courses created
+  // deleteOnlyTeacher = () => {
+
+  //   this.teachersServices
+  //     .deleteTeacher(this.props.teacherInfo._id)
+  //     .then(response => console.log(response))
+  //     .catch(err => console.log('desde el catch de teacher', err))    // TO-DO  Tostada
+  // }
+
+  // // delete user with no teacher no courses created
+  // deleteOnlyUser = () => {
+
+  //   this.usersServices
+  //     .deleteUser(this.props.loggedUser._id)
+  //     .then(response => {
+  //       this.props.storeUser(undefined)
+  //       this.props.history.push('/')
+  //     })
+  //     .catch(err => console.log('Failed to delete', err))    // TO-DO  Tostada
+
+  // }
+
 
   render() {
     return (
@@ -27,6 +101,7 @@ class UserProfile extends Component {
             <p><strong>Email:</strong> {this.props.loggedUser.email}</p>
             <p><strong>Role:</strong> {this.props.loggedUser.role}</p>
             <Link to='/profile/edit-user' className="btn btn-info">Edit your user details</Link>
+            <Button to={`/profile/delete-user/${this.props.loggedUser._id}`} onClick={this.deleteAll} className="btn btn-danger">Delete your account</Button>
           </Col>
         </Row>
         <hr></hr>

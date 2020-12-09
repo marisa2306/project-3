@@ -42,7 +42,11 @@ router.post('/newCourse', (req, res) => {
     Course
         .create(req.body)
         .then(response => res.json(response))
-        .catch(err => res.status(500).json(err))
+        .catch(err => {
+            console.log(err)
+        })
+
+    //res.status(500).json(err))
 })
 
 router.put('/editCourse/:course_id', (req, res) => {

@@ -41,7 +41,10 @@ class EditTeacherForm extends Component {
 
         this.teachersService
             .editTeacher(this.props.teacherInfo._id, this.state.teacher)
-            .then(() => this.props.history.push('/profile-teacher'))
+            .then(teacher => {
+                this.props.storeUser(this.props.loggedUser)
+                this.props.history.push('/profile-teacher')
+            })
             .catch(err => console.log(err))
     }
 
