@@ -34,6 +34,17 @@ router.put('/editUser/:user_id', (req, res) => {
 })
 
 //DELETE USER Role Admin
+router.delete('/deleteUser/:user_id', (req, res) => {
+    const user_id = req.params.user_id
+    if (!mongoose.Types.ObjectId.isValid(user_id)) {
+        res.status(404).json({ message: 'Invalid ID' })
+        return
+    }
 
+    User    
+        .findByIdAndDelete(user_id)
+        .then(() => res.json({ message: 'User deleted' }))
+        .catch(err => res.status(500).json(err))
+})
 
 module.exports = router

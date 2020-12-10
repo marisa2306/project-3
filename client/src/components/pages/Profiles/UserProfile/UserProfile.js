@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom'
 import React, { Component } from 'react'
 import UsersServices from './../../../../service/users.service'
 import CoursesServices from './../../../../service/courses.service'
+import TeacherServices from './../../../../service/teachers.service'
 import './UserProfile.css'
 
 class UserProfile extends Component {
@@ -11,78 +12,75 @@ class UserProfile extends Component {
     this.state = {
       courses: undefined   // cambiará
     }
-
     this.usersServices = new UsersServices()
     this.coursesServices = new CoursesServices()
+    this.teachersServices = new TeacherServices()
   }
 
-  // /////////////////////
-  // componentDidMount = () => {
-  //   this.coursesServices
-  //     .getTeacherCourses(this.props.teacherInfo._id)
-  //     .then(response => this.setState({ courses: response.data }))
-  //     .catch(err => console.log(err))
-  // }
+  /////////////////////
+  componentDidMount = () => {
+    if (this.props.teacherInfo) {
+      this.coursesServices
+      .getTeacherCourses(this.props.teacherInfo._id)
+      .then(response => this.setState({ courses: response.data }))
+      .catch(err => console.log(err))
+    }
+  }
 
-  // ///////////////////////////7
+  ///////////////////////////7
+  deleteAll = () => {
+    //hay teacher?
+    if (this.props.teacherInfo) {
+      //hay cursos?
+      if (this.state.courses) {
+        this.deleteCoursesTeacherAndUser()
+      }
+      //teacher no courses
+      if (!this.state.courses) {
+        this.deleteTeacherAndUser()
+      }
+    }
+    //no teacher
+    if (!this.props.teacherInfo) {
+      this.deleteOnlyUser()
+    }
+  }
 
+  //    ******  CHUSTI-FUNCTIONS
 
-  // deleteAll = () => {
+  // delete teacher's courses 
+  deleteCoursesTeacherAndUser = () => {
+    this.coursesServices
+      .deleteTeacherCourses(this.props.teacherInfo._id)
+      .then(response => {
+        console.log('Cursos borrados del teacher del user', response)
+        this.deleteTeacherAndUser()
+      })
+      .catch(err => console.log('error al borrar los cursos del teacher', err))   // TO-DO  Tostada
+  }
 
-  //   //hay teacher?
-  //   if (this.props.teacherInfo) {
+  // delete teacher no courses created
+  deleteTeacherAndUser = () => {
+    this.teachersServices
+      .deleteTeacher(this.props.teacherInfo._id)
+      .then(response => {
+        console.log('Teacher borrado:', response)
+        this.deleteOnlyUser()
+      })
+      .catch(err => console.log('desde el catch de teacher y user', err))    // TO-DO  Tostada
+  }
 
-  //     //hay cursos?
-  //     if (this.state.courses) {
-  //       this.deleteOnlyTeacherCourses()
-  //       this.deleteOnlyTeacher()
-  //       this.deleteOnlyUser()
-  //     }
-
-  //     //teacher no courses
-  //     if (!this.state.courses) {
-  //       this.deleteOnlyTeacher()
-  //       this.deleteOnlyUser()
-  //     }
-
-  //   }
-
-  //   //no teacher
-  //   if (!this.props.teacherInfo) {
-  //     this.deleteOnlyUser()
-  //   }
-  // }
-
-  // // delete teacher's courses 
-  // deleteOnlyTeacherCourses = () => {
-  //   this.coursesServices
-  //     .deleteTeacherCourses(this.props.teacherInfo._id)
-  //     .then(response => console.log(response))
-  //     .catch(err => console.log('error al borrar el teacher', err))   // TO-DO  Tostada
-
-  // }
-
-  // // delete teacher no courses created
-  // deleteOnlyTeacher = () => {
-
-  //   this.teachersServices
-  //     .deleteTeacher(this.props.teacherInfo._id)
-  //     .then(response => console.log(response))
-  //     .catch(err => console.log('desde el catch de teacher', err))    // TO-DO  Tostada
-  // }
-
-  // // delete user with no teacher no courses created
-  // deleteOnlyUser = () => {
-
-  //   this.usersServices
-  //     .deleteUser(this.props.loggedUser._id)
-  //     .then(response => {
-  //       this.props.storeUser(undefined)
-  //       this.props.history.push('/')
-  //     })
-  //     .catch(err => console.log('Failed to delete', err))    // TO-DO  Tostada
-
-  // }
+  // delete user with no teacher no courses created
+  deleteOnlyUser = () => {
+    this.usersServices
+      .deleteUser(this.props.loggedUser._id)
+      .then(response => {
+        console.log('user borrado:', response)
+        this.props.storeUser(undefined)
+        this.props.history.push('/')
+      })
+      .catch(err => console.log('desde el catch del user', err))    // TO-DO  Tostada
+  }
 
 
   render() {
