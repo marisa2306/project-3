@@ -2,6 +2,7 @@ import { Link } from 'react-router-dom'
 import { Col, Card, Button } from 'react-bootstrap'
 import './Course-card.css'
 import mine from './mine.ico'
+import FavButton from '../../shared/FavButton/FavButton'
 
 const CourseCard = props => {
     return (
@@ -27,6 +28,7 @@ const CourseCard = props => {
 
                         : null
                     }
+                    <FavButton/>
                 </Card.Body>
             </Card>
         </Col>
