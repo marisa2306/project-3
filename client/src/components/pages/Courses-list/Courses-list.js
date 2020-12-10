@@ -83,7 +83,7 @@ class CoursesList extends Component {
 
                         {this.state.courses ?
                             this.state.filteredCourse.map(elm =>
-                                <CourseCard key={elm._id} {...elm} userInfo={this.props.loggedUser} teacher={this.props.teacherInfo} addToFavs={this.props.addToFavs}/>)
+                                <CourseCard key={elm._id} {...elm} userInfo={this.props.loggedUser} teacher={this.props.teacherInfo} updateFavs={this.props.updateFavs}/>)
                             :
                             <Loader />
                         }

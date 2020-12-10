@@ -30,7 +30,7 @@ router.put('/editUser/:user_id', (req, res) => {
         .catch(err => res.status(500).json(err))
 })
 
-router.put('/editUser/addfav/:user_id', (req, res) => {
+router.put('/editUser/updateFavs/:user_id', (req, res) => {
     User
         .findByIdAndUpdate(req.params.user_id, { favorites: req.body}, { new: true })
         .then(response => res.json(response))

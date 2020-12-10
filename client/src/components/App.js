@@ -61,18 +61,29 @@ class App extends Component {
 
   handleToast = (visible, text) => this.setState({ showToast: visible, toastText: text })
 
-  addToFavs = item_id => {
+  updateFavs = item_id => {
     if (this.state.loggedInUser) {
-      const newList = [ ...this.state.loggedInUser.favorites, item_id]
+      if (![ ...this.state.loggedInUser.favorites ].some(elm => elm == item_id)) {
+        const newList = [ ...this.state.loggedInUser.favorites, item_id ]
       
-      this.usersServices
-        .addFavorites(this.state.loggedInUser._id, newList)
-        .then(response => this.setTheUser( this.state.loggedInUser))
-        .catch(err => console.log(err))
+        this.usersServices
+          .updateFavorites(this.state.loggedInUser._id, newList)
+          .then(() => this.componentDidMount())
+          .catch(err => console.log(err))
+      } else {
+        const newList2 = [ ...this.state.loggedInUser.favorites ].filter(elm => elm !== item_id)
+        
+        this.usersServices
+          .updateFavorites(this.state.loggedInUser._id, newList2)
+          .then(() => this.componentDidMount())
+          .catch(err => console.log(err))
+      }
     }
   }
 
+
   render() {
+    console.log(this.state.loggedInUser)
     return (
       <>
         <Navigation storeUser={this.setTheUser} loggedUser={this.state.loggedInUser} />
@@ -80,7 +91,7 @@ class App extends Component {
         <main>
           <Switch>
             <Route exact path="/" render={() => <Home />} />
-            <Route exact path="/courses" render={() => <CoursesList loggedUser={this.state.loggedInUser} teacherInfo={this.state.teacher} addToFavs={this.addToFavs }/>} />
+            <Route exact path="/courses" render={() => <CoursesList loggedUser={this.state.loggedInUser} teacherInfo={this.state.teacher} updateFavs={this.updateFavs }/>} />
             <Route path="/courses/:course_id" render={props => <CourseDetails {...props} />} />
             <Route exact path="/teachers" render={() => <TeachersList loggedUser={this.state.loggedInUser} teacherInfo={this.state.teacher} />} />
             <Route path="/teachers/:teacher_id" render={props => <TeacherDetails {...props} />} />
