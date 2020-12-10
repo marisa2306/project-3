@@ -1,10 +1,14 @@
-.fav-btn {
+.noFav-btn {
   color: red;
   transition: all .4s;
 }
 
-.fav-btn:hover {
+.noFav-btn:hover {
   color: aliceblue;
   text-decoration: none;
 }
 
+.alreadyFav-btn:hover {
+  background-color: white;
+  color: red;
+}

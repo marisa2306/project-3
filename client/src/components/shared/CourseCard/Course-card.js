@@ -29,7 +29,7 @@ const CourseCard = props => {
                         : null
                     }
                     {props.userInfo ? 
-                        <FavButton addToFavs={props.addToFavs} item_id={props._id} />
+                        <FavButton updateFavs={props.updateFavs} userInfo={props.userInfo} itemInfo={props} />
                         : null
                     }
                 </Card.Body>
