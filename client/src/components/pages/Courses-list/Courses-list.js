@@ -66,9 +66,9 @@ class CoursesList extends Component {
     //SEARCHBAR
     filterCourse = value => {
 
-        const newData = [...this.state.courses].filter(elm => elm.title.includes(value))
+        const newData = [...this.state.courses].filter(elm => elm.title.toLowerCase().includes(value.toLowerCase()))
         this.setState({ filteredCourse: newData })
-        console.log(newData)
+        //console.log(newData)
 
     }
 
