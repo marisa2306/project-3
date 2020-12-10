@@ -4,7 +4,7 @@ const Schema = mongoose.Schema
 const courseSchema = new Schema({
     imageUrl: {
         type: String,
-        default: 'https://res.cloudinary.com/dodneiokm/image/upload/v1607526920/project3-ironhack/nmg7ekkdtros17ietzbc.jpg'
+        default: 'https://images.unsplash.com/photo-1503676260728-1c00da094a0b'
     },
     title: {
         type: String,
