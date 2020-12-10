@@ -11,7 +11,8 @@ class CoursesList extends Component {
     constructor() {
         super()
         this.state = {
-            courses: undefined
+            courses: undefined,
+            filtered: []
         }
         this.coursesService = new CoursesService()
     }
@@ -60,7 +61,7 @@ class CoursesList extends Component {
 
     //SEARCHBAR
     filterCourse = value => {
-        const newData = this.state.courses.filter(elm => elm.title.includes(value))
+        const newData = [...this.state.courses].filter(elm => elm.title.includes(value))
         this.setState({ courses: newData })
     }
 
