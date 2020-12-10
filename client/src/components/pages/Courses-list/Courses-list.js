@@ -12,7 +12,8 @@ class CoursesList extends Component {
         super()
         this.state = {
             courses: undefined,
-            filtered: []
+            filteredCourse: []
+
         }
         this.coursesService = new CoursesService()
     }
@@ -20,49 +21,55 @@ class CoursesList extends Component {
     componentDidMount = () => this.refreshCourses()
 
     refreshCourses = () => {
+
         this.coursesService
             .getCourses()
-            .then(res => this.setState({ courses: res.data }))
+            .then(res => this.setState({ courses: res.data, filteredCourse: [...res.data] }))
             .catch(err => console.log(err))
     }
 
     sortByNameAZ = () => {
 
-        const coursesCopy = [...this.state.courses]
-        coursesCopy.sort((a, b) => (a.title > b.title) ? 1 : -1)
+        const filteredCourseCopy = [...this.state.filteredCourse]
+        filteredCourseCopy.sort((a, b) => (a.title > b.title) ? 1 : -1)
 
         this.setState({
-            courses: coursesCopy
+            filteredCourse: filteredCourseCopy
         })
 
     }
 
     sortByNameZA = () => {
 
-        const coursesCopy = [...this.state.courses]
-        coursesCopy.sort((a, b) => (a.title < b.title) ? 1 : -1)
+        const filteredCourseCopy = [...this.state.filteredCourse]
+        filteredCourseCopy.sort((a, b) => (a.title < b.title) ? 1 : -1)
 
         this.setState({
-            courses: coursesCopy,
+            filteredCourse: filteredCourseCopy
         })
-
     }
 
     sortByPrice = () => {
 
-        const coursesCopy = [...this.state.courses]
-        coursesCopy.sort((a, b) => (a.price > b.price) ? 1 : -1)
+        const filteredCourseCopy = [...this.state.filteredCourse]
+        filteredCourseCopy.sort((a, b) => (a.price > b.price) ? 1 : -1)
 
         this.setState({
-            courses: coursesCopy
+            filteredCourse: filteredCourseCopy
         })
 
     }
 
+
+    escapeRegExp = text => (text.replace(/[-[\]{}()*+?.,\\^$|#\s]/g, '\\$&'))
+
     //SEARCHBAR
     filterCourse = value => {
+
         const newData = [...this.state.courses].filter(elm => elm.title.includes(value))
-        this.setState({ courses: newData })
+        this.setState({ filteredCourse: newData })
+        console.log(newData)
+
     }
 
     render() {
@@ -83,14 +90,12 @@ class CoursesList extends Component {
 
                         </Col>
                     </Row>
-                    {/* { this.props.loggedUser && this.props.teacherInfo ? 
-                        <Link to='/profile-teacher/create-course' className='btn btn-success my-4'>Create new course</Link> : null } */}
 
                     <Row>
 
-
-                        {this.state.courses ? this.state.courses.map(elm =>
-                            <CourseCard key={elm._id} {...elm} userInfo={this.props.loggedUser} teacher={this.props.teacherInfo} />)
+                        {this.state.courses ?
+                            this.state.filteredCourse.map(elm =>
+                                <CourseCard key={elm._id} {...elm} userInfo={this.props.loggedUser} teacher={this.props.teacherInfo} />)
                             :
                             <Loader />
                         }

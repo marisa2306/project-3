@@ -52,8 +52,6 @@ class App extends Component {
   setTheUser = (user) => this.setState({ loggedInUser: user }, () => this.state.loggedInUser ? this.setTheTeacher(user) : null)
 
 
-
-
   setTheTeacher = () => {
     this.teachersServices
       .getTeacher(this.state.loggedInUser._id)
