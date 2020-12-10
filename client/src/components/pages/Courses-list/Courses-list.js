@@ -54,11 +54,9 @@ class CoursesList extends Component {
         })
     }
 
-    escapeRegExp = text => (text.replace(/[-[\]{}()*+?.,\\^$|#\s]/g, '\\$&'))
-
     //SEARCHBAR
     filterCourse = value => {
-        const newData = [...this.state.courses].filter(elm => elm.title.includes(value))
+        const newData = [...this.state.courses].filter(elm => elm.title.toLowerCase().includes(value.toLowerCase()))
         this.setState({ filteredCourse: newData })
     }
 
