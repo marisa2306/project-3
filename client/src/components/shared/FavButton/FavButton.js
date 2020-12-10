@@ -1,10 +1,9 @@
-import { Link } from 'react-router-dom'
+import { Button } from 'react-bootstrap' 
 import './FavButton.css'
-import heart from './heart.png'
 
 const FavButton = props => {
   return(
-    <Link className='fav-btn'>&#9829;</Link>
+    <Button onClick={() => props.addToFavs(props.item_id)} className='fav-btn' variant='outline-danger'>&#9829;</Button>
   )
 }
 

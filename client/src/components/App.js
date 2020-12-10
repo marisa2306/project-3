@@ -5,6 +5,7 @@ import React, { Component } from 'react'
 import { Switch, Route, Redirect } from 'react-router-dom'
 import AuthServices from './../service/auth.service'
 import TeachersServices from './../service/teachers.service'
+import UsersService from '../service/users.service'
 
 import Navigation from './layout/navigation/Navigation'
 import Home from './pages/Home/Home'
@@ -39,6 +40,7 @@ class App extends Component {
     }
     this.authServices = new AuthServices()
     this.teachersServices = new TeachersServices()
+    this.usersServices = new UsersService()
   }
 
   componentDidMount = () => {
@@ -48,9 +50,7 @@ class App extends Component {
       .catch(err => this.setTheUser(undefined))
   }
 
-
   setTheUser = (user) => this.setState({ loggedInUser: user }, () => this.state.loggedInUser ? this.setTheTeacher(user) : null)
-
 
   setTheTeacher = () => {
     this.teachersServices
@@ -59,9 +59,18 @@ class App extends Component {
       .catch(err => this.setState({ teacher: undefined }))
   }
 
-
-
   handleToast = (visible, text) => this.setState({ showToast: visible, toastText: text })
+
+  addToFavs = item_id => {
+    if (this.state.loggedInUser) {
+      const newList = [ ...this.state.loggedInUser.favorites, item_id]
+      
+      this.usersServices
+        .addFavorites(this.state.loggedInUser._id, newList)
+        .then(response => this.setTheUser( this.state.loggedInUser))
+        .catch(err => console.log(err))
+    }
+  }
 
   render() {
     return (
@@ -71,7 +80,7 @@ class App extends Component {
         <main>
           <Switch>
             <Route exact path="/" render={() => <Home />} />
-            <Route exact path="/courses" render={() => <CoursesList loggedUser={this.state.loggedInUser} teacherInfo={this.state.teacher} />} />
+            <Route exact path="/courses" render={() => <CoursesList loggedUser={this.state.loggedInUser} teacherInfo={this.state.teacher} addToFavs={this.addToFavs }/>} />
             <Route path="/courses/:course_id" render={props => <CourseDetails {...props} />} />
             <Route exact path="/teachers" render={() => <TeachersList loggedUser={this.state.loggedInUser} teacherInfo={this.state.teacher} />} />
             <Route path="/teachers/:teacher_id" render={props => <TeacherDetails {...props} />} />

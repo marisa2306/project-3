@@ -13,5 +13,6 @@ export default class UserService {
     // getUsers = () => this.apiHandler.get('/getAllUsers')           //ADMIN ROLE 
     // getUser = userId => this.apiHandler.get(`/getOneUser/${userId}`)      //ADMIN ROLE 
     editUser = (userId, userInfo) => this.apiHandler.put(`/editUser/${userId}`, userInfo)
+    addFavorites = (userId, favList) => this.apiHandler.put(`/editUser/addfav/${userId}`, favList)
     deleteUser = userId => this.apiHandler.delete(`/deleteUser/${userId}`)
 }

@@ -28,7 +28,10 @@ const CourseCard = props => {
 
                         : null
                     }
-                    <FavButton/>
+                    {props.userInfo ? 
+                        <FavButton addToFavs={props.addToFavs} item_id={props._id} />
+                        : null
+                    }
                 </Card.Body>
             </Card>
         </Col>

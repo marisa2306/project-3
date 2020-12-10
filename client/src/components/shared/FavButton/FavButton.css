@@ -1,15 +1,9 @@
 .fav-btn {
-  border: 1px solid red;
   color: red;
-  border-radius: 5px;
-  padding: 2%;
-  width: 30px;
-  height: 30px;
   transition: all .4s;
 }
 
 .fav-btn:hover {
-  background-color: red;
   color: aliceblue;
   text-decoration: none;
 }
