@@ -86,7 +86,6 @@ class App extends Component {
 
 
   render() {
-    console.log(this.state.loggedInUser)
     return (
       <>
         <Navigation storeUser={this.setTheUser} loggedUser={this.state.loggedInUser} />

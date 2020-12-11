@@ -9,7 +9,6 @@ class SearchBar extends Component {
         }
     }
 
-
     handleInputChange = e => this.setState({ [e.target.name]: e.target.value }, () => this.props.filterCourse(this.state.search))
 
     render() {
