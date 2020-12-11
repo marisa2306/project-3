@@ -28,10 +28,9 @@ class Signup extends Component {
       .then(newUser => {
         this.props.storeUser(newUser.data)
         this.props.history.push('/courses')
-        this.props.handleToast(true, 'Register successful!')
+        this.props.handleToast(true, 'Register successful!', 'green')
       })
-      //.catch(err => this.props.setState({ showToast: true, toastText: err.response.data.message[0].msg }))
-      .catch(err => this.props.handleToast(true, err.response.data.message[0].msg))
+      .catch(err => this.props.handleToast(true, err.response.data.message[0].msg, 'red'))
   }
 
   render() {
@@ -51,7 +50,7 @@ class Signup extends Component {
                     required
                     type='text'
                     name='username'
-                    placeholder='popinez'
+                    placeholder='Choose a username'
                     value={this.state.username}
                     onChange={this.handleInputChange} />
                   <Form.Text id='passwordHelpBlock' muted>
@@ -65,7 +64,7 @@ class Signup extends Component {
                     required
                     type='password'
                     name='password'
-                    placeholder='fantasía caribeña'
+                    placeholder='Choose a password'
                     value={this.state.password}
                     onChange={this.handleInputChange} />
                   <Form.Text id='passwordHelpBlock' muted>
@@ -81,7 +80,7 @@ class Signup extends Component {
                     required
                     type='email'
                     name='email'
-                    placeholder='pop@ino.dog'
+                    placeholder='sample@email.net'
                     value={this.state.email}
                     onChange={this.handleInputChange} />
                 </Form.Group>
@@ -89,7 +88,7 @@ class Signup extends Component {
                 <Form.Group as={Col} md='5' controlId='role'>
                   <Form.Label>Choose role</Form.Label>
                   <Form.Control as='select' name='role' value={this.state.role} onChange={this.handleInputChange}>
-                    <option>Student or Teacher?</option>
+                    <option>Which's your role?</option>
                     <option value='Student' >Student</option>
                     <option value='Teacher' >Teacher</option>
                   </Form.Control>

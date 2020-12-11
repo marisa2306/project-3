@@ -21,7 +21,7 @@ class TeachersList extends Component {
         this.teachersService
             .getTeachers()
             .then(res => this.setState({ teachers: res.data }))
-            .catch(err => console.log(err))
+            .catch(err => console.log(err))   //  TO-DO -- ¿qué hacemos con esto?
     }
 
     render() {

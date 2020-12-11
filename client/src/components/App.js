@@ -37,6 +37,7 @@ class App extends Component {
       teacher: undefined,
       showToast: false,
       toastText: '',
+      toastColor: ''
     }
     this.authServices = new AuthServices()
     this.teachersServices = new TeachersServices()
@@ -49,7 +50,7 @@ class App extends Component {
     this.authServices
       .isLoggedIn()
       .then(response => this.setTheUser(response.data))
-      .catch(err => this.setTheUser(undefined))
+      .catch(() => this.setTheUser(undefined))
   }
 
 
@@ -59,10 +60,10 @@ class App extends Component {
     this.teachersServices
       .getTeacher(this.state.loggedInUser._id)
       .then(response => this.setState({ teacher: response.data[0] }))
-      .catch(err => this.setState({ teacher: undefined }))
+      .catch(() => this.setState({ teacher: undefined }))
   }
 
-  handleToast = (visible, text) => this.setState({ showToast: visible, toastText: text })
+  handleToast = (visible, text, color) => this.setState({ showToast: visible, toastText: text, toastColor: color })
 
   updateFavs = item_id => {
     if (this.state.loggedInUser) {
@@ -72,14 +73,14 @@ class App extends Component {
         this.usersServices
           .updateFavorites(this.state.loggedInUser._id, newList)
           .then(() => this.refreshUser())
-          .catch(err => console.log(err))
+          .catch(err => console.log(err))   //  TO-DO -- ¿qué hacemos con esto?
       } else {
         const newList2 = [...this.state.loggedInUser.favorites].filter(elm => elm !== item_id)
 
         this.usersServices
           .updateFavorites(this.state.loggedInUser._id, newList2)
           .then(() => this.refreshUser())
-          .catch(err => console.log(err))
+          .catch(err => console.log(err))   //  TO-DO -- ¿qué hacemos con esto?
       }
     }
   }
@@ -88,25 +89,25 @@ class App extends Component {
   render() {
     return (
       <>
-        <Navigation storeUser={this.setTheUser} loggedUser={this.state.loggedInUser} />
+        <Navigation storeUser={this.setTheUser} loggedUser={this.state.loggedInUser} handleToast={this.handleToast} />
 
         <main>
           <Switch>
             <Route exact path="/" render={() => <Home />} />
             <Route exact path="/courses" render={() => <CoursesList loggedUser={this.state.loggedInUser} teacherInfo={this.state.teacher} updateFavs={this.updateFavs} />} />
-            <Route path="/courses/:course_id" render={props => <CourseDetails {...props} />} />
+            <Route path="/courses/:course_id" render={props => <CourseDetails {...props} handleToast={this.handleToast} />} />
             <Route exact path="/teachers" render={() => <TeachersList loggedUser={this.state.loggedInUser} teacherInfo={this.state.teacher} />} />
             <Route path="/teachers/:teacher_id" render={props => <TeacherDetails {...props} />} />
             <Route path="/signup" render={props => this.state.loggedInUser ? <Redirect to='/courses' /> : <Signup {...props} handleToast={this.handleToast} storeUser={this.setTheUser} />} />
-            <Route exact path="/profile" render={props => this.state.loggedInUser ? <UserProfile {...props} loggedUser={this.state.loggedInUser} teacherInfo={this.state.teacher} storeUser={this.setTheUser} updateFavs={this.updateFavs} /> : <Redirect to='/signup' />} />
-            <Route path="/profile/edit-user" render={props => this.state.loggedInUser ? <EditUserForm {...props} loggedUser={this.state.loggedInUser} storeUser={this.setTheUser} /> : <Redirect to='/signup' />} />
-            <Route path="/profile/create-teacher" render={props => this.state.loggedInUser ? <NewTeacherForm {...props} loggedUser={this.state.loggedInUser} teacherInfo={this.state.teacher} storeUser={this.setTheUser} /> : <Redirect to='/signup' />} />
-            <Route exact path="/profile-teacher" render={props => this.state.teacher ? <TeacherProfile {...props} loggedUser={this.state.loggedInUser} teacherInfo={this.state.teacher} storeUser={this.setTheUser} /> : <Redirect to='/signup' />} />
-            <Route path='/profile-teacher/edit-teacher' render={props => this.state.loggedInUser ? <EditTeacherForm {...props} loggedUser={this.state.loggedInUser} teacherInfo={this.state.teacher} storeUser={this.setTheUser} /> : <Redirect to='/signup' />} />
-            <Route path="/profile-teacher/create-course" render={props => this.state.teacher ? <NewCourseForm {...props} loggedUser={this.state.loggedInUser} teacherInfo={this.state.teacher} /> : <Redirect to='/signup' />} />
-            <Route path="/profile-teacher/edit-course/:course_id" render={props => this.state.teacher ? <EditCourseForm {...props} loggedUser={this.state.loggedInUser} teacherInfo={this.state.teacher} /> : <Redirect to='/signup' />} />
+            <Route exact path="/profile" render={props => this.state.loggedInUser ? <UserProfile {...props} loggedUser={this.state.loggedInUser} teacherInfo={this.state.teacher} storeUser={this.setTheUser} updateFavs={this.updateFavs} handleToast={this.handleToast} /> : <Redirect to='/signup' />} />
+            <Route path="/profile/edit-user" render={props => this.state.loggedInUser ? <EditUserForm {...props} loggedUser={this.state.loggedInUser} storeUser={this.setTheUser} handleToast={this.handleToast} /> : <Redirect to='/signup' />} />
+            <Route path="/profile/create-teacher" render={props => this.state.loggedInUser ? <NewTeacherForm {...props} loggedUser={this.state.loggedInUser} teacherInfo={this.state.teacher} storeUser={this.setTheUser} handleToast={this.handleToast} /> : <Redirect to='/signup' />} />
+            <Route exact path="/profile-teacher" render={props => this.state.teacher ? <TeacherProfile {...props} loggedUser={this.state.loggedInUser} teacherInfo={this.state.teacher} storeUser={this.setTheUser} updateFavs={this.updateFavs} handleToast={this.handleToast} /> : <Redirect to='/signup' />} />
+            <Route path='/profile-teacher/edit-teacher' render={props => this.state.loggedInUser ? <EditTeacherForm {...props} loggedUser={this.state.loggedInUser} teacherInfo={this.state.teacher} storeUser={this.setTheUser} handleToast={this.handleToast} /> : <Redirect to='/signup' />} />
+            <Route path="/profile-teacher/create-course" render={props => this.state.teacher ? <NewCourseForm {...props} loggedUser={this.state.loggedInUser} teacherInfo={this.state.teacher} handleToast={this.handleToast} /> : <Redirect to='/signup' />} />
+            <Route path="/profile-teacher/edit-course/:course_id" render={props => this.state.teacher ? <EditCourseForm {...props} loggedUser={this.state.loggedInUser} teacherInfo={this.state.teacher} handleToast={this.handleToast} /> : <Redirect to='/signup' />} />
           </Switch>
-          <Alert show={this.state.showToast} handleToast={this.handleToast} toastText={this.state.toastText} />
+          <Alert show={this.state.showToast} handleToast={this.handleToast} toastText={this.state.toastText} color={ this.state.toastColor }/>
         </main>
       </>
     )

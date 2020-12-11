@@ -4,7 +4,6 @@ import AuthService from './../../../service/auth.service'
 import logo from './logo.png'
 import { Navbar, Nav, Modal } from 'react-bootstrap'
 import LoginForm from '../../pages/Login-form/LoginForm'
-import Alert from '../../shared/Alert/Alert'
 
 import './Navigation.css'
 
@@ -12,9 +11,7 @@ class Navigation extends Component {
     constructor(props) {
         super(props)
         this.state = {
-            showModal: false,
-            showToast: false,
-            toastText: ''
+            showModal: false
         }
         this.authService = new AuthService()
     }
@@ -22,20 +19,21 @@ class Navigation extends Component {
     logOut = () => {
         this.authService
             .logout()
-            .then(res => this.props.storeUser(undefined))
-            .catch(err => console.log(err))
+            .then(() => {
+                this.props.storeUser(undefined)
+                this.props.handleToast(true, 'Logout successful!', 'green')
+            })
+            .catch(err => this.props.handleToast(true, err, 'red'))   // TO-DO ¿o mejor así?
     }
 
     handleModal = visible => this.setState({ showModal: visible })
-
-    handleToast = (visible, text) => this.setState({ showToast: visible, toastText: text })
 
     render() {
         return (
             <>
                 <Modal centered show={this.state.showModal} onHide={() => this.handleModal(false)}>
                     <Modal.Body>
-                        <LoginForm handleToast={this.handleToast} closeModal={() => this.handleModal(false)} storeUser={this.props.storeUser} />
+                        <LoginForm handleToast={this.props.handleToast} closeModal={() => this.handleModal(false)} storeUser={this.props.storeUser} />
                     </Modal.Body>
                 </Modal>
 
@@ -84,8 +82,6 @@ class Navigation extends Component {
                         </Nav>
                     </Navbar.Collapse>
                 </Navbar>
-                
-                <Alert show={this.state.showToast} handleToast={this.handleToast} toastText={ this.state.toastText}/>
             </>
         )
     }

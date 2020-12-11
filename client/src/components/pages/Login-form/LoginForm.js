@@ -25,9 +25,9 @@ class LoginForm extends Component {
             .then(theLoggedInUser => {
                 this.props.storeUser(theLoggedInUser.data)
                 this.props.closeModal()
-                this.props.handleToast(true, 'Log in successful!')
+                this.props.handleToast(true, 'Log in successful!', 'green')
             })
-            .catch(err => this.setState({ showToast: true, toastText: err.response.data.message }))
+            .catch(err => this.props.handleToast(true, err.response.data.message, 'red'))
     }
 
     render() {

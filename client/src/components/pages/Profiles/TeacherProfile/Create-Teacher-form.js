@@ -35,11 +35,13 @@ class NewTeacherForm extends Component {
 
         this.teachersService
             .saveTeacher(this.state.teacher)
-            .then(teacher => {
+            .then(() => {
                 this.props.storeUser(this.props.loggedUser)
                 this.props.history.push('/profile')
+                this.props.handleToast(true, 'Congratulations!, now you have a teacher\'s profile', 'green')
             })
-            .catch(err => console.log(err))
+            .catch(() => this.props.handleToast(true, 'An error has occurred while creating your teacher profile, please try again later', 'red')) //  TO-DO -- ¿está bien así?
+        
     }
 
     handleImageUpload = e => {
@@ -56,7 +58,7 @@ class NewTeacherForm extends Component {
                     uploadingActive: false
                 })
             })
-            .catch(err => console.log('ERRORRR!', err))
+            .catch(err => this.props.handleToast(true, err.response.data.message, 'red'))   // TO-DO ¿o mejor así?
     }
 
 

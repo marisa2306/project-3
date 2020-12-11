@@ -33,11 +33,11 @@ class NewCourseForm extends Component {
 
         this.coursesService
             .saveCourse(this.state.course)
-            .then(res => {
+            .then(() => {
                 this.props.history.push('/profile-teacher')
-                // this.props.handleToast(true, 'Course created!')      TO-DO
+                this.props.handleToast(true, 'New course created!', 'green')
             })
-            .catch(err => console.log(err))
+            .catch(() => this.props.handleToast(true, 'An error has occurred while creating, please try again later', 'red')) //  TO-DO -- ¿está bien así?
     }
 
     handleImageUpload = e => {
@@ -54,7 +54,7 @@ class NewCourseForm extends Component {
                     uploadingActive: false
                 })
             })
-            .catch(err => console.log('ERRORRR!', err))
+            .catch(err => this.props.handleToast(true, err.response.data.message, 'red'))   // TO-DO ¿o mejor así?
     }
 
 

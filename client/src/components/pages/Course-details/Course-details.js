@@ -23,7 +23,10 @@ class CourseDetails extends Component {
         this.coursesService
             .getCourse(course_id)
             .then(res => this.setState({ course: res.data }))
-            .catch(err => console.log(err))
+            .catch(() => {
+                this.props.history.push('/profile')   //  TO-DO -- ¿está bien así?
+                this.props.handleToast(true, 'An error has occurred, please try again later', 'red')
+            })
     }
 
     render() {

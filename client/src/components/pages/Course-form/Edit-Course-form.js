@@ -27,23 +27,17 @@ class EditCourseForm extends Component {
     }
 
 
-    // get the ID from the URL
     componentDidMount = () => {
         const course_id = this.props.match.params.course_id
 
         this.coursesService
-            //find item by ID
             .getCourse(course_id)
-            //set the component state to the course found
             .then(res => this.setState({ course: res.data }))
             .catch(err => console.log(err))
     }
 
-
-    //handleInputChange = e => this.setState({ [e.target.name]: e.target.value })
     handleInputChange = e => {
         e.persist()
-
         this.setState(prevState => ({
             course: { ...prevState.course, [e.target.name]: e.target.value }
         }))
@@ -54,8 +48,11 @@ class EditCourseForm extends Component {
         const course_id = this.props.match.params.course_id
         this.coursesService
             .editCourse(course_id, this.state.course)
-            .then(() => this.props.history.push('/profile-teacher'))    // Cambiar a ruta de detalle profesor
-            .catch(err => console.log(err))
+            .then(() => {
+                this.props.history.push('/profile-teacher')
+                this.props.handleToast(true, 'Edit successful!', 'green')
+            })
+            .catch(err => this.props.handleToast(true, err, 'red'))   // TO-DO ¿o mejor así?
     }
 
     handleImageUpload = e => {
@@ -72,7 +69,7 @@ class EditCourseForm extends Component {
                     uploadingActive: false
                 })
             })
-            .catch(err => console.log('ERRORRR!', err))
+            .catch(err => this.props.handleToast(true, err.response.data.message, 'red'))   // TO-DO ¿o mejor así?
     }
 
 

@@ -25,12 +25,12 @@ class TeacherDetails extends Component {
     this.teachersServices
       .getTheTeacher(teacher_id)
       .then(response => this.setState({ teacher: response.data }))
-      .catch(err => console.log(err))
+      .catch(err => console.log(err))   //  TO-DO -- ¿qué hacemos con esto?
     
     this.coursesServices
       .getTeacherCourses(teacher_id)
       .then(response => this.setState({ courses: response.data }))
-      .catch(err => console.log(err))
+      .catch(err => console.log(err))   //  TO-DO -- ¿qué hacemos con esto?
   }
 
   render() {

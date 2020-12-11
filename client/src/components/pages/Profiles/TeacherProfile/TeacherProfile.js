@@ -17,47 +17,52 @@ class TeacherProfile extends Component {
     this.coursesServices = new CoursesServices()
   }
 
-
   componentDidMount = () => this.refreshCourses()
 
   refreshCourses = () => {
     this.coursesServices
       .getTeacherCourses(this.props.teacherInfo._id)
       .then(response => this.setState({ courses: response.data }))
-      .catch(err => console.log(err))
+      .catch(() => {
+        this.props.history.push('/profile')   //  TO-DO -- ¿está bien así?
+        this.props.handleToast(true, 'An error has occurred, please try again later', 'red')
+      })
   }
-
 
   deleteCourse = course_Id => {
     this.coursesServices
       .deleteCourse(course_Id)
-      .then(() => this.refreshCourses())
-      .catch(err => console.log('An error occured', err))
+      .then(() => {
+        this.refreshCourses()
+        this.props.handleToast(true, 'Delete successful!', 'green')
+      })
+      .catch(() => this.props.handleToast(true, 'An error has occurred while deleting, please try again later', 'red')) //  TO-DO -- ¿está bien así?
   }
 
   deleteTeacher = () => {
     const teacher_Id = this.props.teacherInfo._id
-
-    if (this.state.courses) {
+    
+    !this.state.courses
+      ?
+      this.teachersServices
+        .deleteTeacher(teacher_Id)
+        .then(() => {
+          this.props.storeUser(this.props.loggedUser)
+          this.props.history.push('/profile')
+          this.props.handleToast(true, 'Delete successful!', 'green')
+        })
+        .catch(() => this.props.handleToast(true, 'An error has occurred while deleting, please try again later', 'red')) //  TO-DO -- ¿está bien así?
+      :
+      
       this.coursesServices
         .deleteTeacherCourses(teacher_Id)
         .then(() => this.teachersServices.deleteTeacher(teacher_Id))
-        .then(response => {
+        .then(() => {
           this.props.storeUser(this.props.loggedUser)
           this.props.history.push('/profile')
+          this.props.handleToast(true, 'Delete successful!', 'green')
         })
-        .catch(err => console.log('error al borrar el teacher', err))   // TO-DO  Tostada
-    }
-
-    if (!this.state.courses) {
-      this.teachersServices
-        .deleteTeacher(teacher_Id)
-        .then(response => {
-          this.props.storeUser(this.props.loggedUser)
-          this.props.history.push('/profile')
-        })
-        .catch(err => console.log('desde el catch de teacher', err))    // TO-DO  Tostada
-    }
+        .catch(() => this.props.handleToast(true, 'An error has occurred while deleting, please try again later', 'red')) //  TO-DO -- ¿está bien así?
   }
 
   render() {
@@ -72,7 +77,7 @@ class TeacherProfile extends Component {
           </Col>
 
           <Col md={{ span: 10, offset: 1 }}>
-            <p><strong>Job Occupation</strong>{this.props.teacherInfo.jobOccupation}</p>
+            <p><strong>Job Occupation:</strong> {this.props.teacherInfo.jobOccupation}</p>
           </Col>
         </Row>
 

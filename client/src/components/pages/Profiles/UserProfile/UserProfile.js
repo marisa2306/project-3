@@ -31,7 +31,7 @@ class UserProfile extends Component {
       this.coursesServices
         .getTeacherCourses(this.props.teacherInfo._id)
         .then(response => this.setState({ teacherCourses: response.data }))
-        .catch(err => console.log(err))
+        .catch(err => console.log(err))   //  TO-DO -- ¿qué hacemos con esto?
     }
   }
 
@@ -40,7 +40,7 @@ class UserProfile extends Component {
       this.usersServices
         .getUserFavorites(this.props.loggedUser._id)
         .then(response => this.setState({ favCourses: response.data }))
-        .catch(err => console.log(err))
+        .catch(err => console.log(err))   //  TO-DO -- ¿qué hacemos con esto?
     }
   }
 
@@ -48,21 +48,8 @@ class UserProfile extends Component {
 
   ///////////////////////////
   deleteAll = () => {
-    //hay teacher?
-    if (this.props.teacherInfo) {
-      //hay cursos?
-      if (this.state.teacherCourses) {
-        this.deleteCoursesTeacherAndUser()
-      }
-      //teacher no courses
-      if (!this.state.teacherCourses) {
-        this.deleteTeacherAndUser()
-      }
-    }
-    //no teacher
-    if (!this.props.teacherInfo) {
-      this.deleteOnlyUser()
-    }
+    if (this.props.teacherInfo) { !this.state.teacherCourses ? this.deleteTeacherAndUser() : this.deleteCoursesTeacherAndUser() }
+    if (!this.props.teacherInfo) { this.deleteOnlyUser() }
   }
 
   //    ******  CHUSTI-FUNCTIONS
@@ -71,34 +58,28 @@ class UserProfile extends Component {
   deleteCoursesTeacherAndUser = () => {
     this.coursesServices
       .deleteTeacherCourses(this.props.teacherInfo._id)
-      .then(response => {
-        console.log('Cursos borrados del teacher del user', response)
-        this.deleteTeacherAndUser()
-      })
-      .catch(err => console.log('error al borrar los cursos del teacher', err))   // TO-DO  Tostada
+      .then(()=> this.deleteTeacherAndUser())
+      .catch(err => console.log('error al borrar los cursos del teacher', err))   //  TO-DO -- ¿qué hacemos con esto?
   }
 
   // delete teacher no courses created
   deleteTeacherAndUser = () => {
     this.teachersServices
       .deleteTeacher(this.props.teacherInfo._id)
-      .then(response => {
-        console.log('Teacher borrado:', response)
-        this.deleteOnlyUser()
-      })
-      .catch(err => console.log('desde el catch de teacher y user', err))    // TO-DO  Tostada
+      .then(() => this.deleteOnlyUser())
+      .catch(err => console.log('desde el catch de teacher y user', err))   //  TO-DO -- ¿qué hacemos con esto?
   }
 
   // delete user with no teacher no courses created
   deleteOnlyUser = () => {
     this.usersServices
       .deleteUser(this.props.loggedUser._id)
-      .then(response => {
-        console.log('user borrado:', response)
+      .then(() => {
+        this.props.handleToast(true, 'User deleted', 'green')
         this.props.storeUser(undefined)
         this.props.history.push('/')
       })
-      .catch(err => console.log('desde el catch del user', err))    // TO-DO  Tostada
+      .catch(err => console.log('desde el catch del user', err))   //  TO-DO -- ¿qué hacemos con esto?
   }
 
 

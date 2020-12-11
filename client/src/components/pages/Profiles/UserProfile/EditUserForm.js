@@ -1,5 +1,4 @@
 import React, { Component } from 'react'
-//import AuthService from '../../../../service/auth.service'
 import UsersService from '../../../../service/users.service'
 import FilesService from '../../../../service/upload.service'
 import Loader from '../../../shared/Spinner/Loader'
@@ -18,13 +17,12 @@ class EditUserForm extends Component {
             },
             uploadingActive: false
         }
-        //this.authService = new AuthService()
         this.usersService = new UsersService()
         this.filesService = new FilesService()
     }
 
 
-    componentDidMount = e => this.setState({ user: this.props.loggedUser })
+    componentDidMount = () => this.setState({ user: this.props.loggedUser })
 
     handleInputChange = e => {
         e.persist()
@@ -39,8 +37,9 @@ class EditUserForm extends Component {
             .then(user => {
                 this.props.storeUser(user.data)
                 this.props.history.push('/profile')
+                this.props.handleToast(true, 'Edit successful!', 'green')
             })
-            .catch(err => console.log(err))
+            .catch(err => this.props.handleToast(true, err.response.data.message, 'red'))   // TO-DO ¿o mejor así?
     }
 
     handleImageUpload = e => {
@@ -57,7 +56,7 @@ class EditUserForm extends Component {
                     uploadingActive: false
                 })
             })
-            .catch(err => console.log('ERRORRR!', err))
+            .catch(err => this.props.handleToast(true, err.response.data.message, 'red'))   // TO-DO ¿o mejor así?
     }
 
     render() {

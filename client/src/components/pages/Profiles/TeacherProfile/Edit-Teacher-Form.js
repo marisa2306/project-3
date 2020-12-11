@@ -25,7 +25,7 @@ class EditTeacherForm extends Component {
         this.filesService = new FilesService()
     }
 
-    componentDidMount = e => this.setState({ teacher: this.props.teacherInfo })    // Esto rellena el formulario
+    componentDidMount = () => this.setState({ teacher: this.props.teacherInfo })
 
     handleInputChange = e => this.setState({ teacher: { ...this.state.teacher, [e.target.name]: e.target.value } })
 
@@ -41,11 +41,12 @@ class EditTeacherForm extends Component {
 
         this.teachersService
             .editTeacher(this.props.teacherInfo._id, this.state.teacher)
-            .then(teacher => {
+            .then(() => {
                 this.props.storeUser(this.props.loggedUser)
                 this.props.history.push('/profile-teacher')
+                this.props.handleToast(true, 'Edit successful!', 'green')
             })
-            .catch(err => console.log(err))
+            .catch(err => this.props.handleToast(true, err.response.data.message, 'red'))   // TO-DO ¿o mejor así?
     }
 
     handleImageUpload = e => {
@@ -62,7 +63,7 @@ class EditTeacherForm extends Component {
                     uploadingActive: false
                 })
             })
-            .catch(err => console.log('ERRORRR!', err))
+            .catch(err => this.props.handleToast(true, err.response.data.message, 'red'))   // TO-DO ¿o mejor así?
     }
 
 
