@@ -1,9 +1,10 @@
 import axios from 'axios'
 
 export default class FilesService {
-  constructor () {
+  constructor() {
     this.apiHandler = axios.create({
-      baseURL: 'http://localhost:5000/api/files', withCredentials: true
+      //baseURL: 'http://localhost:5000/api/files', withCredentials: true
+      baseURL: `${process.env.REACT_APP_API_URL}/files`, withCredentials: true
     })
   }
 
