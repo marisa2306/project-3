@@ -66,7 +66,7 @@ class App extends Component {
 
   updateFavs = item_id => {
     if (this.state.loggedInUser) {
-      if (![...this.state.loggedInUser.favorites].some(elm => elm == item_id)) {
+      if (![...this.state.loggedInUser.favorites].some(elm => elm === item_id)) {
         const newList = [...this.state.loggedInUser.favorites, item_id]
 
         this.usersServices

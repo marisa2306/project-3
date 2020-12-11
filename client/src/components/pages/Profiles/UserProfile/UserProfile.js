@@ -26,8 +26,6 @@ class UserProfile extends Component {
     this.getFavsCourses()
   }
 
-
-
   refreshCourses = () => {
     if (this.props.teacherInfo) {
       this.coursesServices
@@ -46,6 +44,7 @@ class UserProfile extends Component {
     }
   }
 
+  componentDidUpdate = currentProps => this.state.favCourses.length !== currentProps.loggedUser.favorites.length ? this.getFavsCourses() : null
 
   ///////////////////////////
   deleteAll = () => {
@@ -104,7 +103,6 @@ class UserProfile extends Component {
 
 
   render() {
-    console.log('Estos son los fav', this.state.favCourses)
     return (
 
       <Container>
@@ -140,12 +138,8 @@ class UserProfile extends Component {
         </Row>
         <Row>
 
-          {//this.state.favCourses.length > 0 ?
-
-            this.state.favCourses.map(elm =>
+          { this.state.favCourses.map(elm =>
               <CourseCard key={elm._id} {...elm} userInfo={this.props.loggedUser} teacher={this.props.teacherInfo} updateFavs={this.props.updateFavs} />)
-
-            //: null
           }
 
         </Row>

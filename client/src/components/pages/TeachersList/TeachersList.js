@@ -1,5 +1,4 @@
 import React, { Component } from 'react'
-import { Link } from 'react-router-dom'
 import TeachersService from '../../../service/teachers.service'
 
 import TeacherCard from './TeacherCard'

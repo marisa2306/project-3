@@ -1,5 +1,4 @@
 import { Container, Image, Col, Row } from 'react-bootstrap'
-import { Link } from 'react-router-dom'
 import React, { Component } from 'react'
 import './TeacherDetails.css'
 import CoursesServices from '../../../service/courses.service'
@@ -18,8 +17,9 @@ class TeacherDetails extends Component {
     this.coursesServices = new CoursesServices()
   }
 
-  componentDidMount = () => {
-    console.log(this.props.match.params)
+  componentDidMount = () => this.refreshTeacher()
+
+  refreshTeacher = () => {
     const teacher_id = this.props.match.params.teacher_id
 
     this.teachersServices

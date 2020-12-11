@@ -6,9 +6,9 @@ const TeacherCard = props => {
     return (
         <Col lg={4}>
             <Card className="teacher-card">
-                <Card.Img variant="top" src={props.imageUrl} alt={props.name, props.surname} />
+                <Card.Img variant="top" src={props.imageUrl} alt={`${props.name} ${props.surname}`} />
                 <Card.Body>
-                    <Card.Title>{props.name, props.surname}</Card.Title>
+                    <Card.Title>{`${props.name} ${props.surname}`}</Card.Title>
                     <Card.Subtitle className="mb-2 text-muted">by {props.jobOccupation}</Card.Subtitle>
 
                     <Card.Text>{props.description}</Card.Text>
