@@ -43,7 +43,9 @@ class App extends Component {
     this.usersServices = new UsersService()
   }
 
-  componentDidMount = () => {
+  componentDidMount = () => this.fetchUser()
+
+  fetchUser = () => {
     this.authServices
       .isLoggedIn()
       .then(response => this.setTheUser(response.data))
@@ -64,18 +66,18 @@ class App extends Component {
   updateFavs = item_id => {
     if (this.state.loggedInUser) {
       if (![ ...this.state.loggedInUser.favorites ].some(elm => elm == item_id)) {
-        const newList = [ ...this.state.loggedInUser.favorites, item_id ]
+        const addedList = [ ...this.state.loggedInUser.favorites, item_id ]
       
         this.usersServices
-          .updateFavorites(this.state.loggedInUser._id, newList)
-          .then(() => this.componentDidMount())
+          .updateFavorites(this.state.loggedInUser._id, addedList)
+          .then(() => this.fetchUser())
           .catch(err => console.log(err))
       } else {
-        const newList2 = [ ...this.state.loggedInUser.favorites ].filter(elm => elm !== item_id)
+        const removedList = [ ...this.state.loggedInUser.favorites ].filter(elm => elm !== item_id)
         
         this.usersServices
-          .updateFavorites(this.state.loggedInUser._id, newList2)
-          .then(() => this.componentDidMount())
+          .updateFavorites(this.state.loggedInUser._id, removedList)
+          .then(() => this.fetchUser())
           .catch(err => console.log(err))
       }
     }
@@ -83,7 +85,6 @@ class App extends Component {
 
 
   render() {
-    console.log(this.state.loggedInUser)
     return (
       <>
         <Navigation storeUser={this.setTheUser} loggedUser={this.state.loggedInUser} />
