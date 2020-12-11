@@ -3,7 +3,6 @@ const router = express.Router()
 const mongoose = require('mongoose')
 const User = require('../models/user.model')
 
-
 router.get('/getAllUsers', (req, res) => {
     User
         .find()
@@ -30,12 +29,6 @@ router.put('/editUser/:user_id', (req, res) => {
         .catch(err => res.status(500).json(err))
 })
 
-router.put('/editUser/updateFavs/:user_id', (req, res) => {
-    User
-        .findByIdAndUpdate(req.params.user_id, { favorites: req.body}, { new: true })
-        .then(response => res.json(response))
-        .catch(err => res.status(500).json(err))
-})
 
 router.delete('/deleteUser/:user_id', (req, res) => {
     const user_id = req.params.user_id
@@ -44,9 +37,31 @@ router.delete('/deleteUser/:user_id', (req, res) => {
         return
     }
 
-    User    
+    User
         .findByIdAndDelete(user_id)
         .then(() => res.json({ message: 'User deleted' }))
+        .catch(err => res.status(500).json(err))
+})
+
+// Add and Remove FAVS
+router.put('/editUser/updateFavs/:user_id', (req, res) => {
+    User
+        .findByIdAndUpdate(req.params.user_id, { favorites: req.body }, { new: true })
+        .then(response => res.json(response))
+        .catch(err => res.status(500).json(err))
+})
+
+// Get all userFAVS
+router.get('/userFavs/:user_id', (req, res) => {
+    if (!mongoose.Types.ObjectId.isValid(req.params.user_id)) {
+        res.status(404).json({ message: 'Invalid ID' })
+        return
+    }
+
+    User
+        .findById(req.params.user_id)
+        .populate('favorites')
+        .then(response => res.json(response.favorites))
         .catch(err => res.status(500).json(err))
 })
 
