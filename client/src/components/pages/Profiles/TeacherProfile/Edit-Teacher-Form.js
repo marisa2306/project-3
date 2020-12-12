@@ -90,7 +90,7 @@ class EditTeacherForm extends Component {
                                 <Form.Control type="text" name="jobOccupation" value={this.state.teacher.jobOccupation} onChange={this.handleInputChange} />
                             </Form.Group>
                             <Form.Group controlId="description">
-                                <Form.Label>Description</Form.Label>
+                                <Form.Label>About me</Form.Label>
                                 <Form.Control as="textarea" name="description" value={this.state.teacher.description} onChange={this.handleInputChange} />
                             </Form.Group>
 

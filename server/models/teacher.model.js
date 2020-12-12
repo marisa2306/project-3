@@ -28,18 +28,31 @@ const teacherSchema = new Schema({
         type: String,
         default: 'https://images.unsplash.com/photo-1503676260728-1c00da094a0b'
     },
-    links: [
-        {
-            linkName: {
-                type: String,
-                default: 'School'
-            },
-            url: {
-                type: String,
-                default: 'https://www.ironhack.com/es/madrid'
-            }
-        }
-    ],
+    // links: [
+    //     {
+    //         linkName: {
+    //             type: String,
+    //             default: 'School'
+    //         },
+    //         url: {
+    //             type: String,
+    //             default: 'https://www.ironhack.com/es/madrid'
+    //         }
+    //     }],
+
+    // linkname: [String],
+    // url: [String],
+
+    linkedin: String,
+
+    // links: [
+    //     {
+    //         linkName: String,
+    //         url: String
+    //     }
+
+    // ],
+
     user: {
         type: Schema.Types.ObjectId,
         ref: 'User'

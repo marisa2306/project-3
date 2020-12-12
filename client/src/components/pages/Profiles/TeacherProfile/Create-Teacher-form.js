@@ -17,7 +17,8 @@ class NewTeacherForm extends Component {
                 //     linkName: '',
                 //     url: ''
                 // }],
-                user: this.props.loggedUser ? this.props.loggedUser._id : ''
+                user: this.props.loggedUser ? this.props.loggedUser._id : '',
+                showInput: false,
             },
             uploadingActive: false
         }
@@ -62,7 +63,15 @@ class NewTeacherForm extends Component {
     }
 
 
+    toggleInput = () => {
+        //alert('funoncia!!!')
+        //this.setState({ showInput: true })
+        this.setState({ showInput: !this.state.showInput })
+    }
+
+
     render() {
+
         return (
             <Container>
                 <Row>
@@ -85,21 +94,32 @@ class NewTeacherForm extends Component {
                                 <Form.Control type="text" name="jobOccupation" value={this.state.jobOccupation} onChange={this.handleInputChange} />
                             </Form.Group>
                             <Form.Group controlId="description">
-                                <Form.Label>Description</Form.Label>
+                                <Form.Label>About me</Form.Label>
                                 <Form.Control as="textarea" name="description" value={this.state.description} onChange={this.handleInputChange} />
                             </Form.Group>
 
+                            {/* LINKEDIN */}
+                            <Button onClick={this.toggleInput}>Add Linkedin</Button>
+                            {this.state.showInput ?
+                                < Form.Group controlId="linkedin">
+                                    <Form.Label>Linkedin url</Form.Label>
+                                    <Form.Control type="text" name="linkedin" value={this.state.linkedin} onChange={this.handleInputChange} />
+                                </Form.Group>
+                                : null
+                            }
+
+
                             {/* <Form.Label><strong>Links</strong></Form.Label> 
-                        <Form.Row>
-                            <Form.Group as={Col} md='6' controlId="linkName">
-                                <Form.Label>Name</Form.Label>
-                                <Form.Control type="text" name="linkName" value={this.state.links.linkName} onChange={this.handleLinksChange} />
-                            </Form.Group>
-                            <Form.Group as={Col} md='6' controlId="linkUrl">
-                                <Form.Label>Url</Form.Label>
-                                <Form.Control type="text" name="url" value={this.state.links.url} onChange={this.handleLinksChange} />
-                            </Form.Group>
-                        </Form.Row> */}
+                            <Form.Row>
+                                <Form.Group as={Col} md='6' controlId="linkName">
+                                    <Form.Label>Name</Form.Label>
+                                    <Form.Control type="text" name="linkName" value={this.state.links.linkName} onChange={this.handleLinksChange} />
+                                </Form.Group>
+                                <Form.Group as={Col} md='6' controlId="linkUrl">
+                                    <Form.Label>Url</Form.Label>
+                                    <Form.Control type="text" name="url" value={this.state.links.url} onChange={this.handleLinksChange} />
+                                </Form.Group>
+                            </Form.Row> */}
 
                             <Form.Group>
                                 <Form.Label>Imagen (file) {this.state.uploadingActive && <Loader />}</Form.Label>

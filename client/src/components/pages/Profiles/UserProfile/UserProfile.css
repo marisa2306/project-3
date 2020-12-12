@@ -1,3 +1,33 @@
+.user-profile h1{
+   font-size: 2em;
+}
+
+.user-profile h2{
+    font-size: 1.8em;
+}
+
 .user-img{
     width:150px;
+    height:150px;
+    object-fit: cover;
 }
+
+.tab-content{
+    background-color:#fff;
+    padding:20px;
+    border: 1px solid #dee2e6 ;
+    border-bottom-left-radius: .25rem;
+    border-top-right-radius: .25rem;
+    border-bottom-right-radius: .25rem;
+    box-shadow: 0 4px 12px rgba(0,0,0,.08)
+}
+
+.nav-tabs{
+    border-bottom:none;
+    z-index:20;
+  
+
+}
+
+
+
