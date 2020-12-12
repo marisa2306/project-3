@@ -24,10 +24,7 @@ class EditUserForm extends Component {
 
     componentDidMount = () => this.setState({ user: this.props.loggedUser })
 
-    handleInputChange = e => {
-        e.persist()
-        this.setState(prevState => ({ user: { ...prevState.user, [e.target.name]: e.target.value } }))
-    }
+    handleInputChange = e => this.setState({ user: { ...this.setState.user, [e.target.name]: e.target.value } })
 
     handleSubmit = e => {
         e.preventDefault()

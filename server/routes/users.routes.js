@@ -2,7 +2,7 @@ const express = require('express')
 const router = express.Router()
 const mongoose = require('mongoose')
 const User = require('../models/user.model')
-const { isLoggedIn } = require('../middleware/custom-middleware')
+const { isLoggedIn, isValidId } = require('../middleware/custom-middleware')        // TO-DO ==> da server error
 
 router.get('/getAllUsers', (req, res) => {
     User

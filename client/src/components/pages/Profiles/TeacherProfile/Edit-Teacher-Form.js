@@ -31,11 +31,6 @@ class EditTeacherForm extends Component {
 
     // handleLinksChange = e => this.setState({ links:  [{...this.state.links, [ e.target.name ]: e.target.value }] })
 
-    // handleInputChange = e => {
-    //   e.persist()
-    //   this.setState(prevState => ({ teacher: { ...prevState.teacher, [ e.target.name ]: e.target.value } }))
-    // }
-
     handleSubmit = e => {
         e.preventDefault()
 

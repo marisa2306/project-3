@@ -47,11 +47,23 @@ class UserProfile extends Component {
   componentDidUpdate = currentProps => this.state.favCourses.length !== currentProps.loggedUser.favorites.length ? this.getFavsCourses() : null
 
   deleteAll = () => {
-    if (this.props.teacherInfo) { !this.state.teacherCourses ? this.deleteTeacherAndUser() : this.deleteCoursesTeacherAndUser() }
-    if (!this.props.teacherInfo) { this.deleteOnlyUser() }
+    !this.props.teacherInfo ? this.deleteOnlyUser() : !this.state.teacherCourses ? this.deleteTeacherAndUser() : this.deleteCoursesTeacherAndUser()
   }
 
-  //    ******  CHUSTI-FUNCTIONS
+  // deleteCoursesTeacherAndUser = () => {        CONSEJO GERMÁN -- IRÁ EN SERVER ¿?
+  //   this.coursesServices
+  //     .deleteTeacherCourses(this.props.teacherInfo._id)
+  //     .then(() => this.teachersServices.deleteTeacher(this.props.teacherInfo._id))
+  //     .then(() => this.usersServices.deleteUser(this.props.loggedUser._id))
+  //     .then(() => {
+  //       this.props.handleToast(true, 'User deleted', 'green')
+  //       this.props.storeUser(undefined)
+  //       this.props.history.push('/')
+  //     })
+  //     .catch(err => console.log('error al borrar los cursos del teacher', err))   //  TO-DO -- ¿qué hacemos con esto?
+  // }
+
+  //    ******  CHUSTI-FUNCTIONS  --  ESTO DEBERÁ IR EN SERVER
 
   // delete teacher's courses 
   deleteCoursesTeacherAndUser = () => {

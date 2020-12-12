@@ -19,19 +19,32 @@ class TeacherDetails extends Component {
 
   componentDidMount = () => this.refreshTeacher()
 
-  refreshTeacher = () => {
+  refreshTeacher = () => {             // CORRECCIÓN DE GERMÁN
     const teacher_id = this.props.match.params.teacher_id
+    const getTeacher = this.teachersServices.getTheTeacher(teacher_id)
+    const getCourses = this.coursesServices.getTeacherCourses(teacher_id)
 
-    this.teachersServices
-      .getTheTeacher(teacher_id)
-      .then(response => this.setState({ teacher: response.data }))
-      .catch(err => console.log(err))   //  TO-DO -- ¿qué hacemos con esto?
-    
-    this.coursesServices
-      .getTeacherCourses(teacher_id)
-      .then(response => this.setState({ courses: response.data }))
-      .catch(err => console.log(err))   //  TO-DO -- ¿qué hacemos con esto?
+    Promise.all([ getTeacher, getCourses ])
+      .then(response => this.setState({ teacher: response[ 0 ].data, courses: response[ 1 ].data }))
+      .catch(() => {
+        this.props.history.push('/profile')   //  TO-DO -- ¿está bien así?
+        this.props.handleToast(true, 'An error has occurred, please try again later', 'red')
+      })
   }
+
+  // refreshTeacher = () => {
+  //   const teacher_id = this.props.match.params.teacher_id
+
+  //   this.teachersServices
+  //     .getTheTeacher(teacher_id)
+  //     .then(response => this.setState({ teacher: response.data }))
+  //     .catch(err => console.log(err))   //  TO-DO -- ¿qué hacemos con esto?
+    
+  //   this.coursesServices
+  //     .getTeacherCourses(teacher_id)
+  //     .then(response => this.setState({ courses: response.data }))
+  //     .catch(err => console.log(err))   //  TO-DO -- ¿qué hacemos con esto?
+  // }
 
   render() {
     return (

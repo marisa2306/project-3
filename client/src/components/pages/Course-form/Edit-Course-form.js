@@ -36,12 +36,7 @@ class EditCourseForm extends Component {
             .catch(err => console.log(err))
     }
 
-    handleInputChange = e => {
-        e.persist()
-        this.setState(prevState => ({
-            course: { ...prevState.course, [e.target.name]: e.target.value }
-        }))
-    }
+    handleInputChange = e => this.setState({ course: { ...this.state.course, [e.target.name]: e.target.value }})
 
     handleSubmit = e => {
         e.preventDefault()
