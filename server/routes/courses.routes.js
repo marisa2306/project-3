@@ -2,6 +2,8 @@ const express = require('express')
 const router = express.Router()
 const mongoose = require('mongoose')
 const Course = require('../models/course.model')
+const { isLoggedIn, isTeacher } = require('../middleware/custom-middleware')
+
 
 
 router.get('/getAllCourses', (req, res) => {
@@ -38,7 +40,7 @@ router.get('/getOneCourse/:course_id', (req, res) => {
         .catch(err => res.status(500).json(err))
 })
 
-router.post('/newCourse', (req, res) => {
+router.post('/newCourse', isLoggedIn, isTeacher, (req, res) => {
     Course
         .create(req.body)
         .then(response => res.json(response))
@@ -49,14 +51,14 @@ router.post('/newCourse', (req, res) => {
     //res.status(500).json(err))
 })
 
-router.put('/editCourse/:course_id', (req, res) => {
+router.put('/editCourse/:course_id', isLoggedIn, isTeacher, (req, res) => {
     Course
         .findByIdAndUpdate(req.params.course_id, req.body)
         .then(response => res.json(response))
         .catch(err => res.status(500).json(err))
 })
 
-router.delete('/deleteTeacherCourses/:teacher_id', (req, res) => {
+router.delete('/deleteTeacherCourses/:teacher_id', isLoggedIn, isTeacher, (req, res) => {
     const teacherId = req.params.teacher_id
 
     if (!mongoose.Types.ObjectId.isValid(teacherId)) {
@@ -70,7 +72,7 @@ router.delete('/deleteTeacherCourses/:teacher_id', (req, res) => {
         .catch(err => res.status(500).json(err))
 })
 
-router.delete('/deleteCourse/:course_id', (req, res) => {
+router.delete('/deleteCourse/:course_id', isLoggedIn, isTeacher, (req, res) => {
     Course
         .findByIdAndDelete(req.params.course_id)
         .then(() => res.json({ message: 'Course Deleted' }))
