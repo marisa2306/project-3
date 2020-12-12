@@ -5,6 +5,8 @@ import UsersServices from './../../../../service/users.service'
 import CoursesServices from './../../../../service/courses.service'
 import TeacherServices from './../../../../service/teachers.service'
 import CourseCard from './../../../shared/CourseCard/Course-card'
+import Popup from '../../../shared/Popup/Popup'
+import DeleteMessage from '../../../shared/Delete-message/DeleteMessage'
 import './UserProfile.css'
 
 class UserProfile extends Component {
@@ -12,7 +14,8 @@ class UserProfile extends Component {
     super()
     this.state = {
       teacherCourses: undefined,
-      favCourses: []
+      favCourses: [],
+      showModal: false
     }
     this.usersServices = new UsersServices()
     this.coursesServices = new CoursesServices()
@@ -93,9 +96,23 @@ class UserProfile extends Component {
       .catch(err => console.log('desde el catch del user', err))   //  TO-DO -- ¿qué hacemos con esto?
   }
 
+  handleModal = visible => this.setState({ showModal: visible })
+
 
   render() {
     return (
+      <>
+        <Popup show={this.state.showModal} handleModal={this.handleModal} color={'maroon'}>
+          <DeleteMessage />
+          <Row className='justify-content-center'>
+            <Col xs='auto'>
+              <Button variant='secondary' onClick={() => this.handleModal(false)}>Close</Button>
+            </Col>
+            <Col xs='auto'>
+              <Button to={`/profile/delete-user/${this.props.loggedUser._id}`} onClick={this.deleteAll} variant='light'>Delete account</Button>
+            </Col>
+          </Row>
+        </Popup>
 
       <Container className="user-profile">
         <h1 className="mb-5">Welcome back {this.props.loggedUser.username} !</h1>
@@ -113,7 +130,8 @@ class UserProfile extends Component {
             <Row>
               <Col md={{ span: 5 }}>
                 <Link to='/profile/edit-user' className="btn btn-info mr-3">Edit account details</Link>
-                <Button to={`/profile/delete-user/${this.props.loggedUser._id}`} onClick={this.deleteAll} className="btn btn-danger">Delete account</Button>
+                <Button onClick={() => this.handleModal(true)} className="btn btn-danger">Delete account</Button>
+                  
               </Col>
               <Col md={{ span: 3, offset: 4 }}>
                 {this.props.loggedUser.role === 'Teacher' && this.props.teacherInfo
@@ -156,7 +174,8 @@ class UserProfile extends Component {
             </Tab>
           </Tabs>
         </Row>
-      </Container>
+        </Container>
+      </>
     )
   }
 }

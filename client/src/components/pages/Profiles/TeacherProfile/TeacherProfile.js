@@ -5,13 +5,16 @@ import TeachersServices from '../../../../service/teachers.service'
 import React, { Component } from 'react'
 import CourseCard from '../../../shared/CourseCard/Course-card'
 import Loader from './../../../shared/Spinner/Loader'
+import Popup from '../../../shared/Popup/Popup'
+import DeleteMessage from '../../../shared/Delete-message/DeleteMessage'
 import './TeacherProfile.css'
 
 class TeacherProfile extends Component {
   constructor() {
     super()
     this.state = {
-      courses: undefined
+      courses: undefined,
+      showModal: false
     }
     this.teachersServices = new TeachersServices()
     this.coursesServices = new CoursesServices()
@@ -65,9 +68,23 @@ class TeacherProfile extends Component {
         .catch(() => this.props.handleToast(true, 'An error has occurred while deleting, please try again later', 'red')) //  TO-DO -- ¿está bien así?
   }
 
+  handleModal = visible => this.setState({ showModal: visible })
+
   render() {
     return (
       <>
+        <Popup show={this.state.showModal} handleModal={this.handleModal} color={'maroon'}>
+          <DeleteMessage />
+          <Row className='justify-content-center'>
+            <Col xs='auto'>
+              <Button variant='secondary' onClick={() => this.handleModal(false)}>Close</Button>
+            </Col>
+            <Col xs='auto'>
+              <Button onClick={this.deleteTeacher} variant='light'>Delete teacher</Button>
+            </Col>
+          </Row>
+        </Popup>
+        
         <Container className="teacher-profile">
           <Row>
 
@@ -96,7 +113,7 @@ class TeacherProfile extends Component {
               </Row>
               <Row >
                 <Link to='/profile-teacher/edit-teacher' className="btn btn-info btn-block">Edit teacher details</Link>
-                <Button onClick={this.deleteTeacher} className="btn btn-danger btn-block">Delete teacher</Button>
+                <Button onClick={() => this.handleModal(true)} className="btn btn-danger btn-block">Delete</Button>
                 <Link to='/profile-teacher/create-course' className="btn btn-success btn-block">Create new course</Link>
               </Row>
             </Col>
