@@ -95,6 +95,7 @@ class NewCourseForm extends Component {
                                     <Form.Label>Level</Form.Label>
                                     <Form.Control as='select' name='difficultyLevel' value={this.state.difficultyLevel} onChange={this.handleInputChange}>
                                         <option>Choose one option</option>
+                                        <option value='All levels' >All levels</option>
                                         <option value='Beginner' >Beginner</option>
                                         <option value='Intermidiate' >Intermidiate</option>
                                         <option value='Advanced' >Advanced</option>

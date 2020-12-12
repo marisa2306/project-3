@@ -11,27 +11,28 @@ const CourseCard = props => {
                 <Card.Img variant="top" src={props.imageUrl} alt={props.title} />
                 <Card.Body>
                     <Card.Title>{props.title}</Card.Title>
+                    {/* TO-DO props.owner borrar despues de eliminar cursos sin owner*/}
                     {props.owner ? <Card.Subtitle className="mb-2 text-muted">by {props.owner.name} {props.owner.surname}</Card.Subtitle> : null}
 
-                    <Card.Text>{props.category} | {props.difficultyLevel} | {props.price} € | {props.duration} h </Card.Text>
+                    <Card.Text className="details"><strong>Category:</strong> {props.category} | <strong>Level:</strong> {props.difficultyLevel} </Card.Text>
+                    <Card.Text><strong>Price:</strong> {props.price} € | <strong>Duration:</strong> {props.duration} h</Card.Text>
 
-                    <Link className="btn btn-dark btn-sm mr-5" to={`/courses/${props._id}`}>View details</Link>
+                    <Link className="btn btn-dark" to={`/courses/${props._id}`}>View more</Link>
 
                     {props.teacher && props.owner === props.teacher._id
                         ?
                         <>
-
-                            <Link to={`/profile-teacher/edit-course/${props._id}`} className="btn btn-info mr-3">Edit</Link>
+                            <Link to={`/profile-teacher/edit-course/${props._id}`} className="btn btn-info mx-2">Edit</Link>
                             <Button to={`/profile-teacher/delete-course/${props._id}`} onClick={() => props.deleteCourse(props._id)} className="btn btn-danger">Delete</Button>
-                            <span><img src={mine} style={{ width: 20, height: 20 }} alt={props.title} /></span>
+                            {/* <span><img src={mine} style={{ width: 20, height: 20 }} alt={props.title} /></span> */}
                         </>
-
                         : null
                     }
-                    {props.userInfo ? 
+                    {props.userInfo ?
                         <FavButton updateFavs={props.updateFavs} userInfo={props.userInfo} itemInfo={props} />
                         : null
                     }
+
                 </Card.Body>
             </Card>
         </Col>

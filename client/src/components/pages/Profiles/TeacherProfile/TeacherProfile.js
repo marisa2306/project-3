@@ -62,47 +62,61 @@ class TeacherProfile extends Component {
 
   render() {
     return (
+      <>
+        <Container className="teacher-profile">
+          <Row>
 
-      <Container>
-        <h1 className="mb-5">Welcome, {this.props.teacherInfo.name} {this.props.teacherInfo.surname} !</h1>
-        <hr></hr>
-        <Row>
-          <Col md={1}>
-            <Image src={this.props.teacherInfo.imageUrl} className="user-img" roundedCircle alt={this.props.teacherInfo.name} />
-          </Col>
+            <Col md={{ span: 9 }}>
+              <p className="instructor" style={{ color: '#73726c' }}>INSTRUCTOR</p>
+              <h1>{this.props.teacherInfo.name} {this.props.teacherInfo.surname} </h1>
+              <p><strong>{this.props.teacherInfo.jobOccupation}</strong></p>
+              <hr></hr>
+              <h3><strong>About me</strong></h3>
+              <p>{this.props.teacherInfo.description}</p>
+            </Col>
+            <Col md={{ span: 2, offset: 1 }} className="d-flex align-items-center flex-column">
+              <Row>
+                <Image src={this.props.loggedUser.imageUrl} className="user-img mb-3" roundedCircle alt={this.props.teacherInfo.name} />
+              </Row>
+              <Row className="mb-5">
+                {/* 
+              {this.props.teacherInfo.url ?
+                this.props.teacherInfo.url.map(elm => <a className="btn btn-success" href={this.props.teacherInfo.url} target="_blank" key={elm._id}{...elm}>Linkedin</a>)
+                : null
+              } */}
+                {this.props.teacherInfo.linkedin ?
+                  <a className="btn btn-outline-primary btn-block linkedin" href={this.props.teacherInfo.linkedin} target="_blank">Linkedin</a>
+                  : null
+                }
+              </Row>
+              <Row >
+                <Link to='/profile-teacher/edit-teacher' className="btn btn-info btn-block">Edit teacher details</Link>
+                <Button onClick={this.deleteTeacher} className="btn btn-danger btn-block">Delete teacher</Button>
+                <Link to='/profile-teacher/create-course' className="btn btn-success btn-block">Create new course</Link>
+              </Row>
+            </Col>
 
-          <Col md={{ span: 10, offset: 1 }}>
-            <p><strong>Job Occupation</strong>{this.props.teacherInfo.jobOccupation}</p>
-          </Col>
-        </Row>
+          </Row>
 
-        <hr></hr>
+          <hr></hr>
 
-        <Row>
-          <Col md={4}>
-            <Link to='/profile-teacher/edit-teacher' className="btn btn-info btn-block">Edit your teacher details</Link>
-          </Col>
-          <Col md={4}>
-            <Link to='/profile-teacher/create-course' className="btn btn-success btn-block">Create new course</Link>
-          </Col>
-          <Col md={4}>
-            <Button onClick={this.deleteTeacher} className="btn btn-danger btn-block">Delete teacher</Button>
-          </Col>
-        </Row>
+          <Row>
+            <Col md={12}>
+              <h2 className="mt-5 mb-5">Your Courses</h2>
+            </Col>
+          </Row>
+          <Row>
+            {
+              this.state.courses
+                ?
+                this.state.courses.map(elm => <CourseCard key={elm._id} {...elm} teacher={this.props.teacherInfo} userInfo={this.props.loggedUser} deleteCourse={this.deleteCourse} />)
+                :
+                <Loader />
+            }
 
-        <Row>
-          <h2 className="mt-5">Your Courses</h2>
-        </Row>
-        <Row>
-          {
-            this.state.courses
-              ?
-              this.state.courses.map(elm => <CourseCard key={elm._id} {...elm} teacher={this.props.teacherInfo} userInfo={this.props.loggedUser} deleteCourse={this.deleteCourse} />)
-              :
-              <Loader />
-          }
-        </Row>
-      </Container>
+          </Row>
+        </Container>
+      </>
     )
   }
 }

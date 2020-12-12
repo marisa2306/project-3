@@ -1,4 +1,4 @@
-import { Container, Image, Col, Row, Button } from 'react-bootstrap'
+import { Container, Image, Col, Row, Button, Tabs, Tab } from 'react-bootstrap'
 import { Link } from 'react-router-dom'
 import React, { Component } from 'react'
 import UsersServices from './../../../../service/users.service'
@@ -46,7 +46,7 @@ class UserProfile extends Component {
     }
   }
 
-
+  componentDidUpdate = currentProps => this.state.favCourses.length !== currentProps.loggedUser.favorites.length ? this.getFavsCourses() : null
   ///////////////////////////
   deleteAll = () => {
     //hay teacher?
@@ -107,10 +107,11 @@ class UserProfile extends Component {
     console.log('Estos son los fav', this.state.favCourses)
     return (
 
-      <Container>
+      <Container className="user-profile">
         <h1 className="mb-5">Welcome back {this.props.loggedUser.username} !</h1>
-        <hr></hr>
+
         {/* User details */}
+        <hr></hr>
         <Row>
           <Col md={1}>
             <Image src={this.props.loggedUser.imageUrl} className="user-img" roundedCircle alt={this.props.loggedUser.username} />
@@ -119,35 +120,52 @@ class UserProfile extends Component {
             <p><strong>Username:</strong> {this.props.loggedUser.username}</p>
             <p><strong>Email:</strong> {this.props.loggedUser.email}</p>
             <p><strong>Role:</strong> {this.props.loggedUser.role}</p>
-            <Link to='/profile/edit-user' className="btn btn-info mr-3">Edit your user details</Link>
-            <Button to={`/profile/delete-user/${this.props.loggedUser._id}`} onClick={this.deleteAll} className="btn btn-danger">Delete your account</Button>
+            <Row>
+              <Col md={{ span: 5 }}>
+                <Link to='/profile/edit-user' className="btn btn-info mr-3">Edit account details</Link>
+                <Button to={`/profile/delete-user/${this.props.loggedUser._id}`} onClick={this.deleteAll} className="btn btn-danger">Delete account</Button>
+              </Col>
+              <Col md={{ span: 3, offset: 4 }}>
+                {this.props.loggedUser.role === 'Teacher' && this.props.teacherInfo
+                  ?
+                  <Link to='/profile-teacher' className="btn btn-warning" >View your teacher profile</Link>
+                  : this.props.loggedUser.role === 'Teacher' && !this.props.teacherInfo ?
+                    <Link to='/profile/create-teacher' className="btn btn-success">Create teacher profile</Link>
+                    : null
+                }
+              </Col>
+            </Row>
           </Col>
         </Row>
         <hr></hr>
-        <Row className="mt-5">
-          <Col md={6}>
-            {this.props.loggedUser.role === 'Teacher' && this.props.teacherInfo
-              ?
-              <Link to='/profile-teacher' className="btn btn-warning" >View your teacher profile</Link>
-              : this.props.loggedUser.role === 'Teacher' && !this.props.teacherInfo ?
-                <Link to='/profile/create-teacher' className="btn btn-success">Create your teacher profile</Link>
-                : null
-            }
-          </Col>
-        </Row>
+
+        {/* Your activity */}
+
+
         <Row>
-          <h2 className="mt-3 mb-3">Your favourite Courses</h2>
-        </Row>
-        <Row>
-
-          {//this.state.favCourses.length > 0 ?
-
-            this.state.favCourses.map(elm =>
-              <CourseCard key={elm._id} {...elm} userInfo={this.props.loggedUser} teacher={this.props.teacherInfo} updateFavs={this.props.updateFavs} />)
-
-            //: null
-          }
-
+          <Tabs className="mt-3" defaultActiveKey="favs" id="favs">
+            <h2 className="mt-3 mb-3">Your activity</h2>
+            <Tab className="mt-3 mb-3" eventKey="favs" title="Favourites">
+              <Container>
+                <Row>
+                  <h2 className="mt-3 mb-3 text-center">Your favorite Courses</h2>
+                </Row>
+                <Row>
+                  {
+                    this.state.favCourses.map(elm =>
+                      <CourseCard key={elm._id} {...elm} userInfo={this.props.loggedUser} teacher={this.props.teacherInfo} updateFavs={this.props.updateFavs} />)
+                  }
+                </Row>
+              </Container>
+            </Tab>
+            <Tab eventKey="learning" title="Learning" >
+              <Container>
+                <Row>
+                  <h2 className="mt-3 mb-3 text-center">Your Learning Activity</h2>
+                </Row>
+              </Container>
+            </Tab>
+          </Tabs>
         </Row>
       </Container>
     )

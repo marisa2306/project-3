@@ -1,3 +1,27 @@
 .user-img{
     width:150px;
 }
+.instructor{
+    font-family: Helvetica,Arial,sans-serif;
+    font-weight: 700;
+    line-height: 1.2;
+    letter-spacing: -.02rem;
+    font-size: 1.2rem;
+    margin-bottom:5px;
+}
+
+.teacher-profile h1{
+    font-weight: 700;
+    line-height: 1.2;
+    letter-spacing: -.02rem;
+    font-size: 3rem;
+}
+
+
+.teacher-profile h2{
+    font-family: Helvetica,Arial,sans-serif;
+    font-weight: 700;
+    line-height: 1.2;
+    letter-spacing: -.02rem;
+    font-size: 1.75rem;
+}
