@@ -1,10 +1,3 @@
-.user-profile h1{
-   font-size: 2em;
-}
-
-.user-profile h2{
-    font-size: 1.8em;
-}
 
 .user-img{
     width:150px;
@@ -25,9 +18,46 @@
 .nav-tabs{
     border-bottom:none;
     z-index:20;
-  
+}
+
+.nav-tabs .nav-link {
+    border-top: 1px solid #ced4da!important;
+    border-left: 1px solid #ced4da!important;
+    border-right: 1px solid #ced4da!important;
+    border-top-left-radius: .25rem;
+    border-top-right-radius: .25rem;
+ 
+}
+
+a{
+    color:#495057
+}
+
+.cta{
+    
+    padding:20px 40px;
+    background: url(https://s.udemycdn.com/browse_components/shared-assets/purple-intersect.svg) repeat-x #003645;
+    background-size: auto 120%;
+    background-position: 0 -2.4rem;
+    color:white
 
 }
+
+.user-profile h1{
+    font-weight: 700;
+    line-height: 1.2;
+    letter-spacing: -.02rem;
+    font-size: 2.5rem;
+}
+
+.user-profile h2{
+    font-family: Helvetica,Arial,sans-serif;
+    font-weight: 700;
+    line-height: 1.2;
+    letter-spacing: -.02rem;
+    font-size: 1.75rem;
+}
+
 
 
 

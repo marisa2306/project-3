@@ -25,3 +25,14 @@
     letter-spacing: -.02rem;
     font-size: 1.75rem;
 }
+
+
+.cta{
+    
+    padding:20px 40px;
+    background: url(https://s.udemycdn.com/browse_components/shared-assets/purple-intersect.svg) repeat-x #003645;
+    background-size: auto 120%;
+    background-position: 0 -2.4rem;
+    color:white
+
+}

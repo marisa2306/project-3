@@ -1,0 +1,9 @@
+.nav-tabs .nav-link {
+    border: 1px solid #ced4da;
+    border-top-left-radius: .25rem;
+    border-top-right-radius: .25rem;
+ 
+}
+a{
+    color:#495057
+}

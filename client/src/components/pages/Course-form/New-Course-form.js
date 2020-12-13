@@ -78,45 +78,54 @@ class NewCourseForm extends Component {
                                     <Form.Label>Description</Form.Label>
                                     <Form.Control as='textarea' name="description" value={this.state.description} onChange={this.handleInputChange} />
                                 </Form.Group>
-
-                                <Form.Group controlId='category'>
-                                    <Form.Label>Category</Form.Label>
-                                    <Form.Control as='select' name='category' value={this.state.category} onChange={this.handleInputChange}>
-                                        <option>Choose one option</option>
-                                        <option value='Design' >Design</option>
-                                        <option value='Development' >Development</option>
-                                        <option value='Marketing' >Marketing</option>
-                                        <option value='Music' >Music</option>
-                                        <option value='Other' >Other</option>
-                                    </Form.Control>
-                                </Form.Group>
-
-                                <Form.Group controlId='difficultyLevel'>
-                                    <Form.Label>Level</Form.Label>
-                                    <Form.Control as='select' name='difficultyLevel' value={this.state.difficultyLevel} onChange={this.handleInputChange}>
-                                        <option>Choose one option</option>
-                                        <option value='All levels' >All levels</option>
-                                        <option value='Beginner' >Beginner</option>
-                                        <option value='Intermidiate' >Intermidiate</option>
-                                        <option value='Advanced' >Advanced</option>
-                                    </Form.Control>
-                                </Form.Group>
-
+                                <Row>
+                                    <Col md={6}>
+                                        <Form.Group controlId='category'>
+                                            <Form.Label>Category</Form.Label>
+                                            <Form.Control as='select' name='category' value={this.state.category} onChange={this.handleInputChange}>
+                                                <option>Choose one option</option>
+                                                <option value='Design' >Design</option>
+                                                <option value='Development' >Development</option>
+                                                <option value='Marketing' >Marketing</option>
+                                                <option value='Music' >Music</option>
+                                                <option value='Other' >Other</option>
+                                            </Form.Control>
+                                        </Form.Group>
+                                    </Col>
+                                    <Col md={6}>
+                                        <Form.Group controlId='difficultyLevel'>
+                                            <Form.Label>Level</Form.Label>
+                                            <Form.Control as='select' name='difficultyLevel' value={this.state.difficultyLevel} onChange={this.handleInputChange}>
+                                                <option>Choose one option</option>
+                                                <option value='All levels' >All levels</option>
+                                                <option value='Beginner' >Beginner</option>
+                                                <option value='Intermidiate' >Intermidiate</option>
+                                                <option value='Advanced' >Advanced</option>
+                                            </Form.Control>
+                                        </Form.Group>
+                                    </Col>
+                                </Row>
                                 <Form.Group controlId="whatYouWillLearn">
                                     <Form.Label>Main Topics</Form.Label>
-                                    <Form.Control type="text" name="whatYouWillLearn" value={this.state.whatYouWillLearn} onChange={this.handleInputChange} />
+                                    <Form.Control as='textarea' name="whatYouWillLearn" value={this.state.whatYouWillLearn} onChange={this.handleInputChange} />
                                 </Form.Group>
-                                <Form.Group controlId="price">
-                                    <Form.Label>Price</Form.Label>
-                                    <Form.Control type="number" name="price" value={this.state.price} onChange={this.handleInputChange} min='0' />
-                                </Form.Group>
-                                <Form.Group controlId="duration">
-                                    <Form.Label>Duration</Form.Label>
-                                    <Form.Control type="number" name="duration" value={this.state.duration} onChange={this.handleInputChange} min='0' />
-                                </Form.Group>
+                                <Row>
+                                    <Col md={6}>
+                                        <Form.Group controlId="price">
+                                            <Form.Label>Price</Form.Label>
+                                            <Form.Control type="number" name="price" value={this.state.price} onChange={this.handleInputChange} min='0' />
+                                        </Form.Group>
+                                    </Col>
+                                    <Col md={6}>
+                                        <Form.Group controlId="duration">
+                                            <Form.Label>Duration</Form.Label>
+                                            <Form.Control type="number" name="duration" value={this.state.duration} onChange={this.handleInputChange} min='0' />
+                                        </Form.Group>
+                                    </Col>
+                                </Row>
                                 <Form.Group controlId="requirements">
                                     <Form.Label>Requirements</Form.Label>
-                                    <Form.Control type="text" name="requirements" value={this.state.requirements} onChange={this.handleInputChange} />
+                                    <Form.Control as='textarea' name="requirements" value={this.state.requirements} onChange={this.handleInputChange} />
                                 </Form.Group>
 
                                 <Form.Group>

@@ -44,6 +44,9 @@ const teacherSchema = new Schema({
     // url: [String],
 
     linkedin: String,
+    website: String,
+    youtube: String,
+
 
     // links: [
     //     {

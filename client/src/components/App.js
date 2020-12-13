@@ -30,6 +30,7 @@ import EditCourseForm from './pages/Course-form/Edit-Course-form'
 import Alert from './shared/Alert/Alert'
 
 class App extends Component {
+
   constructor() {
     super()
     this.state = {
@@ -42,6 +43,7 @@ class App extends Component {
     this.authServices = new AuthServices()
     this.teachersServices = new TeachersServices()
     this.usersServices = new UsersService()
+
   }
 
   componentDidMount = () => this.refreshUser()
@@ -64,34 +66,14 @@ class App extends Component {
 
   handleToast = (visible, text, color) => this.setState({ showToast: visible, toastText: text, toastColor: color })
 
-  // updateFavs = item_id => {          CORRECCIÓN GERMÁN
-  //   if (this.state.loggedInUser) {
-  //     const newList = ![ ...this.state.loggedInUser.favorites ].some(elm => elm === item_id) ? [ ...this.state.loggedInUser.favorites ].filter(elm => elm !== item_id) : [ ...this.state.loggedInUser.favorites, item_id ]
-  //     this.usersServices
-  //       .updateFavorites(this.state.loggedInUser._id, newList)
-  //       .then(() => this.refreshUser())
-  //       .catch(err => console.log(err))   //  TO-DO -- ¿qué hacemos con esto?
-
-  //   }
-  // }
-
   updateFavs = item_id => {
     if (this.state.loggedInUser) {
-      if (![...this.state.loggedInUser.favorites].some(elm => elm === item_id)) {
-        const newList = [...this.state.loggedInUser.favorites, item_id]
+      const newList = [...this.state.loggedInUser.favorites].some(elm => elm === item_id) ? [...this.state.loggedInUser.favorites].filter(elm => elm !== item_id) : [...this.state.loggedInUser.favorites, item_id]
+      this.usersServices
+        .updateFavorites(this.state.loggedInUser._id, newList)
+        .then(() => this.refreshUser())
+        .catch(err => console.log(err))   //  TO-DO -- ¿qué hacemos con esto?
 
-        this.usersServices
-          .updateFavorites(this.state.loggedInUser._id, newList)
-          .then(() => this.refreshUser())
-          .catch(err => console.log(err))   //  TO-DO -- ¿qué hacemos con esto?
-      } else {
-        const newList2 = [...this.state.loggedInUser.favorites].filter(elm => elm !== item_id)
-
-        this.usersServices
-          .updateFavorites(this.state.loggedInUser._id, newList2)
-          .then(() => this.refreshUser())
-          .catch(err => console.log(err))   //  TO-DO -- ¿qué hacemos con esto?
-      }
     }
   }
 
@@ -107,7 +89,7 @@ class App extends Component {
             <Route exact path="/courses" render={() => <CoursesList loggedUser={this.state.loggedInUser} teacherInfo={this.state.teacher} updateFavs={this.updateFavs} />} />
             <Route path="/courses/:course_id" render={props => <CourseDetails {...props} handleToast={this.handleToast} />} />
             <Route exact path="/teachers" render={() => <TeachersList loggedUser={this.state.loggedInUser} teacherInfo={this.state.teacher} />} />
-            <Route path="/teachers/:teacher_id" render={props => <TeacherDetails {...props} /*loggedUser={this.state.loggedInUser} teacherInfo={this.state.teacher} storeUser={this.setTheUser} updateFavs={this.updateFavs}*/ handleToast={this.handleToast}/>} />
+            <Route path="/teachers/:teacher_id" render={props => <TeacherDetails {...props} /*loggedUser={this.state.loggedInUser} teacherInfo={this.state.teacher} storeUser={this.setTheUser} updateFavs={this.updateFavs}*/ handleToast={this.handleToast} />} />
             <Route path="/signup" render={props => this.state.loggedInUser ? <Redirect to='/courses' /> : <Signup {...props} handleToast={this.handleToast} storeUser={this.setTheUser} />} />
             <Route exact path="/profile" render={props => this.state.loggedInUser ? <UserProfile {...props} loggedUser={this.state.loggedInUser} teacherInfo={this.state.teacher} storeUser={this.setTheUser} updateFavs={this.updateFavs} handleToast={this.handleToast} /> : <Redirect to='/signup' />} />
             <Route path="/profile/edit-user" render={props => this.state.loggedInUser ? <EditUserForm {...props} loggedUser={this.state.loggedInUser} storeUser={this.setTheUser} handleToast={this.handleToast} /> : <Redirect to='/signup' />} />
@@ -117,7 +99,7 @@ class App extends Component {
             <Route path="/profile-teacher/create-course" render={props => this.state.teacher ? <NewCourseForm {...props} loggedUser={this.state.loggedInUser} teacherInfo={this.state.teacher} handleToast={this.handleToast} /> : <Redirect to='/signup' />} />
             <Route path="/profile-teacher/edit-course/:course_id" render={props => this.state.teacher ? <EditCourseForm {...props} loggedUser={this.state.loggedInUser} teacherInfo={this.state.teacher} handleToast={this.handleToast} /> : <Redirect to='/signup' />} />
           </Switch>
-          <Alert show={this.state.showToast} handleToast={this.handleToast} toastText={this.state.toastText} color={ this.state.toastColor }/>
+          <Alert show={this.state.showToast} handleToast={this.handleToast} toastText={this.state.toastText} color={this.state.toastColor} />
         </main>
       </>
     )

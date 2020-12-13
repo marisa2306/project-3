@@ -1,0 +1,61 @@
+
+
+.hero{
+    background-image: url("https://img-a.udemycdn.com/notices/featured_banner/image_udlite/1999ee6d-47cd-42f2-baca-747713a0228b.jpg?MzUx5UU2vKPLJogS0c1LrgUimABMhgbwU5_KuBQ7c23xIC0TcCw4vYanZ_giYmZNBevR5pQlaAjqAZ_Zo7QLu9G_2WxvnLqOF7p_8LqPF4j9jFSipAUSM5zzmbsTrDruJc144iOoOKJ08SuCyf_qLgXVKikzQ0cyooyggMTz1wEKotYCoyzWQZKAkQc");
+    background-size: cover;
+    padding:200px 0;
+    background-position: top right;
+
+}
+
+.hero h1{
+    font-weight: 700;
+    line-height: 1.2;
+    letter-spacing: -.02rem;
+    font-size: 3rem;
+}
+
+ h2{
+    font-family: Helvetica,Arial,sans-serif;
+    font-weight: 700;
+    line-height: 1.2;
+    letter-spacing: -.02rem;
+    font-size: 1.75rem;
+}
+
+
+h3{
+    font-family: Helvetica,Arial,sans-serif;
+    font-weight: 700;
+    line-height: 1.2;
+    letter-spacing: -.02rem;
+    font-size: 1.75rem;
+}
+
+.home-card img {
+    width:40px;
+    margin: 1.5rem auto 0.8rem
+}
+
+.home-card{
+    box-shadow: 0 4px 12px rgba(0,0,0,.08);
+    height: auto;
+    text-align:center;
+}
+
+.banner{
+    background-color: rgb(90, 124, 153);
+    color:#fff;
+    padding:140px;
+}
+.banner p {
+    font-size:1.2em;
+}
+
+@media screen and (min-width: 992px){
+    .home-card{
+        height: 18.75rem;
+    }
+
+}
+

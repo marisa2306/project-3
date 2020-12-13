@@ -24,27 +24,14 @@ class TeacherDetails extends Component {
     const getTeacher = this.teachersServices.getTheTeacher(teacher_id)
     const getCourses = this.coursesServices.getTeacherCourses(teacher_id)
 
-    Promise.all([ getTeacher, getCourses ])
-      .then(response => this.setState({ teacher: response[ 0 ].data, courses: response[ 1 ].data }))
+    Promise.all([getTeacher, getCourses])
+      .then(response => this.setState({ teacher: response[0].data, courses: response[1].data }))
       .catch(() => {
         this.props.history.push('/profile')   //  TO-DO -- ¿está bien así?
         this.props.handleToast(true, 'An error has occurred, please try again later', 'red')
       })
   }
 
-  // refreshTeacher = () => {
-  //   const teacher_id = this.props.match.params.teacher_id
-
-  //   this.teachersServices
-  //     .getTheTeacher(teacher_id)
-  //     .then(response => this.setState({ teacher: response.data }))
-  //     .catch(err => console.log(err))   //  TO-DO -- ¿qué hacemos con esto?
-    
-  //   this.coursesServices
-  //     .getTeacherCourses(teacher_id)
-  //     .then(response => this.setState({ courses: response.data }))
-  //     .catch(err => console.log(err))   //  TO-DO -- ¿qué hacemos con esto?
-  // }
 
   render() {
     return (
@@ -53,40 +40,40 @@ class TeacherDetails extends Component {
         { this.state.teacher
           ?
           <>
-              <h1 className="mb-5">{this.state.teacher.name} {this.state.teacher.surname} !</h1>
-              <hr></hr>
-              <Row>
-                <Col md={1}>
-                  <Image src={this.state.teacher.imageUrl} className="teacher-img" roundedCircle alt={this.state.teacher.name} />
-                </Col>
+            <h1 className="mb-5">{this.state.teacher.name} {this.state.teacher.surname} !</h1>
+            <hr></hr>
+            <Row>
+              <Col md={1}>
+                <Image src={this.state.teacher.imageUrl} className="teacher-img" roundedCircle alt={this.state.teacher.name} />
+              </Col>
 
-                <Col md={{ span: 10, offset: 1 }}>
-                  <p><strong>Job Occupation</strong>{this.state.teacher.jobOccupation}</p>
-                  {/* <Link to='/profile-teacher/edit-teacher' className="btn btn-info">Edit your teacher details</Link> */}
-                </Col>
-              </Row>
+              <Col md={{ span: 10, offset: 1 }}>
+                <p><strong>Job Occupation</strong>{this.state.teacher.jobOccupation}</p>
+                {/* <Link to='/profile-teacher/edit-teacher' className="btn btn-info">Edit your teacher details</Link> */}
+              </Col>
+            </Row>
 
-              <hr></hr>
+            <hr></hr>
 
-              {/* <Row>
+            {/* <Row>
                 <Link to='/profile-teacher/create-course' className="btn btn-success">Create new course</Link>
               </Row> */}
-              
-              <Row>
-                <h2 className="mt-5"> {this.state.teacher.name} Courses</h2>
-              </Row>
-              <Row>
-                {
-                  this.state.courses
-                    ?
-                    this.state.courses.map(elm => <CourseCard key={elm._id} {...elm} teacher={this.props.teacherInfo} userInfo={this.props.loggedUser} />)
-                    :
-                    <Loader />
-                }
-              </Row>
-          </> 
+
+            <Row>
+              <h2 className="mt-5"> {this.state.teacher.name} Courses</h2>
+            </Row>
+            <Row>
+              {
+                this.state.courses
+                  ?
+                  this.state.courses.map(elm => <CourseCard key={elm._id} {...elm} teacher={this.props.teacherInfo} userInfo={this.props.loggedUser} />)
+                  :
+                  <Loader />
+              }
+            </Row>
+          </>
           : <Loader />
-      }
+        }
       </Container>
     )
   }

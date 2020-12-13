@@ -12,7 +12,9 @@ class UserProfile extends Component {
     super()
     this.state = {
       teacherCourses: undefined,
-      favCourses: []
+      favCourses: [],
+      favTeachers: [],
+      learningActivity: []
     }
     this.usersServices = new UsersServices()
     this.coursesServices = new CoursesServices()
@@ -69,7 +71,7 @@ class UserProfile extends Component {
   deleteCoursesTeacherAndUser = () => {
     this.coursesServices
       .deleteTeacherCourses(this.props.teacherInfo._id)
-      .then(()=> this.deleteTeacherAndUser())
+      .then(() => this.deleteTeacherAndUser())
       .catch(err => console.log('error al borrar los cursos del teacher', err))   //  TO-DO -- ¿qué hacemos con esto?
   }
 
@@ -98,7 +100,7 @@ class UserProfile extends Component {
     return (
 
       <Container className="user-profile">
-        <h1 className="mb-5">Welcome back {this.props.loggedUser.username} !</h1>
+        <h1 className="mt-5 mb-3">Welcome back {this.props.loggedUser.username} !</h1>
 
         {/* User details */}
         <hr></hr>
@@ -130,33 +132,51 @@ class UserProfile extends Component {
         <hr></hr>
 
         {/* Your activity */}
-
+        <h2 className="mt-5 mb-3">Your activity</h2>
         <Row>
-          <Tabs className="mt-3" defaultActiveKey="favs" id="favs">
-            <h2 className="mt-3 mb-3">Your activity</h2>
-            <Tab className="mt-3 mb-3" eventKey="favs" title="Favourites">
-              <Container>
-                <Row>
-                  <h2 className="mt-3 mb-3 text-center">Your favorite Courses</h2>
-                </Row>
-                <Row>
-                  {
-                    this.state.favCourses.map(elm =>
-                      <CourseCard key={elm._id} {...elm} userInfo={this.props.loggedUser} teacher={this.props.teacherInfo} updateFavs={this.props.updateFavs} />)
-                  }
-                </Row>
-              </Container>
-            </Tab>
-            <Tab eventKey="learning" title="Learning" >
-              <Container>
-                <Row>
-                  <h2 className="mt-3 mb-3 text-center">Your Learning Activity</h2>
-                </Row>
-              </Container>
-            </Tab>
-          </Tabs>
+          {this.state.favCourses.length > 0 || this.state.favTeachers.length > 0 || this.state.learningActivity.length > 0 ?
+            <Tabs className="mt-3" defaultActiveKey="courses" id="favs">
+              {this.state.favCourses.length > 0 ?
+                <Tab className="mt-3 mb-3" eventKey="courses" title="Favourites Courses">
+                  <Container>
+                    <Row>
+                      <h2 className="mt-3 mb-3 text-center">Your favorite Courses</h2>
+                    </Row>
+                    <Row>
+                      {
+                        this.state.favCourses.map(elm =>
+                          <CourseCard key={elm._id} {...elm} userInfo={this.props.loggedUser} teacher={this.props.teacherInfo} updateFavs={this.props.updateFavs} />)
+                      }
+                    </Row>
+                  </Container>
+                </Tab>
+                : <Tab eventKey="courses" title="Favourites Courses" disabled></Tab>
+              }
+              {this.state.favTeachers.length > 0 ?
+                <Tab eventKey="teachers" title="Favourites Teachers" >
+                  <Container>
+                    <Row>
+                      <h2 className="mt-3 mb-3 text-center">Your Learning Activity</h2>
+                    </Row>
+                  </Container>
+                </Tab>
+                : <Tab eventKey="teachers" title="Favourites Teachers" disabled></Tab>
+              }
+              {this.state.learningActivity.length > 0 ?
+                <Tab eventKey="learning" title="Learning" >
+                  <Container>
+                    <Row>
+                      <h2 className="mt-3 mb-3 text-center">Your Learning Activity</h2>
+                    </Row>
+                  </Container>
+                </Tab>
+                : <Tab eventKey="learning" title="Learning Activity" disabled></Tab>
+              }
+            </Tabs>
+            : null
+          }
         </Row>
-      </Container>
+      </Container >
     )
   }
 }

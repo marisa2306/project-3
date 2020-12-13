@@ -67,7 +67,7 @@ class EditUserForm extends Component {
                         <Form validated={this.validated} onSubmit={this.handleSubmit}>
 
                             <Form.Row>
-                                <Form.Group as={Col} md='5' controlId='username'>
+                                <Form.Group as={Col} controlId='username'>
                                     <Form.Label>Username</Form.Label>
                                     <Form.Control
                                         required
@@ -115,12 +115,12 @@ class EditUserForm extends Component {
                                 </Form.Group>
                             </Form.Row>
 
-                            <Form.Group>
+                            <Form.Group className="mt-3">
                                 <Form.Label>Imagen (file) {this.state.uploadingActive && <Loader />}</Form.Label>
                                 <Form.Control type="file" onChange={this.handleImageUpload} />
                             </Form.Group>
 
-                            <Form.Group>
+                            <Form.Group className="mt-5">
                                 <Button variant='info' type='submit' disabled={this.state.uploadingActive}>{this.state.uploadingActive ? 'Image loading...' : 'Edit your user details'}</Button>
                             </Form.Group>
                         </Form>

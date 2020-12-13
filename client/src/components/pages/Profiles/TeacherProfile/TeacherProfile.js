@@ -41,7 +41,7 @@ class TeacherProfile extends Component {
 
   deleteTeacher = () => {
     const teacher_Id = this.props.teacherInfo._id
-    
+
     !this.state.courses
       ?
       this.teachersServices
@@ -53,7 +53,7 @@ class TeacherProfile extends Component {
         })
         .catch(() => this.props.handleToast(true, 'An error has occurred while deleting, please try again later', 'red')) //  TO-DO -- ¿está bien así?
       :
-      
+
       this.coursesServices
         .deleteTeacherCourses(teacher_Id)
         .then(() => this.teachersServices.deleteTeacher(teacher_Id))
@@ -90,7 +90,15 @@ class TeacherProfile extends Component {
                 : null
               } */}
                 {this.props.teacherInfo.linkedin ?
-                  <a className="btn btn-outline-primary btn-block linkedin" href={this.props.teacherInfo.linkedin} target="_blank">Linkedin</a>
+                  <a className="btn btn-outline-primary btn-block " href={this.props.teacherInfo.linkedin} target="_blank">Linkedin</a>
+                  : null
+                }
+                {this.props.teacherInfo.website ?
+                  <a className="btn btn-outline-primary btn-block " href={this.props.teacherInfo.website} target="_blank">Website</a>
+                  : null
+                }
+                {this.props.teacherInfo.youtube ?
+                  <a className="btn btn-outline-primary btn-block " href={this.props.teacherInfo.youtube} target="_blank">Youtube</a>
                   : null
                 }
               </Row>
@@ -102,7 +110,6 @@ class TeacherProfile extends Component {
             </Col>
 
           </Row>
-
           <hr></hr>
 
           <Row>
@@ -116,9 +123,13 @@ class TeacherProfile extends Component {
                 ?
                 this.state.courses.map(elm => <CourseCard key={elm._id} {...elm} teacher={this.props.teacherInfo} userInfo={this.props.loggedUser} deleteCourse={this.deleteCourse} />)
                 :
-                <Loader />
+                <Col className="cta">
+                  <Row className="d-flex justify-content-between">
+                    <p className="mt-2 mb-0">Let's start teaching, <strong>{this.props.loggedUser.username}</strong>! Create an Engaging Course.</p>
+                    <Link to='/profile-teacher/create-course' className="btn btn-success btn-block">Create new course</Link>
+                  </Row>
+                </Col>
             }
-
           </Row>
         </Container>
       </>

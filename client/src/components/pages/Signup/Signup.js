@@ -73,7 +73,7 @@ class Signup extends Component {
                 </Form.Group>
               </Form.Row>
 
-              <Form.Row>
+              <Form.Row className="mt-2">
                 <Form.Group as={Col} md='7' controlId='email'>
                   <Form.Label>Email address</Form.Label>
                   <Form.Control
@@ -95,7 +95,7 @@ class Signup extends Component {
                 </Form.Group>
               </Form.Row>
 
-              <Form.Group>
+              <Form.Group className="mt-3">
                 <Button variant='dark' type='submit'>Let's start !</Button>
               </Form.Group>
             </Form>

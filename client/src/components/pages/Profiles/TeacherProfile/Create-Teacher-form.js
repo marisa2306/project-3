@@ -2,7 +2,9 @@ import React, { Component } from 'react'
 import TeachersService from '../../../../service/teachers.service'
 import FilesService from '../../../../service/upload.service'
 import Loader from '../../../shared/Spinner/Loader'
-import { Container, Row, Col, Form, Button } from 'react-bootstrap'
+import { Container, Row, Col, Form, Button, Tabs, Tab } from 'react-bootstrap'
+import './Create-Teacher-form.css'
+
 
 class NewTeacherForm extends Component {
     constructor(props) {
@@ -17,6 +19,10 @@ class NewTeacherForm extends Component {
                 //     linkName: '',
                 //     url: ''
                 // }],
+                linkedin: '',
+                youtube: '',
+                website: '',
+
                 user: this.props.loggedUser ? this.props.loggedUser._id : '',
                 showInput: false,
             },
@@ -42,7 +48,7 @@ class NewTeacherForm extends Component {
                 this.props.handleToast(true, 'Congratulations!, now you have a teacher\'s profile', 'green')
             })
             .catch(() => this.props.handleToast(true, 'An error has occurred while creating your teacher profile, please try again later', 'red')) //  TO-DO -- ¿está bien así?
-        
+
     }
 
     handleImageUpload = e => {
@@ -62,13 +68,11 @@ class NewTeacherForm extends Component {
             .catch(err => this.props.handleToast(true, err.response.data.message, 'red'))   // TO-DO ¿o mejor así?
     }
 
-
-    toggleInput = () => {
-        //alert('funoncia!!!')
-        //this.setState({ showInput: true })
-        this.setState({ showInput: !this.state.showInput })
-    }
-
+    // toggleInput = () => {
+    //     //alert('funoncia!!!')
+    //     //this.setState({ showInput: true })
+    //     this.setState({ showInput: !this.state.showInput })
+    // }
 
     render() {
 
@@ -76,19 +80,24 @@ class NewTeacherForm extends Component {
             <Container>
                 <Row>
                     <Col md={{ span: 8, offset: 2 }}>
-                        <h1>Create your teacher Profile</h1>
+                        <h1>Create your Teacher Profile</h1>
                         <hr />
 
                         <Form onSubmit={this.handleSubmit}>
-                            <Form.Group controlId="name">
-                                <Form.Label>Name</Form.Label>
-                                <Form.Control type="text" name="name" value={this.state.name} onChange={this.handleInputChange} />
-                            </Form.Group>
-                            <Form.Group controlId="surname">
-                                <Form.Label>Surname</Form.Label>
-                                <Form.Control type="text" name="surname" value={this.state.surname} onChange={this.handleInputChange} />
-                            </Form.Group>
-
+                            <Row>
+                                <Col md={6}>
+                                    <Form.Group controlId="name">
+                                        <Form.Label>Name</Form.Label>
+                                        <Form.Control type="text" name="name" value={this.state.name} onChange={this.handleInputChange} />
+                                    </Form.Group>
+                                </Col>
+                                <Col md={6}>
+                                    <Form.Group controlId="surname">
+                                        <Form.Label>Surname</Form.Label>
+                                        <Form.Control type="text" name="surname" value={this.state.surname} onChange={this.handleInputChange} />
+                                    </Form.Group>
+                                </Col>
+                            </Row>
                             <Form.Group controlId="jobOccupation">
                                 <Form.Label>Job Occupation</Form.Label>
                                 <Form.Control type="text" name="jobOccupation" value={this.state.jobOccupation} onChange={this.handleInputChange} />
@@ -99,15 +108,34 @@ class NewTeacherForm extends Component {
                             </Form.Group>
 
                             {/* LINKEDIN */}
-                            <Button onClick={this.toggleInput}>Add Linkedin</Button>
+                            {/* <Button onClick={this.toggleInput} className="mt-3 mb-3">Add Linkedin</Button>
                             {this.state.showInput ?
                                 < Form.Group controlId="linkedin">
                                     <Form.Label>Linkedin url</Form.Label>
                                     <Form.Control type="text" name="linkedin" value={this.state.linkedin} onChange={this.handleInputChange} />
                                 </Form.Group>
                                 : null
-                            }
-
+                            } */}
+                            <Tabs className="mt-4" defaultActiveKey="linkedin" id="Personal Links">
+                                <Tab eventKey="linkedin" title="Linkedin">
+                                    < Form.Group controlId="linkedin">
+                                        <Form.Label>Linkedin url</Form.Label>
+                                        <Form.Control type="text" name="linkedin" value={this.state.linkedin} onChange={this.handleInputChange} />
+                                    </Form.Group>
+                                </Tab>
+                                <Tab eventKey="website" title="Website">
+                                    < Form.Group controlId="website">
+                                        <Form.Label>Website url</Form.Label>
+                                        <Form.Control type="text" name="website" value={this.state.website} onChange={this.handleInputChange} />
+                                    </Form.Group>
+                                </Tab>
+                                <Tab eventKey="youtube" title="Youtube">
+                                    < Form.Group controlId="linkedin">
+                                        <Form.Label>Youtube url</Form.Label>
+                                        <Form.Control type="text" name="youtube" value={this.state.youtube} onChange={this.handleInputChange} />
+                                    </Form.Group>
+                                </Tab>
+                            </Tabs>
 
                             {/* <Form.Label><strong>Links</strong></Form.Label> 
                             <Form.Row>
@@ -121,12 +149,12 @@ class NewTeacherForm extends Component {
                                 </Form.Group>
                             </Form.Row> */}
 
-                            <Form.Group>
+                            <Form.Group className="mt-3">
                                 <Form.Label>Imagen (file) {this.state.uploadingActive && <Loader />}</Form.Label>
                                 <Form.Control type="file" onChange={this.handleImageUpload} />
                             </Form.Group>
 
-                            <Button variant="dark" type="submit" disabled={this.state.uploadingActive}> {this.state.uploadingActive ? 'Image loading...' : 'Create Teacher profile'}</Button>
+                            <Button className="mt-3" variant="dark" type="submit" disabled={this.state.uploadingActive}> {this.state.uploadingActive ? 'Image loading...' : 'Create Teacher profile'}</Button>
                         </Form>
                     </Col>
                 </Row>
