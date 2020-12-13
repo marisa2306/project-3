@@ -15,12 +15,9 @@ class UserProfile extends Component {
     this.state = {
       teacherCourses: undefined,
       favCourses: [],
-<<<<<<< HEAD
       favTeachers: [],
-      learningActivity: []
-=======
+      learningActivity: [],
       showModal: false
->>>>>>> 0f38c0a5d1a3f77788f5be2a9afd2237454e7e0b
     }
     this.usersServices = new UsersServices()
     this.coursesServices = new CoursesServices()
