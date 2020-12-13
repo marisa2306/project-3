@@ -118,19 +118,19 @@ class NewTeacherForm extends Component {
                             } */}
                             <Tabs className="mt-4" defaultActiveKey="linkedin" id="Personal Links">
                                 <Tab eventKey="linkedin" title="Linkedin">
-                                    < Form.Group controlId="linkedin">
+                                    <Form.Group controlId="linkedin">
                                         <Form.Label>Linkedin url</Form.Label>
                                         <Form.Control type="text" name="linkedin" value={this.state.linkedin} onChange={this.handleInputChange} />
                                     </Form.Group>
                                 </Tab>
                                 <Tab eventKey="website" title="Website">
-                                    < Form.Group controlId="website">
+                                    <Form.Group controlId="website">
                                         <Form.Label>Website url</Form.Label>
                                         <Form.Control type="text" name="website" value={this.state.website} onChange={this.handleInputChange} />
                                     </Form.Group>
                                 </Tab>
                                 <Tab eventKey="youtube" title="Youtube">
-                                    < Form.Group controlId="linkedin">
+                                    <Form.Group controlId="linkedin">
                                         <Form.Label>Youtube url</Form.Label>
                                         <Form.Control type="text" name="youtube" value={this.state.youtube} onChange={this.handleInputChange} />
                                     </Form.Group>
