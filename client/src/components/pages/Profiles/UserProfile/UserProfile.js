@@ -173,7 +173,12 @@ class UserProfile extends Component {
                 : <Tab eventKey="learning" title="Learning Activity" disabled></Tab>
               }
             </Tabs>
-            : null
+            : <Col className="cta">
+              <Row className="d-flex justify-content-between">
+                <p className="mt-2 mb-0">Let's start teaching, <strong>{this.props.loggedUser.username}</strong>! Create an Engaging Course.</p>
+                <Link to='/profile-teacher/create-course' className="btn btn-success btn-block">Create new course</Link>
+              </Row>
+            </Col>
           }
         </Row>
       </Container >
