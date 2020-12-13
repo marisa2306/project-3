@@ -1,6 +1,5 @@
 const express = require('express')
 const router = express.Router()
-const mongoose = require('mongoose')
 const User = require('../models/user.model')
 const { isLoggedIn, isValidId } = require('../middleware/custom-middleware')        // TO-DO ==> da server error
 
@@ -11,53 +10,37 @@ router.get('/getAllUsers', (req, res) => {
         .catch(err => res.status(500).json(err))
 })
 
-router.get('/getOneUser/:user_id', (req, res) => {
-    if (!mongoose.Types.ObjectId.isValid(req.params.user_id)) {
-        res.status(404).json({ message: 'Invalid ID' })
-        return
-    }
-
+router.get('/getOneUser/:id', isValidId, (req, res) => {
     User
-        .findById(req.params.user_id)
+        .findById(req.params.id)
         .then(response => res.json(response))
         .catch(err => res.status(500).json(err))
 })
 
-router.put('/editUser/:user_id', isLoggedIn, (req, res) => {
+router.put('/editUser/:id', isLoggedIn, isValidId, (req, res) => {
     User
-        .findByIdAndUpdate(req.params.user_id, req.body, { new: true })
+        .findByIdAndUpdate(req.params.id, req.body, { new: true })
         .then(response => res.json(response))
         .catch(err => res.status(500).json(err))
 })
 
-router.delete('/deleteUser/:user_id', isLoggedIn, (req, res) => {
-    const user_id = req.params.user_id
-    if (!mongoose.Types.ObjectId.isValid(user_id)) {
-        res.status(404).json({ message: 'Invalid ID' })
-        return
-    }
-
+router.delete('/deleteUser/:id', isLoggedIn, isValidId, (req, res) => {
     User
-        .findByIdAndDelete(user_id)
+        .findByIdAndDelete(req.params.id)
         .then(() => res.json({ message: 'User deleted' }))
         .catch(err => res.status(500).json(err))
 })
 
-router.put('/editUser/updateFavs/:user_id', isLoggedIn, (req, res) => {
+router.put('/editUser/updateFavs/:id', isLoggedIn, isValidId, (req, res) => {
     User
-        .findByIdAndUpdate(req.params.user_id, { favorites: req.body }, { new: true })
+        .findByIdAndUpdate(req.params.id, { favorites: req.body }, { new: true })
         .then(response => res.json(response))
         .catch(err => res.status(500).json(err))
 })
 
-router.get('/userFavs/:user_id', isLoggedIn, (req, res) => {
-    if (!mongoose.Types.ObjectId.isValid(req.params.user_id)) {
-        res.status(404).json({ message: 'Invalid ID' })
-        return
-    }
-
+router.get('/userFavs/:id', isLoggedIn, isValidId, (req, res) => {
     User
-        .findById(req.params.user_id)
+        .findById(req.params.id)
         .populate('favorites')
         .then(response => res.json(response.favorites))
         .catch(err => res.status(500).json(err))

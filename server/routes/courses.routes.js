@@ -1,9 +1,7 @@
 const express = require('express')
 const router = express.Router()
-const mongoose = require('mongoose')
 const Course = require('../models/course.model')
-const { isLoggedIn, isTeacher } = require('../middleware/custom-middleware')
-
+const { isLoggedIn, isTeacher, isValidId } = require('../middleware/custom-middleware')
 
 
 router.get('/getAllCourses', (req, res) => {
@@ -14,67 +12,76 @@ router.get('/getAllCourses', (req, res) => {
         .catch(err => res.status(500).json(err))
 })
 
-router.get('/getTeacherCourses/:teacher_id', (req, res) => {
-    const teacherId = req.params.teacher_id
-
-    if (!mongoose.Types.ObjectId.isValid(teacherId)) {
-        res.status(404).json({ message: 'Invalid ID' })
-        return
-    }
-
+router.get('/getTeacherCourses/:id', isValidId, (req, res) => {
     Course
-        .find({ owner: teacherId })
+        .find({ owner: req.params.id })
         .then(response => res.json(response))
         .catch(err => res.status(500).json(err))
 })
 
-router.get('/getOneCourse/:course_id', (req, res) => {
-    if (!mongoose.Types.ObjectId.isValid(req.params.course_id)) {
-        res.status(404).json({ message: 'Invalid ID' })
-        return
-    }
-
+router.get('/getOneCourse/:id', isValidId, (req, res) => {
     Course
-        .findById(req.params.course_id)
+        .findById(req.params.id)
         .then(response => res.json(response))
         .catch(err => res.status(500).json(err))
 })
 
-router.post('/newCourse', isLoggedIn, isTeacher, (req, res) => {
+router.post('/newCourse', /*isLoggedIn, isTeacher,*/ (req, res) => {
+    const { imageUrl, title, catgory, difficultyLevel, description, whatYouWillLearn, price, requirements, _id, duration, owner } = req.body
+    const mainTopicsArr = whatYouWillLearn.split(', ').map(elm => elm.charAt(0).toUpperCase() + elm.substring(1))
+    const requirementsArr = requirements.split(', ').map(elm => elm.charAt(0).toUpperCase() + elm.substring(1))
+
     Course
-        .create(req.body)
+        .create({
+            imageUrl,
+            title,
+            catgory,
+            difficultyLevel,
+            description,
+            whatYouWillLearn: mainTopicsArr,
+            price,
+            requirements: requirementsArr,
+            _id,
+            duration,
+            owner
+        })
         .then(response => res.json(response))
         .catch(err => res.status(500).json(err))
 })
 
-router.put('/editCourse/:course_id', isLoggedIn, isTeacher, (req, res) => {
-    // const { imageUrl, title, catgory, difficultyLevel, description, wahtYouWillLearn, price, requirements, _id, duration, owner } = req.body
-    // const mainTopicsArr = wahtYouWillLearn.spllit(',')
-    // const requirementsArr = requirements.spllit(',')
+router.put('/editCourse/:id', isLoggedIn, isTeacher, isValidId, (req, res) => {
+    const { imageUrl, title, catgory, difficultyLevel, description, whatYouWillLearn, price, requirements, _id, duration, owner } = req.body
+    const mainTopicsArr = whatYouWillLearn.split(', ').map(elm => elm.charAt(0).toUpperCase() + elm.substring(1))
+    const requirementsArr = requirements.split(', ').map(elm => elm.charAt(0).toUpperCase() + elm.substring(1))
 
     Course
-        .findByIdAndUpdate(req.params.course_id, req.body)
+        .findByIdAndUpdate(req.params.id, {
+            imageUrl,
+            title,
+            catgory,
+            difficultyLevel,
+            description,
+            whatYouWillLearn: mainTopicsArr,
+            price,
+            requirements: requirementsArr,
+            _id,
+            duration,
+            owner
+        })
         .then(response => res.json(response))
         .catch(err => res.status(500).json(err))
 })
 
-router.delete('/deleteTeacherCourses/:teacher_id', isLoggedIn, isTeacher, (req, res) => {
-    const teacherId = req.params.teacher_id
-
-    if (!mongoose.Types.ObjectId.isValid(teacherId)) {
-        res.status(404).json({ message: 'Invalid ID' })
-        return
-    }
-
+router.delete('/deleteTeacherCourses/:id', isLoggedIn, isTeacher, isValidId, (req, res) => {
     Course
-        .deleteMany({ owner: teacherId })
+        .deleteMany({ owner: req.params.id })
         .then(response => res.json(response))
         .catch(err => res.status(500).json(err))
 })
 
-router.delete('/deleteCourse/:course_id', isLoggedIn, isTeacher, (req, res) => {
+router.delete('/deleteCourse/:id', isLoggedIn, isTeacher, isValidId, (req, res) => {
     Course
-        .findByIdAndDelete(req.params.course_id)
+        .findByIdAndDelete(req.params.id)
         .then(() => res.json({ message: 'Course Deleted' }))
         .catch(err => res.status(500).json(err))
 })
