@@ -47,6 +47,7 @@ class SearchBar extends Component {
                                     <option value='Beginner' >Beginner</option>
                                     <option value='Intermidiate' >Intermidiate</option>
                                     <option value='Advanced' >Advanced</option>
+                                    <option value='All levels' >All levels</option>
                                 </Form.Control>
                             </Form.Group>
 
