@@ -48,6 +48,10 @@ router.post('/newCourse', isLoggedIn, isTeacher, (req, res) => {
 })
 
 router.put('/editCourse/:course_id', isLoggedIn, isTeacher, (req, res) => {
+    // const { imageUrl, title, catgory, difficultyLevel, description, wahtYouWillLearn, price, requirements, _id, duration, owner } = req.body
+    // const mainTopicsArr = wahtYouWillLearn.spllit(',')
+    // const requirementsArr = requirements.spllit(',')
+
     Course
         .findByIdAndUpdate(req.params.course_id, req.body)
         .then(response => res.json(response))
