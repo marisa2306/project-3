@@ -2,7 +2,8 @@ import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
 import AuthService from './../../../service/auth.service'
 import logo from './logo.png'
-import { Navbar, Nav, Modal } from 'react-bootstrap'
+import { Navbar, Nav } from 'react-bootstrap'
+import Popup from '../../shared/Popup/Popup'
 import LoginForm from '../../pages/Login-form/LoginForm'
 
 import './Navigation.css'
@@ -31,11 +32,9 @@ class Navigation extends Component {
     render() {
         return (
             <>
-                <Modal centered show={this.state.showModal} onHide={() => this.handleModal(false)}>
-                    <Modal.Body>
-                        <LoginForm handleToast={this.props.handleToast} closeModal={() => this.handleModal(false)} storeUser={this.props.storeUser} />
-                    </Modal.Body>
-                </Modal>
+                <Popup show={this.state.showModal} handleModal={this.handleModal}>
+                    <LoginForm handleToast={this.props.handleToast} closeModal={() => this.handleModal(false)} storeUser={this.props.storeUser} />
+                </Popup>
 
                 <Navbar bg="dark" variant="dark" expand="md" className="menu">
                     <Link to="/">

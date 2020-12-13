@@ -5,6 +5,8 @@ import UsersServices from './../../../../service/users.service'
 import CoursesServices from './../../../../service/courses.service'
 import TeacherServices from './../../../../service/teachers.service'
 import CourseCard from './../../../shared/CourseCard/Course-card'
+import Popup from '../../../shared/Popup/Popup'
+import DeleteMessage from '../../../shared/Delete-message/DeleteMessage'
 import './UserProfile.css'
 
 class UserProfile extends Component {
@@ -13,8 +15,12 @@ class UserProfile extends Component {
     this.state = {
       teacherCourses: undefined,
       favCourses: [],
+<<<<<<< HEAD
       favTeachers: [],
       learningActivity: []
+=======
+      showModal: false
+>>>>>>> 0f38c0a5d1a3f77788f5be2a9afd2237454e7e0b
     }
     this.usersServices = new UsersServices()
     this.coursesServices = new CoursesServices()
@@ -95,93 +101,109 @@ class UserProfile extends Component {
       .catch(err => console.log('desde el catch del user', err))   //  TO-DO -- ¿qué hacemos con esto?
   }
 
+  handleModal = visible => this.setState({ showModal: visible })
+
 
   render() {
     return (
+      <>
+        <Popup show={this.state.showModal} handleModal={this.handleModal} color={'maroon'}>
+          <DeleteMessage />
+          <Row className='justify-content-center'>
+            <Col xs='auto'>
+              <Button variant='secondary' onClick={() => this.handleModal(false)}>Close</Button>
+            </Col>
+            <Col xs='auto'>
+              <Button to={`/profile/delete-user/${this.props.loggedUser._id}`} onClick={this.deleteAll} variant='light'>Delete account</Button>
+            </Col>
+          </Row>
+        </Popup>
 
-      <Container className="user-profile">
-        <h1 className="mt-5 mb-3">Welcome back {this.props.loggedUser.username} !</h1>
+        <Container className="user-profile">
+          <h1 className="mt-5 mb-3">Welcome back {this.props.loggedUser.username} !</h1>
 
-        {/* User details */}
-        <hr></hr>
-        <Row>
-          <Col md={1}>
-            <Image src={this.props.loggedUser.imageUrl} className="user-img" roundedCircle alt={this.props.loggedUser.username} />
-          </Col>
-          <Col md={{ span: 10, offset: 1 }}>
-            <p><strong>Username:</strong> {this.props.loggedUser.username}</p>
-            <p><strong>Email:</strong> {this.props.loggedUser.email}</p>
-            <p><strong>Role:</strong> {this.props.loggedUser.role}</p>
-            <Row>
-              <Col md={{ span: 5 }}>
-                <Link to='/profile/edit-user' className="btn btn-info mr-3">Edit account details</Link>
-                <Button to={`/profile/delete-user/${this.props.loggedUser._id}`} onClick={this.deleteAll} className="btn btn-danger">Delete account</Button>
-              </Col>
-              <Col md={{ span: 3, offset: 4 }}>
-                {this.props.loggedUser.role === 'Teacher' && this.props.teacherInfo
-                  ?
-                  <Link to='/profile-teacher' className="btn btn-warning" >View your teacher profile</Link>
-                  : this.props.loggedUser.role === 'Teacher' && !this.props.teacherInfo ?
-                    <Link to='/profile/create-teacher' className="btn btn-success">Create teacher profile</Link>
-                    : null
-                }
-              </Col>
-            </Row>
-          </Col>
-        </Row>
-        <hr></hr>
+          {/* User details */}
+          <hr></hr>
+          <Row>
+            <Col md={1}>
+              <Image src={this.props.loggedUser.imageUrl} className="user-img" roundedCircle alt={this.props.loggedUser.username} />
+            </Col>
+            <Col md={{ span: 10, offset: 1 }}>
+              <p><strong>Username:</strong> {this.props.loggedUser.username}</p>
+              <p><strong>Email:</strong> {this.props.loggedUser.email}</p>
+              <p><strong>Role:</strong> {this.props.loggedUser.role}</p>
+              <Row>
+                <Col md={{ span: 5 }}>
+                  <Link to='/profile/edit-user' className="btn btn-info mr-3">Edit account details</Link>
+                  <Button onClick={() => this.handleModal(true)} className="btn btn-danger">Delete account</Button>
 
-        {/* Your activity */}
-        <h2 className="mt-5 mb-3">Your activity</h2>
-        <Row>
-          {this.state.favCourses.length > 0 || this.state.favTeachers.length > 0 || this.state.learningActivity.length > 0 ?
-            <Tabs className="mt-3" defaultActiveKey="courses" id="favs">
-              {this.state.favCourses.length > 0 ?
-                <Tab className="mt-3 mb-3" eventKey="courses" title="Favourites Courses">
-                  <Container>
-                    <Row>
-                      <h2 className="mt-3 mb-3 text-center">Your favorite Courses</h2>
-                    </Row>
-                    <Row>
-                      {
-                        this.state.favCourses.map(elm =>
-                          <CourseCard key={elm._id} {...elm} userInfo={this.props.loggedUser} teacher={this.props.teacherInfo} updateFavs={this.props.updateFavs} />)
-                      }
-                    </Row>
-                  </Container>
-                </Tab>
-                : <Tab eventKey="courses" title="Favourites Courses" disabled></Tab>
-              }
-              {this.state.favTeachers.length > 0 ?
-                <Tab eventKey="teachers" title="Favourites Teachers" >
-                  <Container>
-                    <Row>
-                      <h2 className="mt-3 mb-3 text-center">Your Learning Activity</h2>
-                    </Row>
-                  </Container>
-                </Tab>
-                : <Tab eventKey="teachers" title="Favourites Teachers" disabled></Tab>
-              }
-              {this.state.learningActivity.length > 0 ?
-                <Tab eventKey="learning" title="Learning" >
-                  <Container>
-                    <Row>
-                      <h2 className="mt-3 mb-3 text-center">Your Learning Activity</h2>
-                    </Row>
-                  </Container>
-                </Tab>
-                : <Tab eventKey="learning" title="Learning Activity" disabled></Tab>
-              }
-            </Tabs>
-            : <Col className="cta">
-              <Row className="d-flex justify-content-between">
-                <p className="mt-2 mb-0">Let's start teaching, <strong>{this.props.loggedUser.username}</strong>! Create an Engaging Course.</p>
-                <Link to='/profile-teacher/create-course' className="btn btn-success btn-block">Create new course</Link>
+                </Col>
+                <Col md={{ span: 3, offset: 4 }}>
+                  {this.props.loggedUser.role === 'Teacher' && this.props.teacherInfo
+                    ?
+                    <Link to='/profile-teacher' className="btn btn-warning" >View your teacher profile</Link>
+                    : this.props.loggedUser.role === 'Teacher' && !this.props.teacherInfo ?
+                      <Link to='/profile/create-teacher' className="btn btn-success">Create teacher profile</Link>
+                      : null
+                  }
+                </Col>
               </Row>
             </Col>
-          }
-        </Row>
-      </Container >
+          </Row>
+          <hr></hr>
+
+          {/* Your activity */}
+          <h2 className="mt-5 mb-3">Your activity</h2>
+          <Row>
+            {this.state.favCourses.length > 0 || this.state.favTeachers.length > 0 || this.state.learningActivity.length > 0 ?
+              <Tabs className="mt-3" defaultActiveKey="courses" id="favs">
+                {this.state.favCourses.length > 0 ?
+                  <Tab className="mt-3 mb-3" eventKey="courses" title="Favourites Courses">
+                    <Container>
+                      <Row>
+                        <h2 className="mt-3 mb-3 text-center">Your favorite Courses</h2>
+                      </Row>
+                      <Row>
+                        {
+                          this.state.favCourses.map(elm =>
+                            <CourseCard key={elm._id} {...elm} userInfo={this.props.loggedUser} teacher={this.props.teacherInfo} updateFavs={this.props.updateFavs} />)
+                        }
+                      </Row>
+                    </Container>
+                  </Tab>
+                  : <Tab eventKey="courses" title="Favourites Courses" disabled></Tab>
+                }
+                {this.state.favTeachers.length > 0 ?
+                  <Tab eventKey="teachers" title="Favourites Teachers" >
+                    <Container>
+                      <Row>
+                        <h2 className="mt-3 mb-3 text-center">Your Learning Activity</h2>
+                      </Row>
+                    </Container>
+                  </Tab>
+                  : <Tab eventKey="teachers" title="Favourites Teachers" disabled></Tab>
+                }
+                {this.state.learningActivity.length > 0 ?
+                  <Tab eventKey="learning" title="Learning" >
+                    <Container>
+                      <Row>
+                        <h2 className="mt-3 mb-3 text-center">Your Learning Activity</h2>
+                      </Row>
+                    </Container>
+                  </Tab>
+                  : <Tab eventKey="learning" title="Learning Activity" disabled></Tab>
+                }
+              </Tabs>
+              : <Col className="cta">
+                <Row className="d-flex justify-content-between">
+                  <p className="mt-2 mb-0">Let's start teaching, <strong>{this.props.loggedUser.username}</strong>! Create an Engaging Course.</p>
+                  <Link to='/profile-teacher/create-course' className="btn btn-success btn-block">Create new course</Link>
+                </Row>
+              </Col>
+            }
+          </Row>
+        </Container>
+      </>
     )
   }
 }
