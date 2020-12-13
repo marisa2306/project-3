@@ -120,34 +120,34 @@ class UserProfile extends Component {
           <h1 className="mt-5 mb-3">Welcome back {this.props.loggedUser.username} !</h1>
 
           {/* User details */}
-          <hr></hr>
-          <Row>
-            <Col md={1}>
-              <Image src={this.props.loggedUser.imageUrl} className="user-img" roundedCircle alt={this.props.loggedUser.username} />
-            </Col>
-            <Col md={{ span: 10, offset: 1 }}>
-              <p><strong>Username:</strong> {this.props.loggedUser.username}</p>
-              <p><strong>Email:</strong> {this.props.loggedUser.email}</p>
-              <p><strong>Role:</strong> {this.props.loggedUser.role}</p>
-              <Row>
-                <Col md={{ span: 5 }}>
-                  <Link to='/profile/edit-user' className="btn btn-info mr-3">Edit account details</Link>
-                  <Button onClick={() => this.handleModal(true)} className="btn btn-danger">Delete account</Button>
+          <section className="user-details">
+            <Row>
+              <Col md={1}>
+                <Image src={this.props.loggedUser.imageUrl} className="user-img" roundedCircle alt={this.props.loggedUser.username} />
+              </Col>
+              <Col md={{ span: 10, offset: 1 }}>
+                <p><strong>Username:</strong> {this.props.loggedUser.username}</p>
+                <p><strong>Email:</strong> {this.props.loggedUser.email}</p>
+                <p><strong>Role:</strong> {this.props.loggedUser.role}</p>
+                <Row>
+                  <Col md={{ span: 5 }}>
+                    <Link to='/profile/edit-user' className="btn btn-info mr-3">Edit user details</Link>
+                    <Button onClick={() => this.handleModal(true)} className="btn btn-danger">Delete user</Button>
 
-                </Col>
-                <Col md={{ span: 3, offset: 4 }}>
-                  {this.props.loggedUser.role === 'Teacher' && this.props.teacherInfo
-                    ?
-                    <Link to='/profile-teacher' className="btn btn-warning" >View your teacher profile</Link>
-                    : this.props.loggedUser.role === 'Teacher' && !this.props.teacherInfo ?
-                      <Link to='/profile/create-teacher' className="btn btn-success">Create teacher profile</Link>
-                      : null
-                  }
-                </Col>
-              </Row>
-            </Col>
-          </Row>
-          <hr></hr>
+                  </Col>
+                  <Col md={{ span: 3, offset: 4 }}>
+                    {this.props.loggedUser.role === 'Teacher' && this.props.teacherInfo
+                      ?
+                      <Link to='/profile-teacher' className="btn btn-warning">Teacher profile</Link>
+                      : this.props.loggedUser.role === 'Teacher' && !this.props.teacherInfo ?
+                        <Link to='/profile/create-teacher' className="btn btn-success">Create teacher profile</Link>
+                        : null
+                    }
+                  </Col>
+                </Row>
+              </Col>
+            </Row>
+          </section>
 
           {/* Your activity */}
           <h2 className="mt-5 mb-3">Your activity</h2>
@@ -193,8 +193,8 @@ class UserProfile extends Component {
               </Tabs>
               : <Col className="cta">
                 <Row className="d-flex justify-content-between">
-                  <p className="mt-2 mb-0">Let's start teaching, <strong>{this.props.loggedUser.username}</strong>! Create an Engaging Course.</p>
-                  <Link to='/profile-teacher/create-course' className="btn btn-success btn-block">Create new course</Link>
+                  <p className="mt-2 mb-0">Let's start learning, <strong>{this.props.loggedUser.username}</strong>! Get in-demand skills to impress anyone.</p>
+                  <Link to='/courses' className="btn btn-success">Start a course</Link>
                 </Row>
               </Col>
             }

@@ -87,7 +87,7 @@ class App extends Component {
           <Switch>
             <Route exact path="/" render={() => <Home />} />
             <Route exact path="/courses" render={() => <CoursesList loggedUser={this.state.loggedInUser} teacherInfo={this.state.teacher} updateFavs={this.updateFavs} />} />
-            <Route path="/courses/:course_id" render={props => <CourseDetails {...props} handleToast={this.handleToast} />} />
+            <Route path="/courses/:course_id" render={props => <CourseDetails {...props} handleToast={this.handleToast} teacherInfo={this.state.teacher} />} />
             <Route exact path="/teachers" render={() => <TeachersList loggedUser={this.state.loggedInUser} teacherInfo={this.state.teacher} />} />
             <Route path="/teachers/:teacher_id" render={props => <TeacherDetails {...props} /*loggedUser={this.state.loggedInUser} teacherInfo={this.state.teacher} storeUser={this.setTheUser} updateFavs={this.updateFavs}*/ handleToast={this.handleToast} />} />
             <Route path="/signup" render={props => this.state.loggedInUser ? <Redirect to='/courses' /> : <Signup {...props} handleToast={this.handleToast} storeUser={this.setTheUser} />} />

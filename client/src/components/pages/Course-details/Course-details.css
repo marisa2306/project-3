@@ -1,3 +1,75 @@
-.course-details img {
-    width: 100%
+.course-details {
+    margin-top:80px
+}
+.course-bckg{
+    background-color:#fff;
+    padding:20px 40px;
+    border: 1px solid #dee2e6 ;
+    border-radius: .25rem;
+    box-shadow: 0 4px 12px rgba(0,0,0,.08)
+}
+
+.course-details img{
+    width:100%;
+}
+
+.whatYouWillLearn li{
+padding:0px;
+}
+.whatYouWillLearn img{
+    width:20px;
+    margin-right:0.8em;
+}
+
+.whatYouWillLearn li{
+    list-style-type: none;
+    display: flex;
+    align-items:baseline;
+
+}
+
+.whatYouWillLearn p{
+    list-style-type: none;
+    font-size: 1rem;
+    font-family: "Roboto", "Helvetica", "Arial", sans-serif;
+    font-weight: 400;
+    line-height: 0.8em;
+    letter-spacing: 0.00938em;
+
+}
+
+
+.requirements img{
+    width:30px;
+    margin-right:0.8em;
+    
+}
+
+.requirements li{
+    list-style-type: none;
+    display: flex;
+    align-items:baseline;
+
+}
+
+.requirements p{
+    list-style-type: none;
+    font-size: 1rem;
+    font-family: "Roboto", "Helvetica", "Arial", sans-serif;
+    font-weight: 400;
+    line-height: 0.8em;
+    letter-spacing: 0.00938em;
+
+}
+
+.card-header {
+    padding: 1rem 1.25rem;
+    margin-bottom: 0;
+    background-color: rgba(0,0,0,.03);
+    border: 1px solid rgba(0,0,0,.125);
+}
+
+.video-card img{
+    width:20px;
+    margin-right:0.8em;
 }

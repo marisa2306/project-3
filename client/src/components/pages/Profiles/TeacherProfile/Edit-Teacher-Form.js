@@ -3,6 +3,7 @@ import TeachersService from '../../../../service/teachers.service'
 import FilesService from '../../../../service/upload.service'
 import Loader from '../../../shared/Spinner/Loader'
 import { Container, Row, Col, Form, Button } from 'react-bootstrap'
+import { Link } from 'react-router-dom'
 
 class EditTeacherForm extends Component {
     constructor(props) {
@@ -67,7 +68,7 @@ class EditTeacherForm extends Component {
             <Container>
                 <Row>
                     <Col md={{ span: 8, offset: 2 }}>
-                        <h1>Edit your teacher Profile</h1>
+                        <h1 className="mt-5">Edit your teacher Profile</h1>
                         <hr />
 
                         <Form onSubmit={this.handleSubmit}>
@@ -106,10 +107,12 @@ class EditTeacherForm extends Component {
                                 <Form.Control type="file" onChange={this.handleImageUpload} />
                             </Form.Group>
 
-                            <Button variant="info" type="submit" disabled={this.state.uploadingActive}> {this.state.uploadingActive ? 'Image loading...' : 'Edit Teacher profile'}</Button>
+                            <Button className="mt-3" variant="info" type="submit" disabled={this.state.uploadingActive}> {this.state.uploadingActive ? 'Image loading...' : 'Edit Teacher profile'}</Button>
                         </Form>
+                        <Link to="/profile-teacher" className="btn btn-outline-dark mt-5">Go back</Link>
                     </Col>
                 </Row>
+
             </Container>
         )
     }
