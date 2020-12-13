@@ -11,7 +11,7 @@ class CoursesList extends Component {
         super()
         this.state = {
             courses: undefined,
-            filteredCourse: []
+            filteredCourses: []
 
         }
         this.coursesService = new CoursesService()
@@ -22,41 +22,34 @@ class CoursesList extends Component {
     refreshCourses = () => {
         this.coursesService
             .getCourses()
-            .then(res => this.setState({ courses: res.data, filteredCourse: [...res.data] }))
+            .then(res => this.setState({ courses: res.data, filteredCourses: [...res.data] }))
             .catch(err => console.log(err))
     }
 
-    sortByNameAZ = () => {
-        const filteredCourseCopy = [...this.state.filteredCourse]
-        filteredCourseCopy.sort((a, b) => (a.title > b.title) ? 1 : -1)
+    filterBySearch = value => this.setState({ filteredCourses: [...this.state.courses].filter(elm => elm.title.toLowerCase().includes(value.toLowerCase())) })
 
-        this.setState({
-            filteredCourse: filteredCourseCopy
-        })
-    }
+    filterByCategory = option => option !== 'default' ?
+        this.setState({ filteredCourses: [ ...this.state.filteredCourses ].filter(elm => elm.category === option) })
+        : this.setState({ filteredCourses: [ ...this.state.courses ] })
+   
+    filterByLevel = option => option !== 'default' ?
+        this.setState({ filteredCourses: [ ...this.state.filteredCourses ].filter(elm => elm.difficultyLevel === option) })
+        : this.setState({ filteredCourses: [ ...this.state.courses ] })
 
-    sortByNameZA = () => {
-        const filteredCourseCopy = [...this.state.filteredCourse]
-        filteredCourseCopy.sort((a, b) => (a.title < b.title) ? 1 : -1)
-
-        this.setState({
-            filteredCourse: filteredCourseCopy
-        })
-    }
-
-    sortByPrice = () => {
-        const filteredCourseCopy = [...this.state.filteredCourse]
-        filteredCourseCopy.sort((a, b) => (a.price > b.price) ? 1 : -1)
-
-        this.setState({
-            filteredCourse: filteredCourseCopy
-        })
-    }
-
-    //SEARCHBAR
-    filterCourse = value => {
-        const newData = [...this.state.courses].filter(elm => elm.title.toLowerCase().includes(value.toLowerCase()))
-        this.setState({ filteredCourse: newData })
+    sortBy = option => {
+        const filteredCoursesCopy = [ ...this.state.filteredCourses ]
+        switch (option) {
+            case 'Name-A': this.setState({ filteredCourses: filteredCoursesCopy.sort((a, b) => (a.title > b.title) ? 1 : -1) })
+                break;
+            case 'Name-Z': this.setState({ filteredCourses: filteredCoursesCopy.sort((a, b) => (a.title < b.title) ? 1 : -1) })
+                break;
+            case 'Price-asc': this.setState({ filteredCourses:  filteredCoursesCopy.sort((a, b) => (a.price > b.price) ? 1 : -1)})
+                break;
+            case 'Price-desc': this.setState({ filteredCourses:  filteredCoursesCopy.sort((a, b) => (a.price < b.price) ? 1 : -1)})
+                break;
+            default:    this.setState({filteredCourses: [...this.state.courses] })
+                break;
+        }
     }
 
     render() {
@@ -65,23 +58,13 @@ class CoursesList extends Component {
                 <Container>
 
                     <h1>Our courses</h1>
-                    <Row>
-                        <Col md={6}>
-                            <SearchBar filterCourse={this.filterCourse} />
-                        </Col>
-                        <Col md={6}>
 
-                            <button className="btn btn-info mr-2 mb-5 mt-5" onClick={this.sortByNameAZ}>Sort by Name A-Z</button>
-                            <button className="btn btn-info mr-2 mb-5 mt-5" onClick={this.sortByNameZA}>Sort by Name Z-A</button>
-                            <button className="btn btn-info mr-2 mb-5 mt-5" onClick={this.sortByPrice}>Sort by Price Min Max</button>
-
-                        </Col>
-                    </Row>
+                    <SearchBar filterBySearch={this.filterBySearch} filterByCategory={this.filterByCategory} filterByLevel={this.filterByLevel} sortBy={this.sortBy} />
 
                     <Row>
 
                         {this.state.courses ?
-                            this.state.filteredCourse.map(elm =>
+                            this.state.filteredCourses.map(elm =>
                                 <CourseCard key={elm._id} {...elm} userInfo={this.props.loggedUser} teacher={this.props.teacherInfo} updateFavs={this.props.updateFavs} />)
                             :
                             <Loader />
