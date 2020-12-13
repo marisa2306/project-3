@@ -1,8 +1,7 @@
 const express = require('express')
 const router = express.Router()
-const mongoose = require('mongoose')
 const Teacher = require('../models/teacher.model')
-const { isLoggedIn, isTeacher } = require('../middleware/custom-middleware')
+const { isLoggedIn, isTeacher, isValidId } = require('../middleware/custom-middleware')
 
 
 router.get('/getAllTeachers', (req, res) => {
@@ -12,28 +11,16 @@ router.get('/getAllTeachers', (req, res) => {
         .catch(err => res.status(500).json(err))
 })
 
-router.get('/getTheTeacher/:teacher_id', (req, res) => {
-    if (!mongoose.Types.ObjectId.isValid(req.params.teacher_id)) {
-        res.status(404).json({ message: 'Invalid ID' })
-        return
-    }
-
+router.get('/getTheTeacher/:id', isValidId, (req, res) => {
     Teacher
-        .findById(req.params.teacher_id)
+        .findById(req.params.id)
         .then(response => res.json(response))
         .catch(err => res.status(500).json(err))
 })
 
-router.get('/getOneTeacher/:user_id', (req, res) => {
-    const userId = req.params.user_id
-
-    if (!mongoose.Types.ObjectId.isValid(userId)) {
-        res.status(404).json({ message: 'Invalid ID' })
-        return
-    }
-
+router.get('/getOneTeacher/:id', isValidId, (req, res) => {
     Teacher
-        .find({ user: userId })
+        .find({ user: req.params.id })
         .then(response => res.json(response))
         .catch(err => res.status(500).json(err))
 })
@@ -45,22 +32,17 @@ router.post('/newTeacher', isLoggedIn, (req, res) => {
         .catch(err => res.status(500).json(err))
 })
 
-router.put('/editTeacher/:teacher_id', isLoggedIn, isTeacher, (req, res) => {
+router.put('/editTeacher/:id', isLoggedIn, isTeacher, isValidId, (req, res) => {
     Teacher
-        .findByIdAndUpdate(req.params.teacher_id, req.body, { new: true })
+        .findByIdAndUpdate(req.params.id, req.body, { new: true })
         .then(response => res.json(response))
         .catch(err => res.status(500).json(err))
 })
 
 
-router.delete('/deleteTeacher/:teacher_id', isLoggedIn, isTeacher, (req, res) => {
-    if (!mongoose.Types.ObjectId.isValid(req.params.teacher_id)) {
-        res.status(404).json({ message: 'Invalid ID' })
-        return
-    }
-
+router.delete('/deleteTeacher/:id', isLoggedIn, isTeacher, isValidId, (req, res) => {
     Teacher
-        .findByIdAndDelete(req.params.teacher_id)
+        .findByIdAndDelete(req.params.id)
         .then(() => res.json({ message: 'Teacher Deleted' }))
         .catch(err => res.status(500).json(err))
 })

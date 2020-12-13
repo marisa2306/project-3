@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import { Link } from 'react-router-dom'
 import CoursesService from './../../../service/courses.service'
 import FilesService from './../../../service/upload.service'
 import { Form, Button, Container, Row, Col } from 'react-bootstrap'
@@ -114,6 +115,7 @@ class EditCourseForm extends Component {
                                 <Form.Group controlId="whatYouWillLearn">
                                     <Form.Label>Main Topics</Form.Label>
                                     <Form.Control type="text" name="whatYouWillLearn" value={this.state.course.whatYouWillLearn} onChange={this.handleInputChange} />
+                                    <Form.Text id='passwordHelpBlock' muted>Separate with commas</Form.Text>
                                 </Form.Group>
                                 <Form.Group controlId="price">
                                     <Form.Label>Price</Form.Label>
@@ -126,6 +128,7 @@ class EditCourseForm extends Component {
                                 <Form.Group controlId="requirements">
                                     <Form.Label>Requirements</Form.Label>
                                     <Form.Control type="text" name="requirements" value={this.state.course.requirements} onChange={this.handleInputChange} />
+                                    <Form.Text id='passwordHelpBlock' muted>Separate with commas</Form.Text>
                                 </Form.Group>
 
                                 <Form.Group>
@@ -133,7 +136,8 @@ class EditCourseForm extends Component {
                                     <Form.Control type="file" onChange={this.handleImageUpload} />
                                 </Form.Group>
 
-                                <Button variant="dark" type="submit" disabled={this.state.uploadingActive}>{this.state.uploadingActive ? 'Image loading...' : 'Create course'}</Button>
+                                <Button variant="info" type="submit" disabled={this.state.uploadingActive}>{this.state.uploadingActive ? 'Image loading...' : 'Confirm Edition'}</Button>
+                                <Button as='a' href='/profile' variant="dark" disabled={this.state.uploadingActive}>{this.state.uploadingActive ? 'Image loading...' : 'Cancel'}</Button>
                             </Form>
                         </Col>
                     </Row>

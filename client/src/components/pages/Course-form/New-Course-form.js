@@ -18,7 +18,8 @@ class NewCourseForm extends Component {
                 price: '',
                 duration: '',
                 requirements: [],
-                owner: this.props.teacherInfo ? this.props.teacherInfo._id : ''
+                imageUrl: this.props.teacherInfo.imageUrl || '',
+                owner: this.props.teacherInfo._id || ''
             },
             uploadingActive: false
         }
