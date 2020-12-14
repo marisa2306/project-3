@@ -55,13 +55,15 @@ class App extends Component {
       .catch(() => this.setTheUser(undefined))
   }
 
-  setTheUser = (user) => this.setState({ loggedInUser: user }, () => this.state.loggedInUser ? this.setTheTeacher(user) : null)
+  setTheUser = (user) => this.setState({ loggedInUser: user }, () => this.setTheTeacher(user))
 
-  setTheTeacher = () => {
-    this.teachersServices
-      .getTeacher(this.state.loggedInUser._id)
-      .then(response => this.setState({ teacher: response.data[0] }))
-      .catch(() => this.setState({ teacher: undefined }))
+  setTheTeacher = user => {
+    user ?
+      this.teachersServices
+        .getTeacher(this.state.loggedInUser._id)
+        .then(response => this.setState({ teacher: response.data[0] }))
+        .catch(() => this.setState({ teacher: undefined }))
+      : this.setState({ teacher: undefined })
   }
 
   handleToast = (visible, text, color) => this.setState({ showToast: visible, toastText: text, toastColor: color })
@@ -86,10 +88,10 @@ class App extends Component {
         <main>
           <Switch>
             <Route exact path="/" render={() => <Home />} />
-            <Route exact path="/courses" render={() => <CoursesList loggedUser={this.state.loggedInUser} teacherInfo={this.state.teacher} updateFavs={this.updateFavs} />} />
+            <Route exact path="/courses" render={props => <CoursesList {...props} loggedUser={this.state.loggedInUser} teacherInfo={this.state.teacher} updateFavs={this.updateFavs} handleToast={this.handleToast} />} />
             <Route path="/courses/:course_id" render={props => <CourseDetails {...props} handleToast={this.handleToast} teacherInfo={this.state.teacher} />} />
-            <Route exact path="/teachers" render={() => <TeachersList loggedUser={this.state.loggedInUser} teacherInfo={this.state.teacher} />} />
-            <Route path="/teachers/:teacher_id" render={props => <TeacherDetails {...props} /*loggedUser={this.state.loggedInUser} teacherInfo={this.state.teacher} storeUser={this.setTheUser} updateFavs={this.updateFavs}*/ handleToast={this.handleToast} />} />
+            <Route exact path="/teachers" render={props => <TeachersList {...props} loggedUser={this.state.loggedInUser} teacherInfo={this.state.teacher} handleToast={this.handleToast} />} />
+            <Route path="/teachers/:teacher_id" render={props => <TeacherProfile {...props} loggedUser={this.state.loggedInUser} teacherInfo={this.state.teacher} storeUser={this.setTheUser} updateFavs={this.updateFavs} handleToast={this.handleToast} />} />
             <Route path="/signup" render={props => this.state.loggedInUser ? <Redirect to='/courses' /> : <Signup {...props} handleToast={this.handleToast} storeUser={this.setTheUser} />} />
             <Route exact path="/profile" render={props => this.state.loggedInUser ? <UserProfile {...props} loggedUser={this.state.loggedInUser} teacherInfo={this.state.teacher} storeUser={this.setTheUser} updateFavs={this.updateFavs} handleToast={this.handleToast} /> : <Redirect to='/signup' />} />
             <Route path="/profile/edit-user" render={props => this.state.loggedInUser ? <EditUserForm {...props} loggedUser={this.state.loggedInUser} storeUser={this.setTheUser} handleToast={this.handleToast} /> : <Redirect to='/signup' />} />

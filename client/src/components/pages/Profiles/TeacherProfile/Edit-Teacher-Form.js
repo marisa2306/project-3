@@ -45,7 +45,7 @@ class EditTeacherForm extends Component {
                 this.props.history.push('/profile-teacher')
                 this.props.handleToast(true, 'Edit successful!', 'green')
             })
-            .catch(err => this.props.handleToast(true, err.response.data.message, 'red'))   // TO-DO ¿o mejor así?
+            .catch(err => this.props.handleToast(true, err.response.data.message[0].msg, 'red'))  // TO-DO Configurar en servidor con validator
     }
 
     handleImageUpload = e => {
