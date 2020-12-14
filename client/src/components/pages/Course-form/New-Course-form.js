@@ -74,7 +74,7 @@ class NewCourseForm extends Component {
                                     <Form.Control type="text" name="title" value={this.state.title} onChange={this.handleInputChange} />
                                 </Form.Group>
 
-                                <Form.Group controlId="title">
+                                <Form.Group controlId="lead">
                                     <Form.Label>Lead Paragraph</Form.Label>
                                     <Form.Control type="text" name="lead" value={this.state.lead} onChange={this.handleInputChange} />
                                 </Form.Group>
@@ -113,7 +113,7 @@ class NewCourseForm extends Component {
                                 <Form.Group controlId="whatYouWillLearn">
                                     <Form.Label>Main Topics</Form.Label>
                                     <Form.Control as='textarea' name="whatYouWillLearn" value={this.state.whatYouWillLearn} onChange={this.handleInputChange} />
-                                    <Form.Text id='passwordHelpBlock' muted>Separate topics with commas</Form.Text>
+                                    <Form.Text id='whatYouWillLearn' muted>Separate topics with commas</Form.Text>
                                 </Form.Group>
                                 <Row>
                                     <Col md={6}>
@@ -132,7 +132,13 @@ class NewCourseForm extends Component {
                                 <Form.Group controlId="requirements">
                                     <Form.Label>Requirements</Form.Label>
                                     <Form.Control as='textarea' name="requirements" value={this.state.requirements} onChange={this.handleInputChange} />
-                                    <Form.Text id='passwordHelpBlock' muted>Separate requirements with commas</Form.Text>
+                                    <Form.Text id='requirements' muted>Separate requirements with commas</Form.Text>
+                                </Form.Group>
+
+                                <Form.Group controlId="videos">
+                                    <Form.Label>Videos</Form.Label>
+                                    <Form.Control as='textarea' name="videos" value={this.state.videos} onChange={this.handleInputChange} />
+                                    <Form.Text id='videos' muted>Separate requirements with commas</Form.Text>
                                 </Form.Group>
 
                                 <Form.Group>
