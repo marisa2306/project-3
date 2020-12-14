@@ -26,7 +26,7 @@ class CourseDetails extends Component {
             .getCourse(course_id)
             .then(res => this.setState({ course: res.data }))
             .catch(() => {
-                this.props.history.push('/profile')
+                this.props.history.push('/courses')
                 this.props.handleToast(true, 'An error has occurred, please try again later', 'red')
             })
     }
@@ -47,7 +47,10 @@ class CourseDetails extends Component {
                             <Col md={{ span: 8 }} >
                                 <h1>{this.state.course.title}</h1>
                                 <p> {this.state.course.lead}</p>
-                                <p>Created by {this.props.teacherInfo.name} {this.props.teacherInfo.surname}</p>
+                                {this.state.course.owner ?
+                                    <p>Created by {this.state.course.owner.name} {this.state.course.owner.surname}</p>
+                                    :
+                                    null}
                                 <p><strong>Category:</strong> {this.state.course.category} | <strong>Difficulty Level:</strong>  {this.state.course.difficultyLevel} | <strong>Price:</strong>  {this.state.course.price} € | <strong>Duration:</strong>  {this.state.course.duration} hrs.</p>
                             </Col>
                             <Col md={{ span: 4 }} >

@@ -7,6 +7,7 @@ import TeacherServices from './../../../../service/teachers.service'
 import CourseCard from './../../../shared/CourseCard/Course-card'
 import Popup from '../../../shared/Popup/Popup'
 import DeleteMessage from '../../../shared/Delete-message/DeleteMessage'
+import Loader from '../../../shared/Spinner/Loader'
 import './UserProfile.css'
 
 class UserProfile extends Component {
@@ -150,7 +151,7 @@ class UserProfile extends Component {
                   <Col md={{ span: 3, offset: 4 }}>
                     {this.props.loggedUser.role === 'Teacher' && this.props.teacherInfo
                       ?
-                      <Link to='/profile-teacher' className="btn btn-warning">Teacher profile</Link>
+                      <Link to={`/teachers/${this.props.teacherInfo._id}`} className="btn btn-warning">Teacher profile</Link>
                       : this.props.loggedUser.role === 'Teacher' && !this.props.teacherInfo ?
                         <Link to='/profile/create-teacher' className="btn btn-success">Create teacher profile</Link>
                         : null

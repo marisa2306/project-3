@@ -22,6 +22,7 @@ router.get('/getTeacherCourses/:id', isValidId, (req, res) => {
 router.get('/getOneCourse/:id', isValidId, (req, res) => {
     Course
         .findById(req.params.id)
+        .populate('owner')
         .then(response => res.json(response))
         .catch(err => res.status(500).json(err))
 })
