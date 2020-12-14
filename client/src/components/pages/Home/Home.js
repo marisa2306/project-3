@@ -1,24 +1,58 @@
-import { Container, Card, Col, Row } from 'react-bootstrap'
+import { Container, Card, Col, Row, Carousel } from 'react-bootstrap'
 import { Link } from 'react-router-dom'
 import './Home.css'
-
+import CourseCard from './../../shared/CourseCard/Course-card'
 
 const Home = () => {
   return (
     <>
-      <section className="hero">
+      {/* Hero */}
+      <section className="hero ">
         <Container fluid>
           <Container>
             <h1>Aspire for more</h1>
-            <p className="mb-0">Learning keeps you in the lead.</p>
-            <p>Get in-demand skills to impress anyone.</p>
+            <p className="mb-0"><em>Learning keeps you in the lead.</em></p>
+            <p><em>Get in-demand skills to impress anyone.</em></p>
           </Container>
         </Container>
       </section>
+      {/* Carousel */}
       <Container>
         <section className="features text-center mt-5">
-          <h2>Explore our schools to find your perfect program</h2>
+          <h2 className="mt-5 mb-5">Explore our schools to find your perfect program</h2>
+          <Carousel>
+            <Carousel.Item>
+              <Row>
+                <CourseCard />
+                <CourseCard />
+                <CourseCard />
+              </Row>
+            </Carousel.Item>
+            <Carousel.Item>
+              <Row>
+                <CourseCard />
+                <CourseCard />
+                <CourseCard />
+              </Row>
+            </Carousel.Item>
+            <Carousel.Item>
+              <Row>
+                <CourseCard />
+                <CourseCard />
+                <CourseCard />
+              </Row>
+            </Carousel.Item>
+            <Carousel.Item>
+              <Row>
+                <CourseCard />
+                <CourseCard />
+                <CourseCard />
+              </Row>
+            </Carousel.Item>
+          </Carousel>
         </section>
+
+        {/* Features */}
         <section className="features text-center mt-5">
           <h2>Don't waste your valuable time or money</h2>
           <p className="mb-5">Only Freedemy has all the critical factors to deliver real results</p>
@@ -61,8 +95,9 @@ const Home = () => {
             </Col>
           </Row>
         </section>
-
       </Container>
+
+      {/* Banner */}
       <section className="banner text-center mt-5">
         <Container fluid>
           <Container>
@@ -72,7 +107,9 @@ const Home = () => {
           </Container>
         </Container>
       </section>
-      <footer class="page-footer mt-5">
+
+      {/* Footer */}
+      <footer className="page-footer mt-5">
         <p className="text-center py-3">Developed by <a href="https://github.com/Joseacasado" target="_blank"> Jose A. Casado</a> and <a href="https://github.com/marisa2306" target="_blank">Marisa Vitale</a> within <strong> Ironack </strong>Web Development
       Bootcamp</p>
       </footer>

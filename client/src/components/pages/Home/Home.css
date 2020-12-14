@@ -12,7 +12,14 @@
     font-weight: 700;
     line-height: 1.2;
     letter-spacing: -.02rem;
-    font-size: 3rem;
+    font-size: 4rem;
+}
+
+.hero p{
+
+    letter-spacing: -.02rem;
+    line-height: 1.3em;
+    font-size: 1.4rem;
 }
 
  h2{
@@ -30,6 +37,24 @@ h3{
     line-height: 1.2;
     letter-spacing: -.02rem;
     font-size: 1.75rem;
+}
+
+.carousel-indicators li {
+    box-sizing: content-box;
+    flex: 0 1 auto;
+    width: 30px;
+    height: 3px;
+    margin-right: 3px;
+    margin-left: 3px;
+    margin-top: 50px;
+    text-indent: -999px;
+    cursor: pointer;
+    background-color: #fff;
+    background-clip: padding-box;
+    border-top: 10px solid transparent;
+    border-bottom: 10px solid transparent;
+    opacity: .5;
+    transition: opacity .6s ease;
 }
 
 .home-card img {

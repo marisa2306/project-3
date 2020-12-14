@@ -28,13 +28,13 @@ class TeachersList extends Component {
     filterBySearch = value => this.setState({ filteredTeachers: [...this.state.teachers].filter(elm => elm.name.toLowerCase().includes(value.toLowerCase())) })
 
     sortBy = option => {
-        const filteredTeachersCopy = [ ...this.state.filteredTeachers ]
+        const filteredTeachersCopy = [...this.state.filteredTeachers]
         switch (option) {
             case 'Name-A': this.setState({ filteredTeachers: filteredTeachersCopy.sort((a, b) => (a.name > b.name) ? 1 : -1) })
                 break;
             case 'Name-Z': this.setState({ filteredTeachers: filteredTeachersCopy.sort((a, b) => (a.name < b.name) ? 1 : -1) })
                 break;
-            default:    this.setState({filteredTeachers: [...this.state.teachers] })
+            default: this.setState({ filteredTeachers: [...this.state.teachers] })
                 break;
         }
     }
@@ -44,15 +44,15 @@ class TeachersList extends Component {
             <>
                 <Container>
 
-                    <h1>Our teachers</h1>
+                    <h1 className="mt-5">Our teachers</h1>
 
                     <SearchBar filterBySearch={this.filterBySearch} sortBy={this.sortBy} />
 
                     <Row>
-                        { this.state.teachers ? this.state.filteredTeachers.map(elm =>
+                        {this.state.teachers ? this.state.filteredTeachers.map(elm =>
                             <TeacherCard key={elm._id} {...elm} userInfo={this.props.loggedUser} teacher={this.props.teacherInfo} />)
-                                :
-                                <Loader />
+                            :
+                            <Loader />
                         }
                     </Row>
                 </Container>

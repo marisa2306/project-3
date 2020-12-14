@@ -35,7 +35,7 @@ class Signup extends Component {
 
   render() {
     return (
-      <Container>
+      <Container className="mt-5">
         <Row>
           <Col lg={{ span: 6, offset: 3 }}>
             <h1>Sign Up</h1>

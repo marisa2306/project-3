@@ -37,7 +37,7 @@ class EditCourseForm extends Component {
             .catch(err => console.log(err))
     }
 
-    handleInputChange = e => this.setState({ course: { ...this.state.course, [e.target.name]: e.target.value }})
+    handleInputChange = e => this.setState({ course: { ...this.state.course, [e.target.name]: e.target.value } })
 
     handleSubmit = e => {
         e.preventDefault()
@@ -48,7 +48,7 @@ class EditCourseForm extends Component {
                 this.props.history.push('/profile-teacher')
                 this.props.handleToast(true, 'Edit successful!', 'green')
             })
-            .catch(err => this.props.handleToast(true, err, 'red'))   // TO-DO ¿o mejor así?
+            .catch(err => this.props.handleToast(true, err.message, 'red'))   // TO-DO ¿o mejor así?
     }
 
     handleImageUpload = e => {
@@ -76,7 +76,7 @@ class EditCourseForm extends Component {
                 <Container>
                     <Row>
                         <Col lg={{ span: 6, offset: 3 }}>
-                            <h1>Edit Course</h1>
+                            <h1 className="mt-5">Edit Course</h1>
                             <hr />
                             <Form onSubmit={this.handleSubmit}>
                                 <Form.Group controlId="title">
@@ -88,47 +88,56 @@ class EditCourseForm extends Component {
                                     <Form.Label>Description</Form.Label>
                                     <Form.Control as='textarea' name="description" value={this.state.course.description} onChange={this.handleInputChange} />
                                 </Form.Group>
-
-                                <Form.Group controlId='category'>
-                                    <Form.Label>Category</Form.Label>
-                                    <Form.Control as='select' name='category' value={this.state.course.category} onChange={this.handleInputChange}>
-                                        <option>Choose one option</option>
-                                        <option value='Design' >Design</option>
-                                        <option value='Development' >Development</option>
-                                        <option value='Marketing' >Marketing</option>
-                                        <option value='Music' >Music</option>
-                                        <option value='Other' >Other</option>
-                                    </Form.Control>
-                                </Form.Group>
-
-                                <Form.Group controlId='difficultyLevel'>
-                                    <Form.Label>Level</Form.Label>
-                                    <Form.Control as='select' name='difficultyLevel' value={this.state.course.difficultyLevel} onChange={this.handleInputChange}>
-                                        <option>Choose one option</option>
-                                        <option value='All levels'>All levels</option>
-                                        <option value='Beginner'>Beginner</option>
-                                        <option value='Intermidiate'>Intermidiate</option>
-                                        <option value='Advanced'>Advanced</option>
-                                    </Form.Control>
-                                </Form.Group>
-
+                                <Row>
+                                    <Col md={6}>
+                                        <Form.Group controlId='category'>
+                                            <Form.Label>Category</Form.Label>
+                                            <Form.Control as='select' name='category' value={this.state.course.category} onChange={this.handleInputChange}>
+                                                <option>Choose one option</option>
+                                                <option value='Design' >Design</option>
+                                                <option value='Development' >Development</option>
+                                                <option value='Marketing' >Marketing</option>
+                                                <option value='Music' >Music</option>
+                                                <option value='Other' >Other</option>
+                                            </Form.Control>
+                                        </Form.Group>
+                                    </Col>
+                                    <Col md={6}>
+                                        <Form.Group controlId='difficultyLevel'>
+                                            <Form.Label>Level</Form.Label>
+                                            <Form.Control as='select' name='difficultyLevel' value={this.state.course.difficultyLevel} onChange={this.handleInputChange}>
+                                                <option>Choose one option</option>
+                                                <option value='All levels'>All levels</option>
+                                                <option value='Beginner'>Beginner</option>
+                                                <option value='Intermidiate'>Intermidiate</option>
+                                                <option value='Advanced'>Advanced</option>
+                                            </Form.Control>
+                                        </Form.Group>
+                                    </Col>
+                                </Row>
                                 <Form.Group controlId="whatYouWillLearn">
                                     <Form.Label>Main Topics</Form.Label>
-                                    <Form.Control type="text" name="whatYouWillLearn" value={this.state.course.whatYouWillLearn} onChange={this.handleInputChange} />
-                                    <Form.Text id='passwordHelpBlock' muted>Separate with commas</Form.Text>
+                                    <Form.Control as='textarea' name="whatYouWillLearn" value={this.state.course.whatYouWillLearn} onChange={this.handleInputChange} />
+                                    <Form.Text id='passwordHelpBlock' muted>Separate topics with commas</Form.Text>
                                 </Form.Group>
-                                <Form.Group controlId="price">
-                                    <Form.Label>Price</Form.Label>
-                                    <Form.Control type="number" name="price" value={this.state.course.price} onChange={this.handleInputChange} min='0' />
-                                </Form.Group>
-                                <Form.Group controlId="duration">
-                                    <Form.Label>Duration</Form.Label>
-                                    <Form.Control type="number" name="duration" value={this.state.course.duration} onChange={this.handleInputChange} min='0' />
-                                </Form.Group>
+                                <Row>
+                                    <Col md={6}>
+                                        <Form.Group controlId="price">
+                                            <Form.Label>Price</Form.Label>
+                                            <Form.Control type="number" name="price" value={this.state.course.price} onChange={this.handleInputChange} min='0' />
+                                        </Form.Group>
+                                    </Col>
+                                    <Col md={6}>
+                                        <Form.Group controlId="duration">
+                                            <Form.Label>Duration</Form.Label>
+                                            <Form.Control type="number" name="duration" value={this.state.course.duration} onChange={this.handleInputChange} min='0' />
+                                        </Form.Group>
+                                    </Col>
+                                </Row>
                                 <Form.Group controlId="requirements">
                                     <Form.Label>Requirements</Form.Label>
-                                    <Form.Control type="text" name="requirements" value={this.state.course.requirements} onChange={this.handleInputChange} />
-                                    <Form.Text id='passwordHelpBlock' muted>Separate with commas</Form.Text>
+                                    <Form.Control as='textarea' name="requirements" value={this.state.course.requirements} onChange={this.handleInputChange} />
+                                    <Form.Text id='passwordHelpBlock' muted>Separate requirements with commas</Form.Text>
                                 </Form.Group>
 
                                 <Form.Group>
@@ -136,9 +145,10 @@ class EditCourseForm extends Component {
                                     <Form.Control type="file" onChange={this.handleImageUpload} />
                                 </Form.Group>
 
-                                <Button variant="info" type="submit" disabled={this.state.uploadingActive}>{this.state.uploadingActive ? 'Image loading...' : 'Confirm Edition'}</Button>
-                                <Button as='a' href='/profile' variant="dark" disabled={this.state.uploadingActive}>{this.state.uploadingActive ? 'Image loading...' : 'Cancel'}</Button>
+                                <Button className="mr-3 mt-3" variant="info" type="submit" disabled={this.state.uploadingActive}>{this.state.uploadingActive ? 'Image loading...' : 'Confirm Edition'}</Button>
+                                <Button className="mt-3" as='a' href='/profile' variant="dark" disabled={this.state.uploadingActive}>{this.state.uploadingActive ? 'Image loading...' : 'Cancel'}</Button>
                             </Form>
+                            <Link to="/profile-teacher" className="btn btn-outline-dark mt-5">Go back</Link>
                         </Col>
                     </Row>
                 </Container>

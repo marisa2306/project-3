@@ -29,25 +29,25 @@ class CoursesList extends Component {
     filterBySearch = value => this.setState({ filteredCourses: [...this.state.courses].filter(elm => elm.title.toLowerCase().includes(value.toLowerCase())) })
 
     filterByCategory = option => option !== 'default' ?
-        this.setState({ filteredCourses: [ ...this.state.filteredCourses ].filter(elm => elm.category === option) })
-        : this.setState({ filteredCourses: [ ...this.state.courses ] })
-   
+        this.setState({ filteredCourses: [...this.state.filteredCourses].filter(elm => elm.category === option) })
+        : this.setState({ filteredCourses: [...this.state.courses] })
+
     filterByLevel = option => option !== 'default' ?
-        this.setState({ filteredCourses: [ ...this.state.filteredCourses ].filter(elm => elm.difficultyLevel === option) })
-        : this.setState({ filteredCourses: [ ...this.state.courses ] })
+        this.setState({ filteredCourses: [...this.state.filteredCourses].filter(elm => elm.difficultyLevel === option) })
+        : this.setState({ filteredCourses: [...this.state.courses] })
 
     sortBy = option => {
-        const filteredCoursesCopy = [ ...this.state.filteredCourses ]
+        const filteredCoursesCopy = [...this.state.filteredCourses]
         switch (option) {
             case 'Name-A': this.setState({ filteredCourses: filteredCoursesCopy.sort((a, b) => (a.title > b.title) ? 1 : -1) })
                 break;
             case 'Name-Z': this.setState({ filteredCourses: filteredCoursesCopy.sort((a, b) => (a.title < b.title) ? 1 : -1) })
                 break;
-            case 'Price-asc': this.setState({ filteredCourses:  filteredCoursesCopy.sort((a, b) => (a.price > b.price) ? 1 : -1)})
+            case 'Price-asc': this.setState({ filteredCourses: filteredCoursesCopy.sort((a, b) => (a.price > b.price) ? 1 : -1) })
                 break;
-            case 'Price-desc': this.setState({ filteredCourses:  filteredCoursesCopy.sort((a, b) => (a.price < b.price) ? 1 : -1)})
+            case 'Price-desc': this.setState({ filteredCourses: filteredCoursesCopy.sort((a, b) => (a.price < b.price) ? 1 : -1) })
                 break;
-            default:    this.setState({filteredCourses: [...this.state.courses] })
+            default: this.setState({ filteredCourses: [...this.state.courses] })
                 break;
         }
     }
@@ -57,7 +57,7 @@ class CoursesList extends Component {
             <>
                 <Container>
 
-                    <h1>Our courses</h1>
+                    <h1 className="mt-5">Our courses</h1>
 
                     <SearchBar filterBySearch={this.filterBySearch} filterByCategory={this.filterByCategory} filterByLevel={this.filterByLevel} sortBy={this.sortBy} />
 
