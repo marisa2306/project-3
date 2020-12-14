@@ -128,7 +128,7 @@ class NewTeacherForm extends Component {
                                     </Form.Group>
                                 </Tab>
                                 <Tab eventKey="youtube" title="Youtube">
-                                    <Form.Group controlId="linkedin">
+                                    <Form.Group controlId="youtube">
                                         <Form.Label>Youtube url</Form.Label>
                                         <Form.Control type="text" name="youtube" value={this.state.youtube} onChange={this.handleInputChange} />
                                     </Form.Group>

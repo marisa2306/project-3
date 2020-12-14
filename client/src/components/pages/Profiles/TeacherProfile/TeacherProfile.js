@@ -120,7 +120,7 @@ class TeacherProfile extends Component {
             <>
               <Row>
 
-                <Col md={{ span: 8 }}>
+                <Col sm={{ span: 8 }}>
                   <p className="instructor" style={{ color: '#73726c' }}>INSTRUCTOR</p>
                   <h1>{this.state.teacher.name} {this.state.teacher.surname} </h1>
                   <p><strong>{this.state.teacher.jobOccupation}</strong></p>
@@ -132,27 +132,27 @@ class TeacherProfile extends Component {
 
                   <p>{this.state.teacher.description}</p>
                 </Col>
-                <Col md={{ span: 3, offset: 1 }} className="d-flex align-items-center flex-column teacher-badge">
+                <Col sm={{ span: 3, offset: 1 }} className="d-flex align-items-center flex-column teacher-badge">
                   <Row>
                     <Image src={this.state.teacher.imageUrl} className="user-img mb-3" roundedCircle alt={this.state.teacher.name} />
                   </Row>
 
-                  <Row className="mb-5">
+                  <Row className="mt-3 mb-5">
                     {/* 
               {this.props.teacherInfo.url ?
                 this.props.teacherInfo.url.map(elm => <a className="btn btn-success" href={this.props.teacherInfo.url} target="_blank" key={elm._id}{...elm}>Linkedin</a>)
                 : null
               } */}
                     {this.state.teacher.linkedin ?
-                      <a className="btn btn-outline-info btn-block" href={this.state.teacher.linkedin} target="_blank"><span><img className="links-icon" src="https://res.cloudinary.com/dodneiokm/image/upload/v1607968642/project3-ironhack/linkedin_w0nz2g.png" /></span>Linkedin</a>
+                      <a className="teacher-links-btn " href={this.state.teacher.linkedin} target="_blank"><span><img className="links-icon" src="https://res.cloudinary.com/dodneiokm/image/upload/v1607977090/project3-ironhack/linkedin_3_zpvz48.png" /></span>Linkedin</a>
                       : null
                     }
                     {this.state.teacher.website ?
-                      <a className="btn btn-outline-primary btn-block " href={this.state.teacher.website} target="_blank">Website</a>
+                      <a className="teacher-links-btn" href={this.state.teacher.website} target="_blank"><span><img className="links-icon" src="https://res.cloudinary.com/dodneiokm/image/upload/v1607977242/project3-ironhack/link_kj6las.png" /></span>Website</a>
                       : null
                     }
                     {this.state.teacher.youtube ?
-                      <a className="btn btn-outline-primary btn-block " href={this.state.teacher.youtube} target="_blank">Youtube</a>
+                      <a className="teacher-links-btn" href={this.state.teacher.youtube} target="_blank"><span><img className="links-icon" src="https://res.cloudinary.com/dodneiokm/image/upload/v1607976945/project3-ironhack/youtube_hgefuo.png" /></span>Youtube</a>
                       : null
                     }
                   </Row>
@@ -160,9 +160,9 @@ class TeacherProfile extends Component {
 
                   {this.props.teacherInfo && this.props.teacherInfo._id === this.state.teacher._id ?
                     <Row >
-                      <Link to='/profile-teacher/edit-teacher' className="btn btn-info btn-block">Edit teacher details</Link>
-                      <Button onClick={() => this.handleModal(true)} className="btn btn-danger btn-block">Delete</Button>
-                      <Link to='/profile-teacher/create-course' className="btn btn-success btn-block">Create new course</Link>
+                      <Link to='/profile-teacher/edit-teacher' className="teacher-edit">Edit details</Link>
+                      <Button onClick={() => this.handleModal(true)} className="teacher-delete">Delete</Button>
+                      <Link to='/profile-teacher/create-course' className="course-add mt-5">Add course</Link>
                     </Row>
                     :
                     null

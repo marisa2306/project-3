@@ -15,7 +15,7 @@ class LoginForm extends Component {
         this.authService = new AuthService()
     }
 
-    handleInputChange = e => this.setState({ formInfo: { ...this.state.formInfo, [ e.target.name ]: e.target.value }})
+    handleInputChange = e => this.setState({ formInfo: { ...this.state.formInfo, [e.target.name]: e.target.value } })
 
     handleSubmit = e => {
         e.preventDefault()
@@ -33,23 +33,24 @@ class LoginForm extends Component {
     render() {
         return (
             <Container>
-            <h1>Log In</h1>
-            <hr />
-        
-            <Form onSubmit={this.handleSubmit}>
-                <Form.Group controlId="username">
-                    <Form.Label>Usermane</Form.Label>
-                    <Form.Control type="text" name="username" value={this.state.username} onChange={this.handleInputChange} />
-                </Form.Group>
-                <Form.Group controlId="password">
-                    <Form.Label>Password</Form.Label>
-                    <Form.Control type="password" name="password" value={this.state.password} onChange={this.handleInputChange} />
-                </Form.Group>
-                    <Button variant="dark" type="submit">Enter</Button>
-                    <Form.Text id='loginHelpText' muted>Click outside to cancel</Form.Text>
+                <h1>Log In</h1>
+                <hr />
 
-            </Form>
-            
+                <Form onSubmit={this.handleSubmit}>
+                    <Form.Group controlId="username">
+                        <Form.Label>Usermane</Form.Label>
+                        <Form.Control type="text" name="username" value={this.state.username} onChange={this.handleInputChange} />
+                    </Form.Group>
+                    <Form.Group controlId="password">
+                        <Form.Label>Password</Form.Label>
+                        <Form.Control type="password" name="password" value={this.state.password} onChange={this.handleInputChange} />
+                    </Form.Group>
+                    <div className="d-flex justify-content-between align-items-center">
+                        <Button variant="dark" type="submit">Enter</Button>
+                        <Form.Text id='loginHelpText' muted>Click outside to cancel</Form.Text>
+                    </div>
+                </Form>
+
             </Container>
         )
     }

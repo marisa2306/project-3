@@ -77,14 +77,14 @@ class CourseDetails extends Component {
                                         {this.state.course.requirements.map(elm => <li key={elm._id}><img src="https://res.cloudinary.com/dodneiokm/image/upload/v1607887317/project3-ironhack/double-check_tm7qmy.png" /><p>{elm}</p></li>)}
                                     </ul>
 
-                                    <Button onClick={this.toggleInput} className="mt-3 mb-3" variant="dark">Start the course</Button>
+                                    <Button onClick={this.toggleInput} className="mt-3 mb-3 start-course" >Start the course</Button>
 
                                     {/* Videos */}
                                     {this.state.showInput ?
                                         this.state.course.videos.map(elm =>
                                             <Card.Header className="video-card" key={elm._id}>
                                                 <img src="https://res.cloudinary.com/dodneiokm/image/upload/v1607893554/project3-ironhack/play_u6mma0.png" alt="play icon" />
-                                                <a href={elm}>Video {elm._id}</a>
+                                                <a href={elm} target="_blank" >Video {elm._id}</a>
                                             </Card.Header>
                                         )
                                         : null
