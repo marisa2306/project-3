@@ -65,11 +65,9 @@ class NewCourseForm extends Component {
             <>
                 <Container>
                     <Row>
-                        <h1 className="mt-5">Create New Course</h1>
-                        <hr />
-                    </Row>
-                    <Row>
-                        <Col md={6}>
+                        <Col lg={{ span: 6, offset: 3 }}>
+                            <h1 className="mt-5">Create New Course</h1>
+                            <hr />
                             <Form onSubmit={this.handleSubmit}>
                                 <Form.Group controlId="title">
                                     <Form.Label>Title</Form.Label>
@@ -115,7 +113,7 @@ class NewCourseForm extends Component {
                                 <Form.Group controlId="whatYouWillLearn">
                                     <Form.Label>Main Topics</Form.Label>
                                     <Form.Control as='textarea' name="whatYouWillLearn" value={this.state.whatYouWillLearn} onChange={this.handleInputChange} />
-                                    <Form.Text id='passwordHelpBlock' muted>Separate with commas</Form.Text>
+                                    <Form.Text id='passwordHelpBlock' muted>Separate topics with commas</Form.Text>
                                 </Form.Group>
                                 <Row>
                                     <Col md={6}>
@@ -134,7 +132,7 @@ class NewCourseForm extends Component {
                                 <Form.Group controlId="requirements">
                                     <Form.Label>Requirements</Form.Label>
                                     <Form.Control as='textarea' name="requirements" value={this.state.requirements} onChange={this.handleInputChange} />
-                                    <Form.Text id='passwordHelpBlock' muted>Separate with commas</Form.Text>
+                                    <Form.Text id='passwordHelpBlock' muted>Separate requirements with commas</Form.Text>
                                 </Form.Group>
 
                                 <Form.Group>
@@ -144,9 +142,10 @@ class NewCourseForm extends Component {
 
                                 <Button className="mt-3" variant="dark" type="submit" disabled={this.state.uploadingActive}>{this.state.uploadingActive ? 'Image loading...' : 'Create course'}</Button>
                             </Form>
+                            <Link to="/profile-teacher" className="btn btn-outline-dark mt-5">Go back</Link>
                         </Col>
                     </Row>
-                    <Link to="/profile-teacher" className="btn btn-outline-dark mt-5">Go back</Link>
+
                 </Container>
             </>
         )

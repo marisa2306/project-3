@@ -48,7 +48,7 @@ class EditCourseForm extends Component {
                 this.props.history.push('/profile-teacher')
                 this.props.handleToast(true, 'Edit successful!', 'green')
             })
-            .catch(err => this.props.handleToast(true, err, 'red'))   // TO-DO ¿o mejor así?
+            .catch(err => this.props.handleToast(true, err.message, 'red'))   // TO-DO ¿o mejor así?
     }
 
     handleImageUpload = e => {
@@ -118,7 +118,7 @@ class EditCourseForm extends Component {
                                 <Form.Group controlId="whatYouWillLearn">
                                     <Form.Label>Main Topics</Form.Label>
                                     <Form.Control as='textarea' name="whatYouWillLearn" value={this.state.course.whatYouWillLearn} onChange={this.handleInputChange} />
-                                    <Form.Text id='passwordHelpBlock' muted>Separate with commas</Form.Text>
+                                    <Form.Text id='passwordHelpBlock' muted>Separate topics with commas</Form.Text>
                                 </Form.Group>
                                 <Row>
                                     <Col md={6}>
@@ -137,7 +137,7 @@ class EditCourseForm extends Component {
                                 <Form.Group controlId="requirements">
                                     <Form.Label>Requirements</Form.Label>
                                     <Form.Control as='textarea' name="requirements" value={this.state.course.requirements} onChange={this.handleInputChange} />
-                                    <Form.Text id='passwordHelpBlock' muted>Separate with commas</Form.Text>
+                                    <Form.Text id='passwordHelpBlock' muted>Separate requirements with commas</Form.Text>
                                 </Form.Group>
 
                                 <Form.Group>
