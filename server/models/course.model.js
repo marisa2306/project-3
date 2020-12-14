@@ -13,6 +13,13 @@ const courseSchema = new Schema({
         default: 'Unknown',
         maxlength: 60
     },
+    lead: {
+        type: String,
+        unique: true,
+        required: true,
+        default: 'Unknown',
+        maxlength: 300
+    },
     category: {
         type: String,
         enum: ['Design', 'Development', 'Marketing', 'Music', 'Other'],

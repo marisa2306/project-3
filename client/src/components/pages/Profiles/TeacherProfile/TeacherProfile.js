@@ -84,11 +84,11 @@ class TeacherProfile extends Component {
             </Col>
           </Row>
         </Popup>
-        
+
         <Container className="teacher-profile">
           <Row>
 
-            <Col md={{ span: 9 }}>
+            <Col md={{ span: 8 }}>
               <p className="instructor" style={{ color: '#73726c' }}>INSTRUCTOR</p>
               <h1>{this.props.teacherInfo.name} {this.props.teacherInfo.surname} </h1>
               <p><strong>{this.props.teacherInfo.jobOccupation}</strong></p>
@@ -96,10 +96,11 @@ class TeacherProfile extends Component {
               <h3><strong>About me</strong></h3>
               <p>{this.props.teacherInfo.description}</p>
             </Col>
-            <Col md={{ span: 2, offset: 1 }} className="d-flex align-items-center flex-column">
+            <Col md={{ span: 3, offset: 1 }} className="d-flex align-items-center flex-column teacher-badge">
               <Row>
                 <Image src={this.props.loggedUser.imageUrl} className="user-img mb-3" roundedCircle alt={this.props.teacherInfo.name} />
               </Row>
+
               <Row className="mb-5">
                 {/* 
               {this.props.teacherInfo.url ?
@@ -143,11 +144,12 @@ class TeacherProfile extends Component {
                 <Col className="cta">
                   <Row className="d-flex justify-content-between">
                     <p className="mt-2 mb-0">Let's start teaching, <strong>{this.props.loggedUser.username}</strong>! Create an Engaging Course.</p>
-                    <Link to='/profile-teacher/create-course' className="btn btn-success btn-block">Create new course</Link>
+                    <Link to='/profile-teacher/create-course' className="btn btn-success ">Create new course</Link>
                   </Row>
                 </Col>
             }
           </Row>
+          <Link to="/profile" className="btn btn-outline-dark mt-5">Go back</Link>
         </Container>
       </>
     )

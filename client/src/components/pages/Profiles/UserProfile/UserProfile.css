@@ -1,4 +1,14 @@
+.user-details{
 
+        background-color:#fff;
+        padding:40px 40px;
+        border: 1px solid #dee2e6 ;
+        border-bottom-left-radius: .25rem;
+        border-top-right-radius: .25rem;
+        border-bottom-right-radius: .25rem;
+        box-shadow: 0 4px 12px rgba(0,0,0,.08)
+ 
+}
 .user-img{
     width:150px;
     height:150px;

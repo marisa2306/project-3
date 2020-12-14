@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import UsersService from '../../../../service/users.service'
 import FilesService from '../../../../service/upload.service'
 import Loader from '../../../shared/Spinner/Loader'
+import { Link } from 'react-router-dom'
 import { Container, Row, Col, Form, Button } from 'react-bootstrap'
 
 class EditUserForm extends Component {
@@ -61,7 +62,7 @@ class EditUserForm extends Component {
             <Container>
                 <Row>
                     <Col lg={{ span: 6, offset: 3 }}>
-                        <h1>Edit User Profile</h1>
+                        <h1 className="mt-5">Edit User Profile</h1>
                         <hr />
 
                         <Form validated={this.validated} onSubmit={this.handleSubmit}>
@@ -121,11 +122,13 @@ class EditUserForm extends Component {
                             </Form.Group>
 
                             <Form.Group className="mt-5">
-                                <Button variant='info' type='submit' disabled={this.state.uploadingActive}>{this.state.uploadingActive ? 'Image loading...' : 'Edit your user details'}</Button>
+                                <Button variant='info' type='submit' disabled={this.state.uploadingActive}>{this.state.uploadingActive ? 'Image loading...' : 'Edit your details'}</Button>
                             </Form.Group>
                         </Form>
+                        <Link to="/profile" className="btn btn-outline-dark mt-5">Go back</Link>
                     </Col>
                 </Row>
+
             </Container>
         )
     }

@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import CoursesService from './../../../service/courses.service'
 import FilesService from './../../../service/upload.service'
 import Loader from '../../shared/Spinner/Loader'
-
+import { Link } from 'react-router-dom'
 import { Form, Button, Container, Row, Col } from 'react-bootstrap'
 
 class NewCourseForm extends Component {
@@ -11,6 +11,7 @@ class NewCourseForm extends Component {
         this.state = {
             course: {
                 title: '',
+                lead: '',
                 description: '',
                 category: '',
                 difficultyLevel: '',
@@ -64,15 +65,18 @@ class NewCourseForm extends Component {
             <>
                 <Container>
                     <Row>
-                        <h1>Create New Course</h1>
-                        <hr />
-                    </Row>
-                    <Row>
-                        <Col md={6}>
+                        <Col lg={{ span: 6, offset: 3 }}>
+                            <h1 className="mt-5">Create New Course</h1>
+                            <hr />
                             <Form onSubmit={this.handleSubmit}>
                                 <Form.Group controlId="title">
                                     <Form.Label>Title</Form.Label>
                                     <Form.Control type="text" name="title" value={this.state.title} onChange={this.handleInputChange} />
+                                </Form.Group>
+
+                                <Form.Group controlId="title">
+                                    <Form.Label>Lead Paragraph</Form.Label>
+                                    <Form.Control type="text" name="lead" value={this.state.lead} onChange={this.handleInputChange} />
                                 </Form.Group>
 
                                 <Form.Group controlId="description">
@@ -109,6 +113,7 @@ class NewCourseForm extends Component {
                                 <Form.Group controlId="whatYouWillLearn">
                                     <Form.Label>Main Topics</Form.Label>
                                     <Form.Control as='textarea' name="whatYouWillLearn" value={this.state.whatYouWillLearn} onChange={this.handleInputChange} />
+                                    <Form.Text id='passwordHelpBlock' muted>Separate topics with commas</Form.Text>
                                 </Form.Group>
                                 <Row>
                                     <Col md={6}>
@@ -127,6 +132,7 @@ class NewCourseForm extends Component {
                                 <Form.Group controlId="requirements">
                                     <Form.Label>Requirements</Form.Label>
                                     <Form.Control as='textarea' name="requirements" value={this.state.requirements} onChange={this.handleInputChange} />
+                                    <Form.Text id='passwordHelpBlock' muted>Separate requirements with commas</Form.Text>
                                 </Form.Group>
 
                                 <Form.Group>
@@ -134,10 +140,12 @@ class NewCourseForm extends Component {
                                     <Form.Control type="file" onChange={this.handleImageUpload} />
                                 </Form.Group>
 
-                                <Button variant="dark" type="submit" disabled={this.state.uploadingActive}>{this.state.uploadingActive ? 'Image loading...' : 'Create course'}</Button>
+                                <Button className="mt-3" variant="dark" type="submit" disabled={this.state.uploadingActive}>{this.state.uploadingActive ? 'Image loading...' : 'Create course'}</Button>
                             </Form>
+                            <Link to="/profile-teacher" className="btn btn-outline-dark mt-5">Go back</Link>
                         </Col>
                     </Row>
+
                 </Container>
             </>
         )
