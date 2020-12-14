@@ -22,7 +22,10 @@ class TeachersList extends Component {
         this.teachersService
             .getTeachers()
             .then(res => this.setState({ teachers: res.data, filteredTeachers: [...res.data] }))
-            .catch(err => console.log(err))   //  TO-DO -- ¿qué hacemos con esto?
+            .catch(() => {
+                this.props.history.push('/')
+                this.props.handleToast(true, 'An error has occurred, please try again later', 'red')
+            })
     }
 
     filterBySearch = value => this.setState({ filteredTeachers: [...this.state.teachers].filter(elm => elm.name.toLowerCase().includes(value.toLowerCase())) })

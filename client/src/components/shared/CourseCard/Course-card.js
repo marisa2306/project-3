@@ -19,8 +19,6 @@ const CourseCard = props => {
                 <Card.Img variant="top" src={props.imageUrl} alt={props.title} />
                 <Card.Body>
                     <Card.Title>{props.title}</Card.Title>
-                    {/* TO-DO props.owner borrar despues de eliminar cursos sin owner*/}
-                    {props.owner ? <Card.Subtitle className="mb-2 text-muted">by {props.owner.name} {props.owner.surname}</Card.Subtitle> : null}
 
                     <Card.Text className="details"><strong>Category:</strong> {props.category} | <strong>Level:</strong> {props.difficultyLevel} </Card.Text>
                     <Card.Text><strong>Price:</strong> {props.price} € | <strong>Duration:</strong> {props.duration} h</Card.Text>

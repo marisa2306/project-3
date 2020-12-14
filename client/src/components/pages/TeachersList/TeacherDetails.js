@@ -27,7 +27,7 @@ class TeacherDetails extends Component {
     Promise.all([getTeacher, getCourses])
       .then(response => this.setState({ teacher: response[0].data, courses: response[1].data }))
       .catch(() => {
-        this.props.history.push('/profile')   //  TO-DO -- ¿está bien así?
+        this.props.history.push('/teachers')
         this.props.handleToast(true, 'An error has occurred, please try again later', 'red')
       })
   }

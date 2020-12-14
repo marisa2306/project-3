@@ -4,8 +4,8 @@ import CoursesService from './../../../service/courses.service'
 import FilesService from './../../../service/upload.service'
 import { Form, Button, Container, Row, Col } from 'react-bootstrap'
 import Loader from './../../shared/Spinner/Loader'
-class EditCourseForm extends Component {
 
+class EditCourseForm extends Component {
     constructor(props) {
         super(props)
         this.state = {
@@ -29,14 +29,16 @@ class EditCourseForm extends Component {
         this.filesService = new FilesService()
     }
 
-
     componentDidMount = () => {
         const course_id = this.props.match.params.course_id
 
         this.coursesService
             .getCourse(course_id)
             .then(res => this.setState({ course: res.data }))
-            .catch(err => console.log(err))
+            .catch(() => {
+                this.props.history.push('/profile')
+                this.props.handleToast(true, 'An error has occurred, please try again later', 'red')
+            })
     }
 
     handleInputChange = e => this.setState({ course: { ...this.state.course, [e.target.name]: e.target.value } })
@@ -50,7 +52,7 @@ class EditCourseForm extends Component {
                 this.props.history.push('/profile-teacher')
                 this.props.handleToast(true, 'Edit successful!', 'green')
             })
-            .catch(err => this.props.handleToast(true, err.message, 'red'))   // TO-DO ¿o mejor así?
+            .catch(err => this.props.handleToast(true, err.response.data.message[0].msg, 'red'))  // TO-DO Configurar en servidor con validator
     }
 
     handleImageUpload = e => {
@@ -67,7 +69,7 @@ class EditCourseForm extends Component {
                     uploadingActive: false
                 })
             })
-            .catch(err => this.props.handleToast(true, err.response.data.message, 'red'))   // TO-DO ¿o mejor así?
+            .catch(err => this.props.handleToast(true, err.response.data.message, 'red'))
     }
 
 

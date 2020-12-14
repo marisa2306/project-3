@@ -36,7 +36,6 @@ class NewTeacherForm extends Component {
 
     // handleLinksChange = e => this.setState({ links:  [{...this.state.links, [ e.target.name ]: e.target.value }] })
 
-
     handleSubmit = e => {
         e.preventDefault()
 
@@ -47,8 +46,7 @@ class NewTeacherForm extends Component {
                 this.props.history.push('/profile')
                 this.props.handleToast(true, 'Congratulations!, now you have a teacher\'s profile', 'green')
             })
-            .catch(() => this.props.handleToast(true, 'An error has occurred while creating your teacher profile, please try again later', 'red')) //  TO-DO -- ¿está bien así?
-
+            .catch(err => this.props.handleToast(true, err.response.data.message[0].msg, 'red'))  // TO-DO Configurar en servidor con validator
     }
 
     handleImageUpload = e => {
