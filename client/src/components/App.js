@@ -87,7 +87,7 @@ class App extends Component {
 
         <main>
           <Switch>
-            <Route exact path="/" render={() => <Home />} />
+            <Route exact path="/" render={props => <Home {...props} handleToast={this.handleToast} />} />
             <Route exact path="/courses" render={props => <CoursesList {...props} loggedUser={this.state.loggedInUser} teacherInfo={this.state.teacher} updateFavs={this.updateFavs} handleToast={this.handleToast} />} />
             <Route path="/courses/:course_id" render={props => <CourseDetails {...props} handleToast={this.handleToast} teacherInfo={this.state.teacher} />} />
             <Route exact path="/teachers" render={props => <TeachersList {...props} loggedUser={this.state.loggedInUser} teacherInfo={this.state.teacher} handleToast={this.handleToast} />} />

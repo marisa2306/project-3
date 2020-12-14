@@ -4,6 +4,13 @@ const Course = require('../models/course.model')
 const { isLoggedIn, isTeacher, isValidId } = require('../middleware/custom-middleware')
 
 
+router.get('/sampleCourses', (req, res) => {
+    Course
+        .aggregate([ { $sample: { size: 10 } } ])
+        .then(response => res.json(response))
+        .catch(err => res.status(500).json(err))
+})
+
 router.get('/getAllCourses', (req, res) => {
     Course
         .find()
@@ -28,7 +35,7 @@ router.get('/getOneCourse/:id', isValidId, (req, res) => {
 })
 
 router.post('/newCourse', isLoggedIn, isTeacher, (req, res) => {
-    const { imageUrl, title, lead, catgory, difficultyLevel, description, whatYouWillLearn, price, requirements, videos, _id, duration, owner } = req.body
+    const { imageUrl, title, lead, category, difficultyLevel, description, whatYouWillLearn, price, requirements, videos, duration, owner } = req.body
     const mainTopicsArr = whatYouWillLearn.split(', ').map(elm => elm.charAt(0).toUpperCase() + elm.substring(1))
     const requirementsArr = requirements.split(', ').map(elm => elm.charAt(0).toUpperCase() + elm.substring(1))
     const videosArr = videos.split(', ').map(elm => elm.charAt(0).toUpperCase() + elm.substring(1))
@@ -38,7 +45,7 @@ router.post('/newCourse', isLoggedIn, isTeacher, (req, res) => {
             imageUrl,
             title,
             lead,
-            catgory,
+            category,
             difficultyLevel,
             description,
             whatYouWillLearn: mainTopicsArr,
@@ -54,7 +61,7 @@ router.post('/newCourse', isLoggedIn, isTeacher, (req, res) => {
 })
 
 router.put('/editCourse/:id', isLoggedIn, isTeacher, isValidId, (req, res) => {
-    const { imageUrl, title, lead, catgory, difficultyLevel, description, whatYouWillLearn, price, videos, requirements, _id, duration, owner } = req.body
+    const { imageUrl, title, lead, category, difficultyLevel, description, whatYouWillLearn, price, videos, requirements, duration, owner } = req.body
 
     // const mainTopicsArr = typeof whatYouWillLearn === 'string' ? whatYouWillLearn.split(', ').map(elm => elm.charAt(0).toUpperCase() + elm.substring(1)) : whatYouWillLearn
     // const requirementsArr = typeof requirements === 'string' ? requirements.split(', ').map(elm => elm.charAt(0).toUpperCase() + elm.substring(1)) : requirementsArr
@@ -68,7 +75,7 @@ router.put('/editCourse/:id', isLoggedIn, isTeacher, isValidId, (req, res) => {
             imageUrl,
             title,
             lead,
-            catgory,
+            category,
             difficultyLevel,
             description,
             whatYouWillLearn: mainTopicsArr,
