@@ -27,7 +27,7 @@ class TeacherProfile extends Component {
       .getTeacherCourses(this.props.teacherInfo._id)
       .then(response => this.setState({ courses: response.data }))
       .catch(() => {
-        this.props.history.push('/profile')   //  TO-DO -- ¿está bien así?
+        this.props.history.push('/profile')
         this.props.handleToast(true, 'An error has occurred, please try again later', 'red')
       })
   }
@@ -39,10 +39,13 @@ class TeacherProfile extends Component {
         this.refreshCourses()
         this.props.handleToast(true, 'Delete successful!', 'green')
       })
-      .catch(() => this.props.handleToast(true, 'An error has occurred while deleting, please try again later', 'red')) //  TO-DO -- ¿está bien así?
+      .catch(() => {
+        this.props.history.push('/profile')
+        this.props.handleToast(true, 'An error has occurred while deleting, please try again later', 'red')
+      })
   }
 
-  deleteTeacher = () => {
+  deleteTeacher = () => {                           // TO-DO ==> llevar a servidor
     const teacher_Id = this.props.teacherInfo._id
 
     !this.state.courses
@@ -54,7 +57,11 @@ class TeacherProfile extends Component {
           this.props.history.push('/profile')
           this.props.handleToast(true, 'Delete successful!', 'green')
         })
-        .catch(() => this.props.handleToast(true, 'An error has occurred while deleting, please try again later', 'red')) //  TO-DO -- ¿está bien así?
+        .catch(() => {
+        this.props.history.push('/profile')
+        this.props.handleToast(true, 'An error has occurred while deleting, please try again later', 'red')
+        })
+      
       :
 
       this.coursesServices
@@ -65,7 +72,10 @@ class TeacherProfile extends Component {
           this.props.history.push('/profile')
           this.props.handleToast(true, 'Delete successful!', 'green')
         })
-        .catch(() => this.props.handleToast(true, 'An error has occurred while deleting, please try again later', 'red')) //  TO-DO -- ¿está bien así?
+        .catch(() => {
+        this.props.history.push('/profile')
+        this.props.handleToast(true, 'An error has occurred while deleting, please try again later', 'red')
+        })
   }
 
   handleModal = visible => this.setState({ showModal: visible })

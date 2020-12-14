@@ -24,8 +24,6 @@ class UserProfile extends Component {
     this.teachersServices = new TeacherServices()
   }
 
-  /////////////////////
-
   componentDidMount = () => {
     this.refreshCourses()
     this.getFavsCourses()
@@ -36,7 +34,10 @@ class UserProfile extends Component {
       this.coursesServices
         .getTeacherCourses(this.props.teacherInfo._id)
         .then(response => this.setState({ teacherCourses: response.data }))
-        .catch(err => console.log(err))   //  TO-DO -- ¿qué hacemos con esto?
+        .catch(() => {
+          this.props.history.push('/')
+          this.props.handleToast(true, 'An error has occurred, please try again later', 'red')
+        })
     }
   }
 
@@ -45,7 +46,10 @@ class UserProfile extends Component {
       this.usersServices
         .getUserFavorites(this.props.loggedUser._id)
         .then(response => this.setState({ favCourses: response.data }))
-        .catch(err => console.log(err))   //  TO-DO -- ¿qué hacemos con esto?
+        .catch(() => {
+          this.props.history.push('/')
+          this.props.handleToast(true, 'An error has occurred, please try again later', 'red')
+        })
     }
   }
 
@@ -75,7 +79,10 @@ class UserProfile extends Component {
     this.coursesServices
       .deleteTeacherCourses(this.props.teacherInfo._id)
       .then(() => this.deleteTeacherAndUser())
-      .catch(err => console.log('error al borrar los cursos del teacher', err))   //  TO-DO -- ¿qué hacemos con esto?
+      .catch(() => {
+        this.props.history.push('/')
+        this.props.handleToast(true, 'An error has occurred while deleting, please try again later', 'red')
+      })
   }
 
   // delete teacher no courses created
@@ -83,7 +90,10 @@ class UserProfile extends Component {
     this.teachersServices
       .deleteTeacher(this.props.teacherInfo._id)
       .then(() => this.deleteOnlyUser())
-      .catch(err => console.log('desde el catch de teacher y user', err))   //  TO-DO -- ¿qué hacemos con esto?
+      .catch(() => {
+        this.props.history.push('/')
+        this.props.handleToast(true, 'An error has occurred while deleting, please try again later', 'red')
+      })
   }
 
   // delete user with no teacher no courses created
@@ -95,11 +105,13 @@ class UserProfile extends Component {
         this.props.storeUser(undefined)
         this.props.history.push('/')
       })
-      .catch(err => console.log('desde el catch del user', err))   //  TO-DO -- ¿qué hacemos con esto?
+      .catch(() => {
+        this.props.history.push('/')
+        this.props.handleToast(true, 'An error has occurred while deleting, please try again later', 'red')
+      })
   }
 
   handleModal = visible => this.setState({ showModal: visible })
-
 
   render() {
     return (

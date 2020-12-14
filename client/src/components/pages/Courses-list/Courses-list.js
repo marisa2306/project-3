@@ -23,7 +23,10 @@ class CoursesList extends Component {
         this.coursesService
             .getCourses()
             .then(res => this.setState({ courses: res.data, filteredCourses: [...res.data] }))
-            .catch(err => console.log(err))
+            .catch(() => {
+                this.props.history.push('/')
+                this.props.handleToast(true, 'An error has occurred, please try again later', 'red')
+            })
     }
 
     filterBySearch = value => this.setState({ filteredCourses: [...this.state.courses].filter(elm => elm.title.toLowerCase().includes(value.toLowerCase())) })

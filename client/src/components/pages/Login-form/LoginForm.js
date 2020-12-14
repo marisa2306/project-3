@@ -46,6 +46,8 @@ class LoginForm extends Component {
                     <Form.Control type="password" name="password" value={this.state.password} onChange={this.handleInputChange} />
                 </Form.Group>
                     <Button variant="dark" type="submit">Enter</Button>
+                    <Form.Text id='loginHelpText' muted>Click outside to cancel</Form.Text>
+
             </Form>
             
             </Container>

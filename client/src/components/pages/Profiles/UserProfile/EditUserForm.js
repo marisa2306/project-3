@@ -22,7 +22,6 @@ class EditUserForm extends Component {
         this.filesService = new FilesService()
     }
 
-
     componentDidMount = () => this.setState({ user: this.props.loggedUser })
 
     handleInputChange = e => this.setState({ user: { ...this.setState.user, [e.target.name]: e.target.value } })
@@ -37,7 +36,7 @@ class EditUserForm extends Component {
                 this.props.history.push('/profile')
                 this.props.handleToast(true, 'Edit successful!', 'green')
             })
-            .catch(err => this.props.handleToast(true, err.response.data.message, 'red'))   // TO-DO ¿o mejor así?
+            .catch(err => this.props.handleToast(true, err.response.data.message[0].msg, 'red'))  // TO-DO Configurar en servidor con validator
     }
 
     handleImageUpload = e => {

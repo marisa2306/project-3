@@ -39,7 +39,7 @@ class NewCourseForm extends Component {
                 this.props.history.push('/profile-teacher')
                 this.props.handleToast(true, 'New course created!', 'green')
             })
-            .catch(() => this.props.handleToast(true, 'An error has occurred while creating, please try again later', 'red')) //  TO-DO -- ¿está bien así?
+            .catch(err => this.props.handleToast(true, err.response.data.message[0].msg, 'red'))  // TO-DO Configurar en servidor con validator
     }
 
     handleImageUpload = e => {

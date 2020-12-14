@@ -24,7 +24,7 @@ class Navigation extends Component {
                 this.props.storeUser(undefined)
                 this.props.handleToast(true, 'Logout successful!', 'green')
             })
-            .catch(err => this.props.handleToast(true, err, 'red'))   // TO-DO ¿o mejor así?
+            .catch(err => this.props.handleToast(true, err.message, 'red'))
     }
 
     handleModal = visible => this.setState({ showModal: visible })

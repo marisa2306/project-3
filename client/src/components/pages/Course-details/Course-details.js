@@ -26,7 +26,7 @@ class CourseDetails extends Component {
             .getCourse(course_id)
             .then(res => this.setState({ course: res.data }))
             .catch(() => {
-                this.props.history.push('/profile')   //  TO-DO -- ¿está bien así?
+                this.props.history.push('/profile')
                 this.props.handleToast(true, 'An error has occurred, please try again later', 'red')
             })
     }
