@@ -27,20 +27,23 @@ router.get('/getOneCourse/:id', isValidId, (req, res) => {
 })
 
 router.post('/newCourse', isLoggedIn, isTeacher, (req, res) => {
-    const { imageUrl, title, catgory, difficultyLevel, description, whatYouWillLearn, price, requirements, _id, duration, owner } = req.body
+    const { imageUrl, title, lead, catgory, difficultyLevel, description, whatYouWillLearn, price, requirements, videos, _id, duration, owner } = req.body
     const mainTopicsArr = whatYouWillLearn.split(', ').map(elm => elm.charAt(0).toUpperCase() + elm.substring(1))
     const requirementsArr = requirements.split(', ').map(elm => elm.charAt(0).toUpperCase() + elm.substring(1))
+    const videosArr = videos.split(', ').map(elm => elm.charAt(0).toUpperCase() + elm.substring(1))
 
     Course
         .create({
             imageUrl,
             title,
+            lead,
             catgory,
             difficultyLevel,
             description,
             whatYouWillLearn: mainTopicsArr,
             price,
             requirements: requirementsArr,
+            videos: videosArr,
             _id,
             duration,
             owner
@@ -50,25 +53,27 @@ router.post('/newCourse', isLoggedIn, isTeacher, (req, res) => {
 })
 
 router.put('/editCourse/:id', isLoggedIn, isTeacher, isValidId, (req, res) => {
-    const { imageUrl, title, catgory, difficultyLevel, description, whatYouWillLearn, price, requirements, _id, duration, owner } = req.body
+    const { imageUrl, title, lead, catgory, difficultyLevel, description, whatYouWillLearn, price, videos, requirements, _id, duration, owner } = req.body
 
     // const mainTopicsArr = typeof whatYouWillLearn === 'string' ? whatYouWillLearn.split(', ').map(elm => elm.charAt(0).toUpperCase() + elm.substring(1)) : whatYouWillLearn
     // const requirementsArr = typeof requirements === 'string' ? requirements.split(', ').map(elm => elm.charAt(0).toUpperCase() + elm.substring(1)) : requirementsArr
 
     const mainTopicsArr = typeof whatYouWillLearn === 'string' ? whatYouWillLearn.split(', ').map(elm => elm.charAt(0).toUpperCase() + elm.substring(1)) : typeof whatYouWillLearn === 'array' ? whatYouWillLearn.map(elm => elm.charAt(0).toUpperCase() + elm.substring(1)) : whatYouWillLearn
     const requirementsArr = typeof requirements === 'string' ? requirements.split(', ').map(elm => elm.charAt(0).toUpperCase() + elm.substring(1)) : typeof requirements === 'array' ? requirements.map(elm => elm.charAt(0).toUpperCase() + elm.substring(1)) : requirements
-
+    const videosArr = videos.split(', ').map(elm => elm.charAt(0).toUpperCase() + elm.substring(1))
 
     Course
         .findByIdAndUpdate(req.params.id, {
             imageUrl,
             title,
+            lead,
             catgory,
             difficultyLevel,
             description,
             whatYouWillLearn: mainTopicsArr,
             price,
             requirements: requirementsArr,
+            videos: videosArr,
             _id,
             duration,
             owner

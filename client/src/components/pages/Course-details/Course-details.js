@@ -43,18 +43,19 @@ class CourseDetails extends Component {
                 {this.state.course
                     ?
                     <>
-                        <Row>
-                            <Col md={{ span: 8 }} >
-                                <h1>{this.state.course.title}</h1>
-                                <p> {this.state.course.lead}</p>
-                                <p>Created by {this.props.teacherInfo.name} {this.props.teacherInfo.surname}</p>
-                                <p><strong>Category:</strong> {this.state.course.category} | <strong>Difficulty Level:</strong>  {this.state.course.difficultyLevel} | <strong>Price:</strong>  {this.state.course.price} € | <strong>Duration:</strong>  {this.state.course.duration} hrs.</p>
-                            </Col>
-                            <Col md={{ span: 4 }} >
-                                <img className="mb-3" src={this.state.course.imageUrl} alt={this.state.course.title} />
-                            </Col>
-                        </Row>
-
+                        <section className="header">
+                            <Row>
+                                <Col md={{ span: 8 }} >
+                                    <h1>{this.state.course.title}</h1>
+                                    <p><em> {this.state.course.lead}</em></p>
+                                    <p style={{ color: '#73726c', fontWeight: 700 }}>Created by {this.props.teacherInfo.name} {this.props.teacherInfo.surname}</p>
+                                    <p><strong>Category:</strong> {this.state.course.category} | <strong>Difficulty Level:</strong>  {this.state.course.difficultyLevel} | <strong>Price:</strong>  {this.state.course.price} € | <strong>Duration:</strong>  {this.state.course.duration} hrs.</p>
+                                </Col>
+                                <Col md={{ span: 4 }} >
+                                    <img className="mb-3 course-img" src={this.state.course.imageUrl} alt={this.state.course.title} />
+                                </Col>
+                            </Row>
+                        </section>
                         <section className="course-bckg">
                             <Row>
                                 <Col>
@@ -74,10 +75,10 @@ class CourseDetails extends Component {
 
                                     {/* Videos */}
                                     {this.state.showInput ?
-                                        this.state.course.requirements.map(elm =>
+                                        this.state.course.videos.map(elm =>
                                             <Card.Header className="video-card" key={elm._id}>
                                                 <img src="https://res.cloudinary.com/dodneiokm/image/upload/v1607893554/project3-ironhack/play_u6mma0.png" alt="play icon" />
-                                                <a href="https://www.youtube.com/watch?v=Law7wfdg_ls&ab_channel=DevEd">Video{elm} </a>
+                                                <a href={elm}>Video {elm._id}</a>
                                             </Card.Header>
                                         )
                                         : null

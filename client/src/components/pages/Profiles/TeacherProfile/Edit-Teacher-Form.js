@@ -18,6 +18,9 @@ class EditTeacherForm extends Component {
                 //     linkName: '',
                 //     url: ''
                 // }],
+                linkedin: '',
+                youtube: '',
+                website: '',
                 user: this.props.loggedUser ? this.props.loggedUser._id : ''
             },
             uploadingActive: false

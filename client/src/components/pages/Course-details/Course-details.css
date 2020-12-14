@@ -1,6 +1,15 @@
 .course-details {
     margin-top:80px
 }
+
+.course-details .header{
+    background-color:#a2dce6;
+    padding:40px;
+    border: 1px solid #dee2e6 ;
+    border-radius: .25rem;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.39)
+}
+
 .course-bckg{
     background-color:#fff;
     padding:20px 40px;
@@ -9,12 +18,16 @@
     box-shadow: 0 4px 12px rgba(0,0,0,.08)
 }
 
-.course-details img{
+
+.course-img{
     width:100%;
+    border: 5px solid #fff ;
+    border-radius: .25rem;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.39)
 }
 
 .whatYouWillLearn li{
-padding:0px;
+    padding:0px;
 }
 .whatYouWillLearn img{
     width:20px;

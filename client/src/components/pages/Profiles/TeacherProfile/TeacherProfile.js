@@ -9,6 +9,10 @@ import Popup from '../../../shared/Popup/Popup'
 import DeleteMessage from '../../../shared/Delete-message/DeleteMessage'
 import './TeacherProfile.css'
 
+
+
+import EditorContainer from './wysiwyg/EditorContainer'
+
 class TeacherProfile extends Component {
   constructor() {
     super()
@@ -71,6 +75,8 @@ class TeacherProfile extends Component {
   handleModal = visible => this.setState({ showModal: visible })
 
   render() {
+
+
     return (
       <>
         <Popup show={this.state.showModal} handleModal={this.handleModal} color={'maroon'}>
@@ -108,7 +114,7 @@ class TeacherProfile extends Component {
                 : null
               } */}
                 {this.props.teacherInfo.linkedin ?
-                  <a className="btn btn-outline-primary btn-block " href={this.props.teacherInfo.linkedin} target="_blank">Linkedin</a>
+                  <a className="btn btn-outline-info btn-block" href={this.props.teacherInfo.linkedin} target="_blank"><span><img className="links-icon" src="https://res.cloudinary.com/dodneiokm/image/upload/v1607968642/project3-ironhack/linkedin_w0nz2g.png" /></span>Linkedin</a>
                   : null
                 }
                 {this.props.teacherInfo.website ?
@@ -129,6 +135,11 @@ class TeacherProfile extends Component {
 
           </Row>
           <hr></hr>
+
+          {/* WYSIWYG */}
+          {/* <Row>
+            <EditorContainer />
+          </Row> */}
 
           <Row>
             <Col md={12}>

@@ -11,6 +11,7 @@ class EditCourseForm extends Component {
         this.state = {
             course: {
                 title: '',
+                lead: '',
                 description: '',
                 category: '',
                 difficultyLevel: '',
@@ -18,6 +19,7 @@ class EditCourseForm extends Component {
                 price: '',
                 duration: '',
                 requirements: [],
+                videos: [],
                 imageUrl: '',
                 owner: this.props.teacherInfo ? this.props.teacherInfo._id : ''
             },
@@ -84,6 +86,11 @@ class EditCourseForm extends Component {
                                     <Form.Control type="text" name="title" value={this.state.course.title} onChange={this.handleInputChange} />
                                 </Form.Group>
 
+                                <Form.Group controlId="lead">
+                                    <Form.Label>Lead Paragraph</Form.Label>
+                                    <Form.Control type="text" name="lead" value={this.state.course.lead} onChange={this.handleInputChange} />
+                                </Form.Group>
+
                                 <Form.Group controlId="description">
                                     <Form.Label>Description</Form.Label>
                                     <Form.Control as='textarea' name="description" value={this.state.course.description} onChange={this.handleInputChange} />
@@ -118,7 +125,7 @@ class EditCourseForm extends Component {
                                 <Form.Group controlId="whatYouWillLearn">
                                     <Form.Label>Main Topics</Form.Label>
                                     <Form.Control as='textarea' name="whatYouWillLearn" value={this.state.course.whatYouWillLearn} onChange={this.handleInputChange} />
-                                    <Form.Text id='passwordHelpBlock' muted>Separate topics with commas</Form.Text>
+                                    <Form.Text id='whatYouWillLearn' muted>Separate topics with commas</Form.Text>
                                 </Form.Group>
                                 <Row>
                                     <Col md={6}>
@@ -137,7 +144,13 @@ class EditCourseForm extends Component {
                                 <Form.Group controlId="requirements">
                                     <Form.Label>Requirements</Form.Label>
                                     <Form.Control as='textarea' name="requirements" value={this.state.course.requirements} onChange={this.handleInputChange} />
-                                    <Form.Text id='passwordHelpBlock' muted>Separate requirements with commas</Form.Text>
+                                    <Form.Text id='requirements' muted>Separate requirements with commas</Form.Text>
+                                </Form.Group>
+
+                                <Form.Group controlId="requirements">
+                                    <Form.Label>Videos</Form.Label>
+                                    <Form.Control as='textarea' name="videos" value={this.state.course.videos} onChange={this.handleInputChange} />
+                                    <Form.Text id='videos' muted>Separate requirements with commas</Form.Text>
                                 </Form.Group>
 
                                 <Form.Group>

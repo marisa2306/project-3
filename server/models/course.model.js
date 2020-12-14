@@ -14,11 +14,7 @@ const courseSchema = new Schema({
         maxlength: 60
     },
     lead: {
-        type: String,
-        unique: true,
-        required: true,
-        default: 'Unknown',
-        maxlength: 300
+        type: String
     },
     category: {
         type: String,
@@ -61,6 +57,10 @@ const courseSchema = new Schema({
         required: true
     },
     requirements: {
+        type: [String],
+        default: 'unknown'
+    },
+    videos: {
         type: [String],
         default: 'unknown'
     },
