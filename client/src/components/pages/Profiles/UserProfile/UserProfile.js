@@ -135,28 +135,25 @@ class UserProfile extends Component {
           {/* User details */}
           <section className="user-details">
             <Row>
-              <Col md={1}>
+              <Col md={1} lg={1}>
                 <Image src={this.props.loggedUser.imageUrl} className="user-img" roundedCircle alt={this.props.loggedUser.username} />
               </Col>
-              <Col md={{ span: 10, offset: 1 }}>
+              <Col md={{ span: 8, offset: 3 }} lg={{ span: 9, offset: 2 }}>
                 <p><strong>Username:</strong> {this.props.loggedUser.username}</p>
                 <p><strong>Email:</strong> {this.props.loggedUser.email}</p>
                 <p><strong>Role:</strong> {this.props.loggedUser.role}</p>
-                <Row>
-                  <Col md={{ span: 5 }}>
-                    <Link to='/profile/edit-user' className="btn btn-info mr-3">Edit user details</Link>
-                    <Button onClick={() => this.handleModal(true)} className="btn btn-danger">Delete user</Button>
+                <Row className="d-flex">
 
-                  </Col>
-                  <Col md={{ span: 3, offset: 4 }}>
-                    {this.props.loggedUser.role === 'Teacher' && this.props.teacherInfo
-                      ?
-                      <Link to={`/teachers/${this.props.teacherInfo._id}`} className="btn btn-warning">Teacher profile</Link>
-                      : this.props.loggedUser.role === 'Teacher' && !this.props.teacherInfo ?
-                        <Link to='/profile/create-teacher' className="btn btn-success">Create teacher profile</Link>
-                        : null
-                    }
-                  </Col>
+                  <Link to='/profile/edit-user' className="btn btn-info mr-3">Edit details</Link>
+                  <Button onClick={() => this.handleModal(true)} className="btn btn-danger mr-5">Delete user</Button>
+
+                  {this.props.loggedUser.role === 'Teacher' && this.props.teacherInfo
+                    ?
+                    <Link to={`/teachers/${this.props.teacherInfo._id}`} className="btn btn-warning">Teacher profile</Link>
+                    : this.props.loggedUser.role === 'Teacher' && !this.props.teacherInfo ?
+                      <Link to='/profile/create-teacher' className="btn btn-success">Create teacher profile</Link>
+                      : null
+                  }
                 </Row>
               </Col>
             </Row>
@@ -165,6 +162,7 @@ class UserProfile extends Component {
           {/* Your activity */}
           <h2 className="mt-5 mb-3">Your activity</h2>
           <Row>
+
             {this.state.favCourses.length > 0 || this.state.favTeachers.length > 0 || this.state.learningActivity.length > 0 ?
               <Tabs className="mt-3" defaultActiveKey="courses" id="favs">
                 {this.state.favCourses.length > 0 ?
