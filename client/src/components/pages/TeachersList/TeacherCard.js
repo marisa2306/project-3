@@ -4,6 +4,9 @@ import './Teacher-card.css'
 import FavButton from '../../shared/FavButton/FavButton'
 
 const TeacherCard = props => {
+
+    const isTeacherFavBtn = true
+
     return (
         <Col sm={6} md={4} lg={3}>
             <Card className="teacher-card">
@@ -19,6 +22,10 @@ const TeacherCard = props => {
                     <Row>
                         <Col className="d-flex align-items-center justify-content-between">
                             <Link className="btn btn-outline-secondary" to={`/teachers/${props._id}`}>View details</Link>
+                            {props.userInfo ?
+                                <FavButton isTeacherFavBtn={isTeacherFavBtn} updateFavTeachers={props.updateFavTeachers} userInfo={props.userInfo} teacher={props.teacherInfo} itemInfo={props} />
+                                : null
+                            }
 
                             {/* { props.userInfo && props.user === props.userInfo._id
                             ?
@@ -28,12 +35,6 @@ const TeacherCard = props => {
                             </>
                             : null
                     } */}
-
-
-                            {props.userInfo || props.teacher && props.owner !== props.teacher._id ?
-                                <FavButton updateFavs={props.updateFavs} userInfo={props.userInfo} itemInfo={props} />
-                                : null
-                            }
                         </Col>
                     </Row>
                 </Card.Body>
