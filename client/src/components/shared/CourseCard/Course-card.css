@@ -1,6 +1,16 @@
 .course-card {
     margin-bottom: 30px;
     box-shadow: 0 2px 4px rgba(0,0,0,.08);
+    
+}
+
+.course-title{
+    overflow: hidden;
+    font-family: Helvetica,Arial,sans-serif;
+    font-weight: 700;
+    line-height: 1.2;
+    letter-spacing: -.02rem;
+    font-size: 1rem;
 }
 
 .course-card img {
@@ -8,6 +18,18 @@
     object-fit: cover;
 } 
 
+.course-card-link:hover{
+    text-decoration: none;
+    color:#000;
+}
 .details{
-    margin-bottom:0px;
+    overflow: hidden;
+    font-family: Helvetica,Arial,sans-serif;
+    line-height: 1.2;
+    letter-spacing: -.02rem;
+    font-size: 0.95rem;
+}
+
+.card-body{
+    padding:15px
 }

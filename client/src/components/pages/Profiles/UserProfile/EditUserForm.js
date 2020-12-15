@@ -121,7 +121,7 @@ class EditUserForm extends Component {
                             </Form.Group>
 
                             <Form.Group className="mt-5">
-                                <Button variant='info' type='submit' disabled={this.state.uploadingActive}>{this.state.uploadingActive ? 'Image loading...' : 'Edit your details'}</Button>
+                                <Button variant='info' type='submit' disabled={this.state.uploadingActive}>{this.state.uploadingActive ? 'Image loading...' : 'Save changes'}</Button>
                             </Form.Group>
                         </Form>
                         <Link to="/profile" className="btn btn-outline-dark mt-5">Go back</Link>

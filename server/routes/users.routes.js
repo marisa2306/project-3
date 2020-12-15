@@ -4,14 +4,14 @@ const User = require('../models/user.model')
 const { isLoggedIn, isValidId } = require('../middleware/custom-middleware')
 
 
-router.get('/getAllUsers', (req, res) => {
+router.get('/getAllUsers', isLoggedIn, (req, res) => {
     User
         .find()
         .then(response => res.json(response))
         .catch(err => res.status(500).json(err))
 })
 
-router.get('/getOneUser/:id', isValidId, (req, res) => {
+router.get('/getOneUser/:id', isLoggedIn, isValidId, (req, res) => {
     User
         .findById(req.params.id)
         .then(response => res.json(response))
@@ -32,20 +32,36 @@ router.delete('/deleteUser/:id', isLoggedIn, isValidId, (req, res) => {
         .catch(err => res.status(500).json(err))
 })
 
-router.put('/editUser/updateFavs/:id', isLoggedIn, isValidId, (req, res) => {
+// Manage Favorites
+
+router.put('/editUser/updateFavCourses/:id', isLoggedIn, isValidId, (req, res) => {
     User
-        .findByIdAndUpdate(req.params.id, { favorites: req.body }, { new: true })
+        .findByIdAndUpdate(req.params.id, { favCourses: req.body }, { new: true })
         .then(response => res.json(response))
         .catch(err => res.status(500).json(err))
 })
 
-router.get('/userFavs/:id', isLoggedIn, isValidId, (req, res) => {
+router.get('/userFavCourses/:id', isLoggedIn, isValidId, (req, res) => {
     User
         .findById(req.params.id)
-        .populate('favorites')
-        .then(response => res.json(response.favorites))
+        .populate('favCourses')
+        .then(response => res.json(response.favCourses))
         .catch(err => res.status(500).json(err))
 })
 
+router.put('/editUser/updateFavTeachers/:id', isLoggedIn, isValidId, (req, res) => {
+    User
+        .findByIdAndUpdate(req.params.id, { favTeachers: req.body }, { new: true })
+        .then(response => res.json(response))
+        .catch(err => res.status(500).json(err))
+})
+
+router.get('/userFavTeachers/:id', isLoggedIn, isValidId, (req, res) => {
+    User
+        .findById(req.params.id)
+        .populate('favTeachers')
+        .then(response => res.json(response.favTeachers))
+        .catch(err => res.status(500).json(err))
+})
 
 module.exports = router

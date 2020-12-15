@@ -1,4 +1,3 @@
-
 import axios from 'axios'
 
 export default class CourseService {
@@ -11,6 +10,7 @@ export default class CourseService {
     }
 
     getCourses = () => this.apiHandler.get('/getAllCourses')
+    getRandomCourses = () => this.apiHandler.get('/sampleCourses')
     getTeacherCourses = teacherId => this.apiHandler.get(`/getTeacherCourses/${teacherId}`)
     getCourse = courseId => this.apiHandler.get(`/getOneCourse/${courseId}`)
     saveCourse = courseInfo => this.apiHandler.post(`/newCourse`, courseInfo)

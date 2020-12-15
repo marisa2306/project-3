@@ -13,11 +13,11 @@ class SearchBar extends Component {
     }
 
     handleInputChange = e => this.setState({ search: e.target.value }, () => this.props.filterBySearch(this.state.search))
-    
+
     handleSortChange = e => this.setState({ sortBy: e.target.value }, () => this.props.sortBy(this.state.sortBy))
-    
+
     handleCategoryChange = e => this.setState({ categoryFilter: e.target.value }, () => this.props.filterByCategory(this.state.categoryFilter))
-    
+
     handleLevelChange = e => this.setState({ levelFilter: e.target.value }, () => this.props.filterByLevel(this.state.levelFilter))
 
     render() {

@@ -1,14 +1,21 @@
 .noFav-btn {
-  color: red;
+  /* color: red; */
   transition: all .4s;
+   width:20px;
+   height:auto;
 }
 
 .noFav-btn:hover {
-  color: aliceblue;
-  text-decoration: none;
+  /* color: aliceblue;
+  text-decoration: none; */
+  transition: all .4s;
+
 }
 
-.alreadyFav-btn:hover {
-  background-color: white;
-  color: red;
+.alreadyFav-btn {
+  
+  /* background-color: white; */
+  /* color: red; */
+  transition: all .4s;
+ 
 }

@@ -4,6 +4,13 @@ const Course = require('../models/course.model')
 const { isLoggedIn, isTeacher, isValidId } = require('../middleware/custom-middleware')
 
 
+router.get('/sampleCourses', (req, res) => {
+    Course
+        .aggregate([{ $sample: { size: 10 } }])
+        .then(response => res.json(response))
+        .catch(err => res.status(500).json(err))
+})
+
 router.get('/getAllCourses', (req, res) => {
     Course
         .find()
