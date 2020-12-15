@@ -1,7 +1,8 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
+import { motion } from 'framer-motion'
 import AuthService from './../../../service/auth.service'
-import logo from './logo.png'
+import logo from './logo2.png'
 import { Navbar, Nav } from 'react-bootstrap'
 import Popup from '../../shared/Popup/Popup'
 import LoginForm from '../../pages/Login-form/LoginForm'
@@ -36,15 +37,17 @@ class Navigation extends Component {
                     <LoginForm handleToast={this.props.handleToast} closeModal={() => this.handleModal(false)} storeUser={this.props.storeUser} />
                 </Popup>
 
-                <Navbar bg="dark" variant="dark" expand="md" className="menu">
+                <Navbar bg="light" variant="light" expand="md" className="menu" style={{ borderBottom: '1px solid #ddd'}}>
                     <Link to="/">
                         <Navbar.Brand >
-                            <img
+                            <motion.img
+                                whileHover={{ rotate: 360 }}
+                                transition={{ duration: 1 }}
                                 alt="logo"
                                 src={logo}
                                 width="30"
                                 height="30"
-                                className="d-inline-block align-top"
+                                className="d-inline-block align-top mx-2"
                             /> freeDemy_</Navbar.Brand>
                     </Link>
                     <Navbar.Toggle aria-controls="basic-navbar-nav" />

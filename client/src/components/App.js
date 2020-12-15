@@ -64,17 +64,6 @@ class App extends Component {
     .catch(() => this.setState({ teacher: undefined }))
     : this.setState({ teacher: undefined })
   }
-  
-  // setTheUser = user => this.setState({ loggedInUser: user }, () => this.setTheTeacher(user))
-
-  // setTheTeacher = user => {
-  //   user ?
-  //     this.teachersServices
-  //       .getTeacher(this.state.loggedInUser._id)
-  //       .then(response => this.setState({ teacher: response.data[0] }))
-  //       .catch(() => this.setState({ teacher: undefined }))
-  //     : this.setState({ teacher: undefined })
-  // }
 
   handleToast = (visible, text, color) => this.setState({ showToast: visible, toastText: text, toastColor: color })
 

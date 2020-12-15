@@ -10,9 +10,7 @@ import Popup from '../../../shared/Popup/Popup'
 import DeleteMessage from '../../../shared/Delete-message/DeleteMessage'
 import './TeacherProfile.css'
 
-
-
-import EditorContainer from './wysiwyg/EditorContainer'
+// import EditorContainer from './wysiwyg/EditorContainer'
 
 class TeacherProfile extends Component {
   constructor() {
@@ -146,15 +144,15 @@ class TeacherProfile extends Component {
                 : null
               } */}
                       {this.state.teacher.linkedin ?
-                        <a className="teacher-links-btn " href={this.state.teacher.linkedin} target="_blank"><span><img className="links-icon" src="https://res.cloudinary.com/dodneiokm/image/upload/v1607977090/project3-ironhack/linkedin_3_zpvz48.png" /></span>Linkedin</a>
+                        <a className="teacher-links-btn " href={this.state.teacher.linkedin} alt='Linkedin button' target="_blank" rel="noreferrer"><span><img className="links-icon" src="https://res.cloudinary.com/dodneiokm/image/upload/v1607977090/project3-ironhack/linkedin_3_zpvz48.png" alt='Linkedin icon' /></span>Linkedin</a>
                         : null
                       }
                       {this.state.teacher.website ?
-                        <a className="teacher-links-btn" href={this.state.teacher.website} target="_blank"><span><img className="links-icon" src="https://res.cloudinary.com/dodneiokm/image/upload/v1607977242/project3-ironhack/link_kj6las.png" /></span>Website</a>
+                        <a className="teacher-links-btn" href={this.state.teacher.website} alt='Website button' target="_blank" rel="noreferrer"><span><img className="links-icon" src="https://res.cloudinary.com/dodneiokm/image/upload/v1607977242/project3-ironhack/link_kj6las.png" alt='Website icon' /></span>Website</a>
                         : null
                       }
                       {this.state.teacher.youtube ?
-                        <a className="teacher-links-btn" href={this.state.teacher.youtube} target="_blank"><span><img className="links-icon" src="https://res.cloudinary.com/dodneiokm/image/upload/v1607976945/project3-ironhack/youtube_hgefuo.png" /></span>Youtube</a>
+                        <a className="teacher-links-btn" href={this.state.teacher.youtube} alt='Youtube button' target="_blank" rel="noreferrer"><span><img className="links-icon" src="https://res.cloudinary.com/dodneiokm/image/upload/v1607976945/project3-ironhack/youtube_hgefuo.png" alt='Youtube icon' /></span>Youtube</a>
                         : null
                       }
 

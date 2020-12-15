@@ -5,7 +5,7 @@ import SearchBar from './../../shared/SearchBar/SearchBar'
 import CourseCard from '../../shared/CourseCard/Course-card'
 import Loader from './../../shared/Spinner/Loader'
 
-import { Container, Row, Col } from 'react-bootstrap'
+import { Container, Row } from 'react-bootstrap'
 
 class CoursesList extends Component {
     constructor() {
@@ -58,7 +58,7 @@ class CoursesList extends Component {
 
     render() {
         return (
-            <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
+            <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} >
                 <Container>
 
                     <h1 className="mt-5">Our courses</h1>
