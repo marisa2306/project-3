@@ -57,6 +57,17 @@ h3{
     transition: opacity .6s ease;
 }
 
+.carousel {
+    margin: 0 auto;
+    width: 60%;
+}
+
+.carousel img {
+    width: 80%;
+    height: 300px;
+    margin: 0 auto;
+}
+
 .home-card img {
     width:40px;
     margin: 1.5rem auto 0.8rem
