@@ -1,0 +1,22 @@
+.add-course{
+    align-items: center;
+    border-radius: 4px;
+    border: none;
+    cursor: pointer;
+    display: inline-flex;
+    line-height: 1.4;
+    margin-top: .5rem;
+    width:100%;
+    font-weight: 700px;
+    height: 2.7rem;
+    justify-content: center;
+    color: #fff;
+    background-color: #ec5252;
+    border: 1px solid #ec5252;
+}
+
+.add-course:hover{
+    color: #ec5252;
+    background-color: #fff;
+    border: 1px solid #ec5252;
+}

@@ -4,6 +4,8 @@ import FilesService from './../../../service/upload.service'
 import Loader from '../../shared/Spinner/Loader'
 import { Link } from 'react-router-dom'
 import { Form, Button, Container, Row, Col } from 'react-bootstrap'
+import './New-Course-form.css'
+
 
 class NewCourseForm extends Component {
     constructor(props) {
@@ -65,7 +67,7 @@ class NewCourseForm extends Component {
             <>
                 <Container>
                     <Row>
-                        <Col lg={{ span: 6, offset: 3 }}>
+                        <Col lg={{ span: 8, offset: 2 }}>
                             <h1 className="mt-5">Create New Course</h1>
                             <hr />
                             <Form onSubmit={this.handleSubmit}>
@@ -146,7 +148,7 @@ class NewCourseForm extends Component {
                                     <Form.Control type="file" onChange={this.handleImageUpload} />
                                 </Form.Group>
 
-                                <Button className="mt-3" variant="dark" type="submit" disabled={this.state.uploadingActive}>{this.state.uploadingActive ? 'Image loading...' : 'Create course'}</Button>
+                                <Button className="mt-3 add-course" type="submit" disabled={this.state.uploadingActive}>{this.state.uploadingActive ? 'Image loading...' : 'Create course'}</Button>
                             </Form>
                             <Link to="/profile-teacher" className="btn btn-outline-dark mt-5">Go back</Link>
                         </Col>

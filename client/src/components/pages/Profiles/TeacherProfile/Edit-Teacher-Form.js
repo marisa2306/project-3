@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import TeachersService from '../../../../service/teachers.service'
 import FilesService from '../../../../service/upload.service'
 import Loader from '../../../shared/Spinner/Loader'
-import { Container, Row, Col, Form, Button } from 'react-bootstrap'
+import { Container, Row, Col, Form, Button, Tabs, Tab } from 'react-bootstrap'
 import { Link } from 'react-router-dom'
 
 class EditTeacherForm extends Component {
@@ -104,6 +104,27 @@ class EditTeacherForm extends Component {
                                 <Form.Control type="text" name="url" value={this.state.links.url} onChange={this.handleLinksChange} />
                             </Form.Group>
                         </Form.Row> */}
+
+                            <Tabs className="mt-4" defaultActiveKey="linkedin" id="Personal Links">
+                                <Tab eventKey="linkedin" title="Linkedin">
+                                    <Form.Group controlId="linkedin">
+                                        <Form.Label>Linkedin url</Form.Label>
+                                        <Form.Control type="text" name="linkedin" value={this.state.linkedin} onChange={this.handleInputChange} />
+                                    </Form.Group>
+                                </Tab>
+                                <Tab eventKey="website" title="Website">
+                                    <Form.Group controlId="website">
+                                        <Form.Label>Website url</Form.Label>
+                                        <Form.Control type="text" name="website" value={this.state.website} onChange={this.handleInputChange} />
+                                    </Form.Group>
+                                </Tab>
+                                <Tab eventKey="youtube" title="Youtube">
+                                    <Form.Group controlId="linkedin">
+                                        <Form.Label>Youtube url</Form.Label>
+                                        <Form.Control type="text" name="youtube" value={this.state.youtube} onChange={this.handleInputChange} />
+                                    </Form.Group>
+                                </Tab>
+                            </Tabs>
 
                             <Form.Group>
                                 <Form.Label>Imagen (file) {this.state.uploadingActive && <Loader />}</Form.Label>
