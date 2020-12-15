@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import { motion } from 'framer-motion'
 import { Link } from 'react-router-dom'
 import { Container, Image, Col, Row, Button } from 'react-bootstrap'
 import CoursesServices from '../../../../service/courses.service'
@@ -102,7 +103,7 @@ class TeacherProfile extends Component {
 
 
     return (
-      <>
+      <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
         <Popup show={this.state.showModal} handleModal={this.handleModal} color={'maroon'}>
           <DeleteMessage />
           <Row className='justify-content-center'>
@@ -215,7 +216,7 @@ class TeacherProfile extends Component {
 
           <Link to="/teachers" className="btn btn-outline-dark mt-5">Go back</Link>
         </Container>
-      </>
+      </motion.div>
     )
   }
 }

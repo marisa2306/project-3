@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { motion } from 'framer-motion'
 import CoursesService from '../../../service/courses.service'
 import { Container, Card, Col, Row, Carousel } from 'react-bootstrap'
 import { Link } from 'react-router-dom'
@@ -19,7 +20,7 @@ const Home = props => {
   })
 
   return (
-    <>
+    <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
       {/* Hero */}
       <section className="hero ">
         <Container fluid>
@@ -116,7 +117,7 @@ const Home = props => {
       Bootcamp</p>
       </footer>
 
-    </>
+    </motion.div>
   )
 }
 

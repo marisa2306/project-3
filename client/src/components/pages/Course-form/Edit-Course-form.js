@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
+import { motion } from 'framer-motion'
 import CoursesService from './../../../service/courses.service'
 import FilesService from './../../../service/upload.service'
 import { Form, Button, Container, Row, Col } from 'react-bootstrap'
@@ -76,7 +77,7 @@ class EditCourseForm extends Component {
     render() {
 
         return (
-            <>
+            <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
                 <Container>
                     <Row>
                         <Col lg={{ span: 6, offset: 3 }}>
@@ -167,7 +168,7 @@ class EditCourseForm extends Component {
                         </Col>
                     </Row>
                 </Container>
-            </>
+            </motion.div>
         )
     }
 }
