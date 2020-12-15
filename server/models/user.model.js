@@ -25,9 +25,13 @@ const userSchema = new Schema({
         type: String,
         default: 'https://www.cmcaindia.org/wp-content/uploads/2015/11/default-profile-picture-gmail-2.png'
     },
-    favorites: [{
+    favCourses: [{
         type: Schema.Types.ObjectId,
         ref: 'Course'
+    }],
+    favTeachers: [{
+        type: Schema.Types.ObjectId,
+        ref: 'Teacher'
     }]
 
 }, { timestamps: true })

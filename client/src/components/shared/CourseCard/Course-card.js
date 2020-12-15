@@ -2,7 +2,7 @@ import { useState } from 'react'
 import { Link } from 'react-router-dom'
 import { Row, Col, Card, Button } from 'react-bootstrap'
 import './Course-card.css'
-import mine from './mine.ico'
+// import mine from './mine.ico'
 import FavButton from '../../shared/FavButton/FavButton'
 import Popup from '../Popup/Popup'
 import DeleteMessage from '../Delete-message/DeleteMessage'
@@ -12,7 +12,6 @@ const CourseCard = props => {
     const [ showModal, modalState ] = useState(false)
     
     function handleModal(visible) { modalState(visible) }
-
     return (
         <Col lg={4}>
             <Card className="course-card">
@@ -35,8 +34,8 @@ const CourseCard = props => {
                         </>
                         : null
                     }
-                    {props.userInfo && props.owner !== props.teacher._id ? 
-                        <FavButton updateFavs={props.updateFavs} userInfo={props.userInfo} itemInfo={props} />
+                    {props.userInfo ? 
+                        <FavButton updateFavCourses={props.updateFavCourses} userInfo={props.userInfo} itemInfo={props} />
                         : null
                     }
 

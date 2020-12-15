@@ -43,9 +43,9 @@ class UserProfile extends Component {
   }
 
   getFavsCourses = () => {
-    if (this.props.loggedUser.favorites) {
+    if (this.props.loggedUser.favCourses) {
       this.usersServices
-        .getUserFavorites(this.props.loggedUser._id)
+        .getUserFavCourses(this.props.loggedUser._id)
         .then(response => this.setState({ favCourses: response.data }))
         .catch(() => {
           this.props.history.push('/')
@@ -54,7 +54,7 @@ class UserProfile extends Component {
     }
   }
 
-  componentDidUpdate = currentProps => this.state.favCourses.length !== currentProps.loggedUser.favorites.length ? this.getFavsCourses() : null
+  componentDidUpdate = currentProps => this.state.favCourses.length !== currentProps.loggedUser.favCourses.length ? this.getFavsCourses() : null
 
   deleteAll = () => {
     !this.props.teacherInfo ? this.deleteOnlyUser() : !this.state.teacherCourses ? this.deleteTeacherAndUser() : this.deleteCoursesTeacherAndUser()
@@ -168,7 +168,7 @@ class UserProfile extends Component {
             {this.state.favCourses.length > 0 || this.state.favTeachers.length > 0 || this.state.learningActivity.length > 0 ?
               <Tabs className="mt-3" defaultActiveKey="courses" id="favs">
                 {this.state.favCourses.length > 0 ?
-                  <Tab className="mt-3 mb-3" eventKey="courses" title="Favourites Courses">
+                  <Tab className="mt-3 mb-3" eventKey="courses" title="Favorites Courses">
                     <Container>
                       <Row>
                         <h2 className="mt-3 mb-3 text-center">Your favorite Courses</h2>
@@ -176,22 +176,22 @@ class UserProfile extends Component {
                       <Row>
                         {
                           this.state.favCourses.map(elm =>
-                            <CourseCard key={elm._id} {...elm} userInfo={this.props.loggedUser} teacher={this.props.teacherInfo} updateFavs={this.props.updateFavs} />)
+                            <CourseCard key={elm._id} {...elm} userInfo={this.props.loggedUser} teacher={this.props.teacherInfo} updateFavCourses={this.props.updateFavCourses} />)
                         }
                       </Row>
                     </Container>
                   </Tab>
-                  : <Tab eventKey="courses" title="Favourites Courses" disabled></Tab>
+                  : <Tab eventKey="courses" title="Favorites Courses" disabled></Tab>
                 }
                 {this.state.favTeachers.length > 0 ?
-                  <Tab eventKey="teachers" title="Favourites Teachers" >
+                  <Tab eventKey="teachers" title="Favurites Teachers" >
                     <Container>
                       <Row>
                         <h2 className="mt-3 mb-3 text-center">Your Learning Activity</h2>
                       </Row>
                     </Container>
                   </Tab>
-                  : <Tab eventKey="teachers" title="Favourites Teachers" disabled></Tab>
+                  : <Tab eventKey="teachers" title="Favorites Teachers" disabled></Tab>
                 }
                 {this.state.learningActivity.length > 0 ?
                   <Tab eventKey="learning" title="Learning" >
