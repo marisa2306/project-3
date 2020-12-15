@@ -5,6 +5,7 @@ import UsersServices from './../../../../service/users.service'
 import CoursesServices from './../../../../service/courses.service'
 import TeacherServices from './../../../../service/teachers.service'
 import CourseCard from './../../../shared/CourseCard/Course-card'
+import TeacherCard from './../../TeachersList/TeacherCard'
 import Popup from '../../../shared/Popup/Popup'
 import DeleteMessage from '../../../shared/Delete-message/DeleteMessage'
 import Loader from '../../../shared/Spinner/Loader'
@@ -28,6 +29,7 @@ class UserProfile extends Component {
   componentDidMount = () => {
     this.refreshCourses()
     this.getFavsCourses()
+    this.getFavsTeachers()
   }
 
   refreshCourses = () => {
@@ -54,7 +56,25 @@ class UserProfile extends Component {
     }
   }
 
-  componentDidUpdate = currentProps => this.state.favCourses.length !== currentProps.loggedUser.favCourses.length ? this.getFavsCourses() : null
+  getFavsTeachers = () => {
+    if (this.props.loggedUser.favTeachers) {
+      this.usersServices
+        .getUserFavTeachers(this.props.loggedUser._id)
+        .then(response => this.setState({ favTeachers: response.data }))
+        .catch(() => {
+          this.props.history.push('/')
+          this.props.handleToast(true, 'An error has occurred, please try again later', 'red')
+        })
+    }
+  }
+
+  componentDidUpdate = currentProps =>
+    this.state.favCourses.length !== currentProps.loggedUser.favCourses.length ? this.getFavsCourses()
+      : this.state.favTeachers.length !== currentProps.loggedUser.favTeachers.length ? this.getFavsTeachers()
+        : null
+
+
+
 
   deleteAll = () => {
     !this.props.teacherInfo ? this.deleteOnlyUser() : !this.state.teacherCourses ? this.deleteTeacherAndUser() : this.deleteCoursesTeacherAndUser()
@@ -166,7 +186,7 @@ class UserProfile extends Component {
             {this.state.favCourses.length > 0 || this.state.favTeachers.length > 0 || this.state.learningActivity.length > 0 ?
               <Tabs className="mt-3" defaultActiveKey="courses" id="favs">
                 {this.state.favCourses.length > 0 ?
-                  <Tab className="mt-3 mb-3" eventKey="courses" title="Favorites Courses">
+                  <Tab className="mt-3 mb-3" eventKey="courses" title="Favorite Courses">
                     <Container>
                       <Row>
                         <h2 className="mt-3 mb-3 text-center">Your favorite Courses</h2>
@@ -179,17 +199,23 @@ class UserProfile extends Component {
                       </Row>
                     </Container>
                   </Tab>
-                  : <Tab eventKey="courses" title="Favorites Courses" disabled></Tab>
+                  : <Tab eventKey="courses" title="Favorite Teachers" disabled></Tab>
                 }
                 {this.state.favTeachers.length > 0 ?
-                  <Tab eventKey="teachers" title="Favurites Teachers" >
+                  <Tab eventKey="teachers" title="Favorite Teachers" >
                     <Container>
                       <Row>
-                        <h2 className="mt-3 mb-3 text-center">Your Learning Activity</h2>
+                        <h2 className="mt-3 mb-3 text-center">Your Favorite Teachers </h2>
+                      </Row>
+                      <Row>
+                        {
+                          this.state.favTeachers.map(elm =>
+                            <TeacherCard key={elm._id} {...elm} userInfo={this.props.loggedUser} teacher={this.props.teacherInfo} updateFavTeachers={this.props.updateFavTeachers} />)
+                        }
                       </Row>
                     </Container>
                   </Tab>
-                  : <Tab eventKey="teachers" title="Favorites Teachers" disabled></Tab>
+                  : <Tab eventKey="teachers" title="Favorite Teachers" disabled></Tab>
                 }
                 {this.state.learningActivity.length > 0 ?
                   <Tab eventKey="learning" title="Learning" >
