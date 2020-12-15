@@ -1,4 +1,4 @@
-import { Container, Image, Col, Row, Button, Tabs, Tab } from 'react-bootstrap'
+import { Container, Image, Col, Row, Button } from 'react-bootstrap'
 import { Link } from 'react-router-dom'
 import React, { Component } from 'react'
 import { motion } from 'framer-motion'
@@ -11,6 +11,9 @@ import Popup from '../../../shared/Popup/Popup'
 import DeleteMessage from '../../../shared/Delete-message/DeleteMessage'
 import Loader from '../../../shared/Spinner/Loader'
 import './UserProfile.css'
+import TabNav from './../../../shared/TabsNav/TabNav'
+import Tab from './../../../shared/TabsNav/Tab'
+
 
 class UserProfile extends Component {
   constructor() {
@@ -20,7 +23,9 @@ class UserProfile extends Component {
       favCourses: [],
       favTeachers: [],
       learningActivity: [],
-      showModal: false
+      showModal: false,
+      selected: 'Favorite Courses',
+      randomCourses: []
     }
     this.usersServices = new UsersServices()
     this.coursesServices = new CoursesServices()
@@ -33,7 +38,20 @@ class UserProfile extends Component {
     this.getFavsTeachers()
   }
 
+  setSelected = tab => {
+    this.setState({ selected: tab })
+  }
+
+
   refreshCourses = () => {
+    this.coursesServices
+      .getRandomCourses()
+      .then(response => this.setState({ randomCourses: response.data }))
+      .catch(() => {
+        this.props.history.push('/')
+        this.props.handleToast(true, 'An error has occurred, please try again later', 'red')
+      })
+
     if (this.props.teacherInfo) {
       this.coursesServices
         .getTeacherCourses(this.props.teacherInfo._id)
@@ -180,7 +198,49 @@ class UserProfile extends Component {
             </Row>
           </section>
 
-          {/* Your activity */}
+
+          {/* Your activity*/}
+          <Row>
+            <TabNav tabs={['Favorite Courses', 'Favorite Teachers', 'Random Courses']} selected={this.state.selected} setSelected={this.setSelected}   >
+              {this.state.favCourses.length > 0 ?
+                <Tab isSelected={this.state.selected === 'Favorite Courses'} >
+                  <section>
+                    <Row>
+                      {
+                        this.state.favCourses.map(elm =>
+                          <CourseCard key={elm._id} {...elm} userInfo={this.props.loggedUser} teacher={this.props.teacherInfo} updateFavCourses={this.props.updateFavCourses} />)
+                      }
+                    </Row>
+                  </section>
+                </Tab>
+                : null
+              }
+              {this.state.favTeachers.length > 0 ?
+                <Tab isSelected={this.state.selected === 'Favorite Teachers'} >
+                  <Row style={{ width: '100 %' }}>
+                    {
+                      this.state.favTeachers.map(elm =>
+                        <TeacherCard key={elm._id} {...elm} userInfo={this.props.loggedUser} teacher={this.props.teacherInfo} updateFavTeachers={this.props.updateFavTeachers} />)
+                    }
+                  </Row>
+                </Tab>
+                : null
+              }
+              {this.state.randomCourses.length > 0 ?
+                <Tab isSelected={this.state.selected === 'Random Courses'} >
+                  <Row>
+                    {
+                      this.state.randomCourses.map(elm =>
+                        <CourseCard key={elm._id} {...elm} userInfo={this.props.loggedUser} teacher={this.props.teacherInfo} updateFavTeachers={this.props.updateFavTeachers} />)
+                    }
+                  </Row>
+                </Tab>
+                : null
+              }
+            </TabNav>
+          </Row>
+
+          {/* Your activity
           <h2 className="mt-5 mb-3">Your activity</h2>
           <Row>
 
@@ -193,10 +253,12 @@ class UserProfile extends Component {
                         <h2 className="mt-3 mb-3 text-center">Your favorite Courses</h2>
                       </Row>
                       <Row>
-                        {
-                          this.state.favCourses.map(elm =>
-                            <CourseCard key={elm._id} {...elm} userInfo={this.props.loggedUser} teacher={this.props.teacherInfo} updateFavCourses={this.props.updateFavCourses} />)
-                        }
+                        <Col sm={12}>
+                          {
+                            this.state.favCourses.map(elm =>
+                              <CourseCard key={elm._id} {...elm} userInfo={this.props.loggedUser} teacher={this.props.teacherInfo} updateFavCourses={this.props.updateFavCourses} />)
+                          }
+                        </Col>
                       </Row>
                     </Container>
                   </Tab>
@@ -236,7 +298,7 @@ class UserProfile extends Component {
                 </Row>
               </Col>
             }
-          </Row>
+          </Row> */}
         </Container>
       </motion.div>
     )

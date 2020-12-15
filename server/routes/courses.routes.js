@@ -6,7 +6,7 @@ const { isLoggedIn, isTeacher, isValidId } = require('../middleware/custom-middl
 
 router.get('/sampleCourses', (req, res) => {
     Course
-        .aggregate([{ $sample: { size: 10 } }])
+        .aggregate([{ $sample: { size: 8 } }])
         .then(response => res.json(response))
         .catch(err => res.status(500).json(err))
 })
