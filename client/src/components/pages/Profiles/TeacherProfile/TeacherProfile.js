@@ -185,7 +185,7 @@ class TeacherProfile extends Component {
               <Row>
                 {this.state.courses.length > 0
                   ?
-                  this.state.courses.map(elm => <CourseCard key={elm._id} {...elm} teacher={this.props.teacherInfo} userInfo={this.props.loggedUser} deleteCourse={this.deleteCourse} updateFavs={this.props.updateFavs} />)
+                  this.state.courses.map(elm => <CourseCard key={elm._id} {...elm} teacher={this.props.teacherInfo} userInfo={this.props.loggedUser} deleteCourse={this.deleteCourse} updateFavCourses={this.props.updateFavCourses} />)
                   :
                   this.props.teacherInfo && this.props.teacherInfo._id === this.state.teacher._id
                     ?

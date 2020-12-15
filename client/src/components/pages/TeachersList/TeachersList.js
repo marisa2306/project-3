@@ -53,7 +53,7 @@ class TeachersList extends Component {
 
                     <Row>
                         {this.state.teachers ? this.state.filteredTeachers.map(elm =>
-                            <TeacherCard key={elm._id} {...elm} userInfo={this.props.loggedUser} teacher={this.props.teacherInfo} />)
+                            <TeacherCard key={elm._id} {...elm} userInfo={this.props.loggedUser} teacher={this.props.teacherInfo} updateFavTeachers={this.props.updateFavTeachers} />)
                             :
                             <Loader />
                         }
