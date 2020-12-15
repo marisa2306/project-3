@@ -40,6 +40,7 @@ h3{
 }
 
 .carousel-indicators li {
+    display:none;
     box-sizing: content-box;
     flex: 0 1 auto;
     width: 30px;
@@ -49,7 +50,7 @@ h3{
     margin-top: 50px;
     text-indent: -999px;
     cursor: pointer;
-    background-color: #fff;
+    background-color: rgba(255, 255, 255, 0);
     background-clip: padding-box;
     border-top: 10px solid transparent;
     border-bottom: 10px solid transparent;
@@ -58,14 +59,16 @@ h3{
 }
 
 .carousel {
-    margin: 0 auto;
-    width: 60%;
+    margin: 20px auto;
+    width: 100%;
 }
 
-.carousel img {
-    width: 80%;
-    height: 300px;
-    margin: 0 auto;
+.carousel-control-next-icon {
+    display:none;
+}
+
+.carousel-control-prev-icon{
+    display:none;
 }
 
 .home-card img {

@@ -6,15 +6,17 @@ import './Home.css'
 import CourseCard from './../../shared/CourseCard/Course-card'
 import Loader from '../../shared/Spinner/Loader'
 
+
+
 const Home = props => {
   const coursesService = new CoursesService
 
-  const [ courses, setCourses ] = useState(() => {
+  const [courses, setCourses] = useState(() => {
     coursesService.getRandomCourses()
       .then(response => setCourses(response.data))
       .catch(() => {
-          props.history.push('/courses')
-          props.handleToast(true, 'An error has occurred, please try again later', 'red')
+        props.history.push('/courses')
+        props.handleToast(true, 'An error has occurred, please try again later', 'red')
       })
   })
 
@@ -30,12 +32,12 @@ const Home = props => {
           </Container>
         </Container>
       </section>
-      
+
       {/* Carousel */}
       <Container>
-        <section className="features text-center mt-5">
-          <h2 className="mt-5 mb-5">Explore our schools to find your perfect program</h2>
-          {courses ? 
+        <section className="carousel-section mt-5">
+          <h2 className="mt-5 mb-5 text-center ">Explore our schools to find your perfect program</h2>
+          {/* {courses ? 
             <Carousel className='carousel'>
               {courses.map(elm => 
                 <Carousel.Item key={elm._id}>
@@ -51,7 +53,31 @@ const Home = props => {
               )}
             </Carousel>
             :
-            <Loader />}
+            <Loader />} */}
+
+          {courses ?
+            <Carousel className='carousel'>
+
+              <Carousel.Item >
+                <Row>
+                  {[...courses].slice(0, 4).map(elm =>
+                    //console.log([...courses])
+                    < CourseCard key={elm._id} {...elm} />
+                  )}
+                </Row>
+              </Carousel.Item>
+              <Carousel.Item >
+                <Row>
+                  {[...courses].slice(4, 8).map(elm =>
+                    //console.log([...courses])
+                    < CourseCard key={elm._id} {...elm} />
+                  )}
+                </Row>
+              </Carousel.Item>
+            </Carousel>
+            : <Loader />
+          }
+
         </section>
 
         {/* Features */}
