@@ -62,7 +62,7 @@ const CourseCard = props => {
                             <Button variant='secondary' onClick={() => handleModal(false)}>Close</Button>
                         </Col>
                         <Col xs='auto'>
-                            <Button variant='light' to={`/profile-teacher/delete-course/${props._id}`} onClick={() => props.deleteCourse(props._id)}>Delete</Button>
+                            <Button variant='light' onClick={() => props.deleteCourse(props._id)}>Delete</Button>
                         </Col>
                     </Row>
                 </Popup>

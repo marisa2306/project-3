@@ -39,7 +39,7 @@ class NewCourseForm extends Component {
         this.coursesService
             .saveCourse(this.state.course)
             .then(() => {
-                this.props.history.push('/profile-teacher')
+                this.props.history.push('/courses')
                 this.props.handleToast(true, 'New course created!', 'green')
             })
             .catch(err => this.props.handleToast(true, err.response.data.message[0].msg, 'red'))  // TO-DO Configurar en servidor con validator
