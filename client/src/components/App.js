@@ -12,20 +12,19 @@ import Home from './pages/Home/Home'
 
 import CoursesList from './pages/Courses-list/Courses-list'
 import CourseDetails from './pages/Course-details/Course-details'
+import NewCourseForm from './pages/Course-form/New-Course-form'
+import EditCourseForm from './pages/Course-form/Edit-Course-form'
 
-import TeachersList from './pages/TeachersList/TeachersList'
-import TeacherDetails from './pages/TeachersList/TeacherDetails'
 
 import Signup from './pages/Signup/Signup'
 import UserProfile from './pages/Profiles/UserProfile/UserProfile'
 import EditUserForm from './pages/Profiles/UserProfile/EditUserForm'
 
+import TeachersList from './pages/TeachersList/TeachersList'
 import TeacherProfile from './pages/Profiles/TeacherProfile/TeacherProfile'
 import NewTeacherForm from './pages/Profiles/TeacherProfile/Create-Teacher-form'
 import EditTeacherForm from './pages/Profiles/TeacherProfile/Edit-Teacher-Form'
 
-import NewCourseForm from './pages/Course-form/New-Course-form'
-import EditCourseForm from './pages/Course-form/Edit-Course-form'
 
 import Alert from './shared/Alert/Alert'
 
@@ -55,16 +54,25 @@ class App extends Component {
       .catch(() => this.setTheUser(undefined))
   }
 
-  setTheUser = (user) => this.setState({ loggedInUser: user }, () => this.setTheTeacher(user))
-
-  setTheTeacher = user => {
+  setTheUser = (user) => {
+    this.setState({ loggedInUser: user })
     user ?
       this.teachersServices
         .getTeacher(this.state.loggedInUser._id)
         .then(response => this.setState({ teacher: response.data[0] }))
         .catch(() => this.setState({ teacher: undefined }))
-      : this.setState({ teacher: undefined })
+      :
+      this.setState({ teacher: undefined })
   }
+
+  // setTheTeacher = user => {
+  //   user ?
+  //     this.teachersServices
+  //       .getTeacher(this.state.loggedInUser._id)
+  //       .then(response => this.setState({ teacher: response.data[0] }))
+  //       .catch(() => this.setState({ teacher: undefined }))
+  //     : this.setState({ teacher: undefined })
+  // }
 
   handleToast = (visible, text, color) => this.setState({ showToast: visible, toastText: text, toastColor: color })
 
@@ -74,8 +82,7 @@ class App extends Component {
       this.usersServices
         .updateFavorites(this.state.loggedInUser._id, newList)
         .then(() => this.refreshUser())
-        .catch(err => console.log(err))   //  TO-DO -- ¿qué hacemos con esto?
-
+        .catch(() => this.props.handleToast(true, 'An error has occurred, please try again later', 'red'))
     }
   }
 
@@ -96,7 +103,6 @@ class App extends Component {
             <Route exact path="/profile" render={props => this.state.loggedInUser ? <UserProfile {...props} loggedUser={this.state.loggedInUser} teacherInfo={this.state.teacher} storeUser={this.setTheUser} updateFavs={this.updateFavs} handleToast={this.handleToast} /> : <Redirect to='/signup' />} />
             <Route path="/profile/edit-user" render={props => this.state.loggedInUser ? <EditUserForm {...props} loggedUser={this.state.loggedInUser} storeUser={this.setTheUser} handleToast={this.handleToast} /> : <Redirect to='/signup' />} />
             <Route path="/profile/create-teacher" render={props => this.state.loggedInUser ? <NewTeacherForm {...props} loggedUser={this.state.loggedInUser} teacherInfo={this.state.teacher} storeUser={this.setTheUser} handleToast={this.handleToast} /> : <Redirect to='/signup' />} />
-            <Route exact path="/profile-teacher" render={props => this.state.teacher ? <TeacherProfile {...props} loggedUser={this.state.loggedInUser} teacherInfo={this.state.teacher} storeUser={this.setTheUser} updateFavs={this.updateFavs} handleToast={this.handleToast} /> : <Redirect to='/signup' />} />
             <Route path='/profile-teacher/edit-teacher' render={props => this.state.loggedInUser ? <EditTeacherForm {...props} loggedUser={this.state.loggedInUser} teacherInfo={this.state.teacher} storeUser={this.setTheUser} handleToast={this.handleToast} /> : <Redirect to='/signup' />} />
             <Route path="/profile-teacher/create-course" render={props => this.state.teacher ? <NewCourseForm {...props} loggedUser={this.state.loggedInUser} teacherInfo={this.state.teacher} handleToast={this.handleToast} /> : <Redirect to='/signup' />} />
             <Route path="/profile-teacher/edit-course/:course_id" render={props => this.state.teacher ? <EditCourseForm {...props} loggedUser={this.state.loggedInUser} teacherInfo={this.state.teacher} handleToast={this.handleToast} /> : <Redirect to='/signup' />} />

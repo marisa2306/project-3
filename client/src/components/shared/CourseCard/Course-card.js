@@ -35,7 +35,7 @@ const CourseCard = props => {
                         </>
                         : null
                     }
-                    {props.userInfo || props.teacher && props.owner !== props.teacher._id ?
+                    {props.userInfo && props.owner !== props.teacher._id ? 
                         <FavButton updateFavs={props.updateFavs} userInfo={props.userInfo} itemInfo={props} />
                         : null
                     }
