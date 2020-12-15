@@ -30,6 +30,7 @@ const Home = props => {
           </Container>
         </Container>
       </section>
+      
       {/* Carousel */}
       <Container>
         <section className="features text-center mt-5">
