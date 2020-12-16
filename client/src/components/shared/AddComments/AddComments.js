@@ -47,7 +47,7 @@ class AddComments extends Component {
                 <Container>
                     <Row>
                         <Col lg={6}>
-                            <h2 className="mt-5">Add a Comment</h2>
+                            <h2 className="mt-5 mb-3">Add a Comment</h2>
 
                             <Form onSubmit={this.handleSubmit}>
 

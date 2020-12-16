@@ -2,8 +2,9 @@ import React, { Component } from 'react'
 import { motion } from 'framer-motion'
 import { Link } from 'react-router-dom'
 import CoursesService from './../../../service/courses.service'
+import CommentsService from './../../../service/comments.service'
 import AddComments from './../../shared/AddComments/AddComments'
-import { Container, Row, Col, Card, Button } from 'react-bootstrap'
+import { Container, Row, Col, Card, Button, Image } from 'react-bootstrap'
 import './Course-details.css'
 
 import Loader from './../../shared/Spinner/Loader'
@@ -14,10 +15,13 @@ class CourseDetails extends Component {
         super()
         this.state = {
             course: undefined,
-            showModal: false
+            showModal: false,
+            comments: undefined,
         }
 
         this.coursesService = new CoursesService()
+        this.commentsService = new CommentsService()
+
     }
 
     componentDidMount = () => {
@@ -30,6 +34,16 @@ class CourseDetails extends Component {
                 this.props.history.push('/courses')
                 this.props.handleToast(true, 'An error has occurred, please try again later', 'red')
             })
+
+        this.commentsService
+            .getComments()
+            .then(res => this.setState({ comments: res.data }))
+            .catch(() => {
+                this.props.history.push('/courses')
+                this.props.handleToast(true, 'An error has occurred, please try again later', 'red')
+            })
+
+
     }
 
     toggleInput = () => {
@@ -39,6 +53,9 @@ class CourseDetails extends Component {
     }
 
     render() {
+
+
+        console.log(this.state.comments)
         return (
             <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
                 <Container className="course-details ">
@@ -94,16 +111,55 @@ class CourseDetails extends Component {
                                     </Col>
                                 </Row>
                             </section>
-                            <section>
-                                <AddComments courseId={this.state.course._id} loggedUser={this.props.loggedUser} history={this.props.history} />
-                            </section>
+
+                            {/* Comments */}
+
+
+
+                            <h2 className="mt-5 mb-3">Comments</h2>
+
+                            {this.state.comments ?
+
+                                this.state.comments.map(elm =>
+                                    <section className="d-flex align-items-center mb-2" key={elm._id} userInfo={this.props.loggedUser} {...elm}>
+                                        <Image className="avatar mr-2" roundedCircle src={elm.user.imageUrl} alt={elm.user.username} />
+                                        <Card style={{ width: '50%' }}  >
+                                            <Card.Body >
+                                                <p className="mb-1"><strong>{elm.user.username} {elm.timestamps}</strong></p>
+                                                <p className="mb-0"><em>" {elm.content} "</em></p>
+                                                <small>{elm.createdAt}</small>
+                                                {this.props.loggedUser ?
+                                                    <Row as="div" className="mt-2">
+                                                        <Col>
+                                                            <Link to='/edit-comment' className="mr-3">Edit</Link>
+                                                            <Button onClick={() => this.handleModal(true)} variant="outline-danger" className="delete-comment" size="sm">Delete</Button>
+                                                        </Col>
+                                                    </Row>
+                                                    : null
+                                                }
+                                            </Card.Body>
+                                        </Card>
+                                    </section>
+                                )
+                                : null
+                            }
+
+                            {this.props.loggedUser ?
+
+                                < section >
+                                    <AddComments courseId={this.state.course._id} loggedUser={this.props.loggedUser} history={this.props.history} />
+                                </section>
+
+                                : null
+                            }
+
                             <Link to="/courses" className="btn btn-sm btn-outline-dark mt-5">Go back</Link>
                         </>
                         :
                         <Loader />
                     }
                 </Container>
-            </motion.div>
+            </motion.div >
         )
     }
 }
