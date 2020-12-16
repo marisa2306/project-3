@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import { motion } from 'framer-motion'
 import TeachersService from '../../../service/teachers.service'
 import SearchBar from './../../shared/SearchBar/SearchBar'
 import TeacherCard from './TeacherCard'
@@ -44,7 +45,7 @@ class TeachersList extends Component {
 
     render() {
         return (
-            <>
+            <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
                 <Container>
 
                     <h1 className="mt-5">Our teachers</h1>
@@ -59,7 +60,7 @@ class TeachersList extends Component {
                         }
                     </Row>
                 </Container>
-            </>
+            </motion.div>
         )
     }
 }

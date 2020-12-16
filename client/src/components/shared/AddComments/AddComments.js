@@ -56,7 +56,7 @@ class AddComments extends Component {
                                 </Form.Group>
                                 <Button className="mt-3 btn" type="submit"> Submit</Button>
                             </Form>
-                            <Link to="/courses" className="btn btn-outline-dark mt-5">Go back</Link>
+
                         </Col>
                     </Row>
 

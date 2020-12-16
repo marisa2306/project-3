@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import { motion } from 'framer-motion'
 import { Link } from 'react-router-dom'
 import CoursesService from './../../../service/courses.service'
 import AddComments from './../../shared/AddComments/AddComments'
@@ -39,73 +40,70 @@ class CourseDetails extends Component {
 
     render() {
         return (
-            <Container className="course-details ">
-                {this.state.course
-                    ?
-                    <>
-                        <section className="header">
-                            <Row>
-                                <Col md={{ span: 8 }} >
-                                    <h1>{this.state.course.title}</h1>
-                                    <p><em> {this.state.course.lead}</em></p>
+            <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
+                <Container className="course-details ">
+                    {this.state.course
+                        ?
+                        <>
+                            <section className="header">
+                                <Row>
+                                    <Col md={{ span: 8 }} >
+                                        <h1>{this.state.course.title}</h1>
+                                        <p><em> {this.state.course.lead}</em></p>
 
-                                    {this.state.course.owner ?
-                                        <p style={{ color: '#73726c', fontWeight: 700 }}>Created by {this.state.course.owner.name} {this.state.course.owner.surname}</p>
-                                        :
-                                        null
-                                    }
-                                    <p><strong>Category:</strong> {this.state.course.category} | <strong>Difficulty Level:</strong>  {this.state.course.difficultyLevel} | <strong>Price:</strong>  {this.state.course.price} € | <strong>Duration:</strong>  {this.state.course.duration} hrs.</p>
-                                </Col>
-                                <Col md={{ span: 4 }} >
-                                    <img className="mb-3 course-img" src={this.state.course.imageUrl} alt={this.state.course.title} />
-                                </Col>
-                            </Row>
-                        </section>
+                                        {this.state.course.owner ?
+                                            <p style={{ color: '#73726c', fontWeight: 700 }}>Created by {this.state.course.owner.name} {this.state.course.owner.surname}</p>
+                                            :
+                                            null
+                                        }
+                                        <p><strong>Category:</strong> {this.state.course.category} | <strong>Difficulty Level:</strong>  {this.state.course.difficultyLevel} | <strong>Price:</strong>  {this.state.course.price} € | <strong>Duration:</strong>  {this.state.course.duration} hrs.</p>
+                                    </Col>
+                                    <Col md={{ span: 4 }} >
+                                        <img className="mb-3 course-img" src={this.state.course.imageUrl} alt={this.state.course.title} />
+                                    </Col>
+                                </Row>
+                            </section>
 
-                        <section className="course-bckg">
-                            <Row>
-                                <Col>
-                                    <h3 className="mt-5 mb-3">Description</h3>
-                                    <p>{this.state.course.description}</p>
+                            <section className="course-bckg">
+                                <Row>
+                                    <Col>
+                                        <h3 className="mt-5 mb-3">Description</h3>
+                                        <p>{this.state.course.description}</p>
 
-                                    <h3 className="mt-5 mb-4">What you will learn:</h3>
-                                    <ul className="whatYouWillLearn">
-                                        {this.state.course.whatYouWillLearn.map(elm => <li key={elm._id}><img src="https://res.cloudinary.com/dodneiokm/image/upload/v1607883391/project3-ironhack/checked_ib75gx.png" /><p>{elm}</p></li>)}
-                                    </ul>
-                                    <h3 className="mt-4 mb-4">Requirements:</h3>
-                                    <ul className="requirements mb-4">
-                                        {this.state.course.requirements.map(elm => <li key={elm._id}><img src="https://res.cloudinary.com/dodneiokm/image/upload/v1607887317/project3-ironhack/double-check_tm7qmy.png" /><p>{elm}</p></li>)}
-                                    </ul>
+                                        <h3 className="mt-5 mb-4">What you will learn:</h3>
+                                        <ul className="whatYouWillLearn">
+                                            {this.state.course.whatYouWillLearn.map(elm => <li key={elm._id}><img src="https://res.cloudinary.com/dodneiokm/image/upload/v1607883391/project3-ironhack/checked_ib75gx.png" alt='Checked icon' /><p>{elm}</p></li>)}
+                                        </ul>
+                                        <h3 className="mt-4 mb-4">Requirements:</h3>
+                                        <ul className="requirements mb-4">
+                                            {this.state.course.requirements.map(elm => <li key={elm._id}><img src="https://res.cloudinary.com/dodneiokm/image/upload/v1607887317/project3-ironhack/double-check_tm7qmy.png" alt='Double-Checked icon' /><p>{elm}</p></li>)}
+                                        </ul>
 
-                                    <Button onClick={this.toggleInput} className="mt-3 mb-3 start-course" >Start the course</Button>
+                                        <Button onClick={this.toggleInput} className="mt-3 mb-3 start-course" >Start the course</Button>
 
-                                    {/* Videos */}
-                                    {this.state.showInput ?
-                                        this.state.course.videos.map(elm =>
-                                            <Card.Header className="video-card" key={elm._id}>
-                                                <img src="https://res.cloudinary.com/dodneiokm/image/upload/v1607893554/project3-ironhack/play_u6mma0.png" alt="play icon" />
-                                                <a href={elm} target="_blank" >Video {elm._id}</a>
-                                            </Card.Header>
-                                        )
-                                        : null
-                                    }
-                                </Col>
-                            </Row>
-                        </section>
-
-
-                        <section>
-                            <AddComments courseId={this.state.course._id} loggedUser={this.props.loggedUser} history={this.props.history} />
-                        </section>
-
-
-                        <Link to="/courses" className="btn btn-sm btn-outline-dark mt-5">Go back</Link>
-                    </>
-                    :
-                    <Loader />
-                }
-
-            </Container>
+                                        {/* Videos */}
+                                        {this.state.showInput ?
+                                            this.state.course.videos.map(elm =>
+                                                <Card.Header className="video-card" key={elm._id}>
+                                                    <img src="https://res.cloudinary.com/dodneiokm/image/upload/v1607893554/project3-ironhack/play_u6mma0.png" alt="play icon" />
+                                                    <a href={elm} target="_blank" rel="noreferrer">Video {elm._id}</a>
+                                                </Card.Header>
+                                            )
+                                            : null
+                                        }
+                                    </Col>
+                                </Row>
+                            </section>
+                            <section>
+                                <AddComments courseId={this.state.course._id} loggedUser={this.props.loggedUser} history={this.props.history} />
+                            </section>
+                            <Link to="/courses" className="btn btn-sm btn-outline-dark mt-5">Go back</Link>
+                        </>
+                        :
+                        <Loader />
+                    }
+                </Container>
+            </motion.div>
         )
     }
 }

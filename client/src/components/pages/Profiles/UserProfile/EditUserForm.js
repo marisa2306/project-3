@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import { motion } from 'framer-motion'
 import UsersService from '../../../../service/users.service'
 import FilesService from '../../../../service/upload.service'
 import Loader from '../../../shared/Spinner/Loader'
@@ -58,77 +59,79 @@ class EditUserForm extends Component {
 
     render() {
         return (
-            <Container>
-                <Row>
-                    <Col lg={{ span: 6, offset: 3 }}>
-                        <h1 className="mt-5">Edit User Profile</h1>
-                        <hr />
+            <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
+                <Container>
+                    <Row>
+                        <Col lg={{ span: 6, offset: 3 }}>
+                            <h1 className="mt-5">Edit User Profile</h1>
+                            <hr />
 
-                        <Form validated={this.validated} onSubmit={this.handleSubmit}>
+                            <Form validated={this.validated} onSubmit={this.handleSubmit}>
 
-                            <Form.Row>
-                                <Form.Group as={Col} controlId='username'>
-                                    <Form.Label>Username</Form.Label>
-                                    <Form.Control
-                                        required
-                                        type='text'
-                                        name='username'
-                                        placeholder='popinez'
-                                        value={this.state.user.username}
-                                        onChange={this.handleInputChange} />
+                                <Form.Row>
+                                    <Form.Group as={Col} controlId='username'>
+                                        <Form.Label>Username</Form.Label>
+                                        <Form.Control
+                                            required
+                                            type='text'
+                                            name='username'
+                                            placeholder='popinez'
+                                            value={this.state.user.username}
+                                            onChange={this.handleInputChange} />
+                                    </Form.Group>
+
+                                    {/* <Form.Group as={Col} md='7' controlId='password'>
+                                        <Form.Label>Password</Form.Label>
+                                        <Form.Control
+                                            required
+                                            type='password'
+                                            name='password'
+                                            placeholder='fantasía caribeña'
+                                            value={this.state.user.password}
+                                            onChange={this.handleInputChange} />
+                                        <Form.Text id='passwordHelpBlock' muted>
+                                            Your password must be 8-10 characters long
+                                        </Form.Text>
+                                    </Form.Group> */}
+                                </Form.Row>
+
+                                <Form.Row>
+                                    <Form.Group as={Col} md='7' controlId='email'>
+                                        <Form.Label>Email address</Form.Label>
+                                        <Form.Control
+                                            required
+                                            type='email'
+                                            name='email'
+                                            placeholder='pop@ino.dog'
+                                            value={this.state.user.email}
+                                            onChange={this.handleInputChange} />
+                                    </Form.Group>
+
+                                    <Form.Group as={Col} md='5' controlId='role'>
+                                        <Form.Label>Choose role</Form.Label>
+                                        <Form.Control as='select' name='role' value={this.state.user.role} onChange={this.handleInputChange}>
+                                            <option>Student or Teacher?</option>
+                                            <option value='Student' >Student</option>
+                                            <option value='Teacher' >Teacher</option>
+                                        </Form.Control>
+                                    </Form.Group>
+                                </Form.Row>
+
+                                <Form.Group className="mt-3">
+                                    <Form.Label>Imagen (file) {this.state.uploadingActive && <Loader />}</Form.Label>
+                                    <Form.Control type="file" onChange={this.handleImageUpload} />
                                 </Form.Group>
 
-                                {/* <Form.Group as={Col} md='7' controlId='password'>
-                                    <Form.Label>Password</Form.Label>
-                                    <Form.Control
-                                        required
-                                        type='password'
-                                        name='password'
-                                        placeholder='fantasía caribeña'
-                                        value={this.state.user.password}
-                                        onChange={this.handleInputChange} />
-                                    <Form.Text id='passwordHelpBlock' muted>
-                                        Your password must be 8-10 characters long
-                                    </Form.Text>
-                                </Form.Group> */}
-                            </Form.Row>
-
-                            <Form.Row>
-                                <Form.Group as={Col} md='7' controlId='email'>
-                                    <Form.Label>Email address</Form.Label>
-                                    <Form.Control
-                                        required
-                                        type='email'
-                                        name='email'
-                                        placeholder='pop@ino.dog'
-                                        value={this.state.user.email}
-                                        onChange={this.handleInputChange} />
+                                <Form.Group className="mt-5">
+                                    <Button variant='info' type='submit' disabled={this.state.uploadingActive}>{this.state.uploadingActive ? 'Image loading...' : 'Save changes'}</Button>
                                 </Form.Group>
+                            </Form>
+                            <Link to="/profile" className="btn btn-outline-dark mt-5">Go back</Link>
+                        </Col>
+                    </Row>
 
-                                <Form.Group as={Col} md='5' controlId='role'>
-                                    <Form.Label>Choose role</Form.Label>
-                                    <Form.Control as='select' name='role' value={this.state.user.role} onChange={this.handleInputChange}>
-                                        <option>Student or Teacher?</option>
-                                        <option value='Student' >Student</option>
-                                        <option value='Teacher' >Teacher</option>
-                                    </Form.Control>
-                                </Form.Group>
-                            </Form.Row>
-
-                            <Form.Group className="mt-3">
-                                <Form.Label>Imagen (file) {this.state.uploadingActive && <Loader />}</Form.Label>
-                                <Form.Control type="file" onChange={this.handleImageUpload} />
-                            </Form.Group>
-
-                            <Form.Group className="mt-5">
-                                <Button variant='info' type='submit' disabled={this.state.uploadingActive}>{this.state.uploadingActive ? 'Image loading...' : 'Save changes'}</Button>
-                            </Form.Group>
-                        </Form>
-                        <Link to="/profile" className="btn btn-outline-dark mt-5">Go back</Link>
-                    </Col>
-                </Row>
-
-            </Container>
+                </Container>
+            </motion.div>
         )
     }
 }

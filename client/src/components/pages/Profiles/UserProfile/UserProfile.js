@@ -1,6 +1,7 @@
 import { Container, Image, Col, Row, Button } from 'react-bootstrap'
 import { Link } from 'react-router-dom'
 import React, { Component } from 'react'
+import { motion } from 'framer-motion'
 import UsersServices from './../../../../service/users.service'
 import CoursesServices from './../../../../service/courses.service'
 import TeacherServices from './../../../../service/teachers.service'
@@ -8,7 +9,7 @@ import CourseCard from './../../../shared/CourseCard/Course-card'
 import TeacherCard from './../../TeachersList/TeacherCard'
 import Popup from '../../../shared/Popup/Popup'
 import DeleteMessage from '../../../shared/Delete-message/DeleteMessage'
-import Loader from '../../../shared/Spinner/Loader'
+// import Loader from '../../../shared/Spinner/Loader'
 import './UserProfile.css'
 import TabNav from './../../../shared/TabsNav/TabNav'
 import Tab from './../../../shared/TabsNav/Tab'
@@ -154,7 +155,7 @@ class UserProfile extends Component {
 
   render() {
     return (
-      <>
+      <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
         <Popup show={this.state.showModal} handleModal={this.handleModal} color={'maroon'}>
           <DeleteMessage />
           <Row className='justify-content-center'>
@@ -301,7 +302,7 @@ class UserProfile extends Component {
             }
           </Row> */}
         </Container>
-      </>
+      </motion.div>
     )
   }
 }

@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import { motion } from 'framer-motion'
 import CoursesService from './../../../service/courses.service'
 import FilesService from './../../../service/upload.service'
 import Loader from '../../shared/Spinner/Loader'
@@ -38,7 +39,7 @@ class NewCourseForm extends Component {
         this.coursesService
             .saveCourse(this.state.course)
             .then(() => {
-                this.props.history.push('/profile-teacher')
+                this.props.history.push('/courses')
                 this.props.handleToast(true, 'New course created!', 'green')
             })
             .catch(err => this.props.handleToast(true, err.response.data.message[0].msg, 'red'))  // TO-DO Configurar en servidor con validator
@@ -64,7 +65,7 @@ class NewCourseForm extends Component {
 
     render() {
         return (
-            <>
+            <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
                 <Container>
                     <Row>
                         <Col lg={{ span: 8, offset: 2 }}>
@@ -155,7 +156,7 @@ class NewCourseForm extends Component {
                     </Row>
 
                 </Container>
-            </>
+            </motion.div>
         )
     }
 }
