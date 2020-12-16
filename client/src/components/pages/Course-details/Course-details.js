@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
 import CoursesService from './../../../service/courses.service'
-
+import AddComments from './../../shared/AddComments/AddComments'
 import { Container, Row, Col, Card, Button } from 'react-bootstrap'
 import './Course-details.css'
 
@@ -92,6 +92,13 @@ class CourseDetails extends Component {
                                 </Col>
                             </Row>
                         </section>
+
+
+                        <section>
+                            <AddComments courseId={this.state.course._id} loggedUser={this.props.loggedUser} history={this.props.history} />
+                        </section>
+
+
                         <Link to="/courses" className="btn btn-sm btn-outline-dark mt-5">Go back</Link>
                     </>
                     :
