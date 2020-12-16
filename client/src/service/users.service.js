@@ -1,12 +1,16 @@
-
+import runtimeEnv from "@mars/heroku-js-runtime-env";
 import axios from 'axios'
+
+const env = runtimeEnv()
+
 
 export default class UserService {
 
     constructor() {
         this.apiHandler = axios.create({
             //baseURL: 'http://localhost:5000/api/users',
-            baseURL: `${process.env.REACT_APP_API_URL}/users`,
+            // baseURL: `${process.env.REACT_APP_API_URL}/users`,
+            baseURL: `${env.REACT_APP_API_URL}/users`,
             withCredentials: true
         })
     }
