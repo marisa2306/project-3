@@ -53,6 +53,10 @@ a{
 
 }
 
+.user-profile {
+  height: 90vh;
+}
+
 .user-profile h1{
     font-weight: 700;
     line-height: 1.2;

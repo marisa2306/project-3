@@ -116,3 +116,10 @@
     background-color: #fff;
     border: 1px solid #ec5252;
 }
+
+.avatar{
+    width:70px;
+    height:70px;
+    object-fit: cover;
+}
+
