@@ -5,10 +5,10 @@ import ReactPlayer from 'react-player'
 import CoursesService from './../../../service/courses.service'
 import CommentsService from './../../../service/comments.service'
 import AddComments from './../../shared/AddComments/AddComments'
+import Loader from './../../shared/Spinner/Loader'
+
 import { Container, Row, Col, Card, Button, Image } from 'react-bootstrap'
 import './Course-details.css'
-
-import Loader from './../../shared/Spinner/Loader'
 
 
 class CourseDetails extends Component {
@@ -16,49 +16,37 @@ class CourseDetails extends Component {
         super()
         this.state = {
             course: undefined,
-            showModal: false,
             comments: undefined,
-            videoUrl: undefined
+            videoUrl: undefined,
+            showModal: false
         }
         this.coursesService = new CoursesService()
         this.commentsService = new CommentsService()
-
     }
 
-    componentDidMount = () => {
+    componentDidMount = () => this.refreshCourse()
+
+    refreshCourse = () => {
         const course_id = this.props.match.params.course_id
+        const getCourse = this.coursesService.getCourse(course_id)
+        const getComments = this.commentsService.getComments()
 
-        this.coursesService
-            .getCourse(course_id)
-            .then(res => this.setState({ course: res.data, videoUrl: res.data.videos[0] }))
+        Promise.all([ getCourse, getComments ])
+            .then(res => {
+                console.log(res)
+                this.setState({ course: res[ 0 ].data, videoUrl: res[0].data.videos[0], comments: res[ 1 ].data })
+            })
             .catch(() => {
                 this.props.history.push('/courses')
                 this.props.handleToast(true, 'An error has occurred, please try again later', 'red')
             })
-
-        this.commentsService
-            .getComments()
-            .then(res => this.setState({ comments: res.data }))
-            .catch(() => {
-                this.props.history.push('/courses')
-                this.props.handleToast(true, 'An error has occurred, please try again later', 'red')
-            })
-
-
     }
 
-    toggleInput = () => {
-        //alert('funoncia!!!')
-        //this.setState({ showInput: true })
-        this.setState({ showInput: !this.state.showInput })
-    }
+    toggleInput = () => this.setState({ showInput: !this.state.showInput })
 
     setVideoUrl = url => this.setState({ videoUrl: url })
 
     render() {
-
-
-        console.log(this.state.comments)
         return (
             <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
                 <Container className="course-details ">
@@ -71,11 +59,7 @@ class CourseDetails extends Component {
                                         <h1>{this.state.course.title}</h1>
                                         <p><em> {this.state.course.lead}</em></p>
 
-                                        {this.state.course.owner ?
-                                            <p style={{ color: '#73726c', fontWeight: 700 }}>Created by {this.state.course.owner.name} {this.state.course.owner.surname}</p>
-                                            :
-                                            null
-                                        }
+                                        {this.state.course.owner && <p style={{ color: '#73726c', fontWeight: 700 }}>Created by {this.state.course.owner.name} {this.state.course.owner.surname}</p>}
                                         <p><strong>Category:</strong> {this.state.course.category} | <strong>Difficulty Level:</strong>  {this.state.course.difficultyLevel} | <strong>Price:</strong>  {this.state.course.price} € | <strong>Duration:</strong>  {this.state.course.duration} hrs.</p>
                                     </Col>
                                     <Col md={{ span: 4 }} >
@@ -102,7 +86,7 @@ class CourseDetails extends Component {
                                         <Button onClick={this.toggleInput} className="mt-3 mb-3 start-course" >{this.state.showInput ? 'Close media' : 'See course media'}</Button>
 
                                         {/* Videos */}
-                                        {this.state.showInput ?
+                                        {this.state.showInput &&
                                             <motion.div transition={{ type: 'spring', stiffness: 300, duration: 1.2 }}>
                                                 <Row>
                                                     <Col md={8}>
@@ -120,14 +104,12 @@ class CourseDetails extends Component {
                                                                     alt="play icon"
                                                                     onClick={() => this.setVideoUrl(elm)}
                                                                 />
-                                                                <p style={{ display: 'inline-flex' }} >Chapter {idx + 1}</p>
+                                                                <p style={{ display: 'inline-flex' }} >Lesson {idx + 1}</p>
                                                             </Card.Header>
                                                         )}
                                                     </Col>
                                                 </Row>
-                                            </motion.div>
-                                            : null
-                                        }
+                                            </motion.div>}
 
                                     </Col>
                                 </Row>
@@ -138,7 +120,7 @@ class CourseDetails extends Component {
 
                             <h2 className="mt-5 mb-3">Comments</h2>
 
-                            {this.state.comments ?
+                            {this.state.comments &&
 
                                 this.state.comments.map(elm =>
                                     <section className="d-flex align-items-center mb-2" key={elm._id} userInfo={this.props.loggedUser} {...elm}>
@@ -148,30 +130,21 @@ class CourseDetails extends Component {
                                                 <p className="mb-1"><strong>{elm.user.username} {elm.timestamps}</strong></p>
                                                 <p className="mb-0"><em>" {elm.content} "</em></p>
                                                 <small>{elm.createdAt}</small>
-                                                {this.props.loggedUser ?
+                                                {this.props.loggedUser &&
                                                     <Row as="div" className="mt-2">
                                                         <Col>
                                                             <Link to='/edit-comment' className="mr-3">Edit</Link>
                                                             <Button onClick={() => this.handleModal(true)} variant="outline-danger" className="delete-comment" size="sm">Delete</Button>
                                                         </Col>
-                                                    </Row>
-                                                    : null
-                                                }
+                                                    </Row>}
                                             </Card.Body>
                                         </Card>
-                                    </section>
-                                )
-                                : null
-                            }
+                                    </section>)}
 
-                            {this.props.loggedUser ?
-
-                                < section >
+                            {this.props.loggedUser &&
+                                <section>
                                     <AddComments courseId={this.state.course._id} loggedUser={this.props.loggedUser} history={this.props.history} />
-                                </section>
-
-                                : null
-                            }
+                                </section>}
 
                             <Link to="/courses" className="btn btn-sm btn-outline-dark mt-5">Go back</Link>
                         </>
@@ -179,7 +152,7 @@ class CourseDetails extends Component {
                         <Loader />
                     }
                 </Container>
-            </motion.div >
+            </motion.div>
         )
     }
 }

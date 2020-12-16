@@ -10,12 +10,9 @@ const courseSchema = new Schema({
         type: String,
         unique: true,
         required: true,
-        default: 'Unknown',
         maxlength: 60
     },
-    lead: {
-        type: String
-    },
+    lead: String,
     category: {
         type: String,
         enum: ['Design', 'Development', 'Marketing', 'Music', 'Other'],
@@ -34,20 +31,6 @@ const courseSchema = new Schema({
         type: [String],
         default: 'Unknown'
     },
-    // priceRanges: {
-    //     currency: {
-    //         type: String,
-    //         default: 'EUR'
-    //     },
-    //     min: {
-    //         type: Number,
-    //         default: 0
-    //     },
-    //     max: {
-    //         type: Number,
-    //         default: 200
-    //     }
-    // },
     price: {
         type: Number,
         default: 0
@@ -62,7 +45,7 @@ const courseSchema = new Schema({
     },
     videos: {
         type: [String],
-        default: 'unknown'
+        default: 'https://www.youtube.com/watch?v=I_jSd4Wf7ck'
     },
     owner: {
         type: Schema.Types.ObjectId,

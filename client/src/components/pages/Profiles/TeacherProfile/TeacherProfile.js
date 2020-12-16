@@ -26,17 +26,7 @@ class TeacherProfile extends Component {
 
   componentDidMount = () => this.refreshTeacher()
 
-  // refreshCourses = () => {
-  //   this.coursesServices
-  //     .getTeacherCourses(this.props.teacherInfo._id)
-  //     .then(response => this.setState({ courses: response.data }))
-  //     .catch(() => {
-  //       this.props.history.push('/profile')
-  //       this.props.handleToast(true, 'An error has occurred, please try again later', 'red')
-  //     })
-  // }
-
-  refreshTeacher = () => {             // CORRECCIÓN DE GERMÁN
+  refreshTeacher = () => {
     const teacher_id = this.props.match.params.teacher_id
     const getTeacher = this.teachersServices.getTheTeacher(teacher_id)
     const getCourses = this.coursesServices.getTeacherCourses(teacher_id)
@@ -53,7 +43,7 @@ class TeacherProfile extends Component {
     this.coursesServices
       .deleteCourse(course_Id)
       .then(() => {
-        this.refreshCourses()
+        this.refreshTeacher()
         this.props.handleToast(true, 'Delete successful!', 'green')
       })
       .catch(() => {
@@ -98,8 +88,6 @@ class TeacherProfile extends Component {
   handleModal = visible => this.setState({ showModal: visible })
 
   render() {
-
-
     return (
       <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
         <Popup show={this.state.showModal} handleModal={this.handleModal} color={'maroon'}>
