@@ -16,18 +16,16 @@ const CourseCard = props => {
     return (
 
             <Col sm={6} md={4} lg={3} >
-            <motion.div
-                whileHover={{
-                    scale: 1.05,
-                    boxShadow: '0px 0px 8px rgb(200, 200, 200)'
-                }}
-                whileTap={{ scale: 0.9 }}
-                transition={{ type: 'spring', stiffness: 300, duration: 1.2 }}
-            >
-                    <Card className="course-card">
+                <Card className="course-card">
+                    <motion.div 
+                        whileHover={{ scale: 1.05 }}
+                        whileTap={{ scale: 1 }}
+                        transition={{ type: 'spring', stiffness: 150, duration: 1.2 }}
+                    >
                         <Link className="course-card-link" to={`/courses/${props._id}`}>
                             <Card.Img variant="top" src={props.imageUrl} alt={props.title} />
                         </Link>
+                    </motion.div>
                         <Card.Body>
                             <Card.Title className="course-title mb-2">{props.title}</Card.Title>
                             <Card.Text className="details  mb-2">{props.category} - {props.difficultyLevel} - {props.price} € - {props.duration} hrs.</Card.Text>
@@ -52,8 +50,7 @@ const CourseCard = props => {
                                 </Col>
                             </Row>
                         </Card.Body>
-                    </Card>
-                </motion.div>
+                </Card>
 
                 <Popup show={showModal} handleModal={handleModal} color={'maroon'}>
                     <DeleteMessage />

@@ -16,8 +16,8 @@ const TeacherCard = props => {
                     scale: 1.05,
                     boxShadow: '0px 0px 8px rgb(200, 200, 200)'
                 }}
-                whileTap={{ scale: 0.9, duration: .4 }}
-                transition={{ type: 'spring', stiffness: 300 }}
+                whileTap={{ scale: 1 }}
+                transition={{ type: 'spring', stiffness: 150, duration: 1.2 }}
             >
                 <Card className="teacher-card">
                     <Link className="teacher-card-link d-flex justify-content-center" to={`/teachers/${props._id}`}>

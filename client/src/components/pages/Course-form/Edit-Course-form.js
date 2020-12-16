@@ -50,7 +50,7 @@ class EditCourseForm extends Component {
         this.coursesService
             .editCourse(course_id, this.state.course)
             .then(() => {
-                this.props.history.push('/profile-teacher')
+                this.props.history.push('/courses')
                 this.props.handleToast(true, 'Edit successful!', 'green')
             })
             .catch(err => this.props.handleToast(true, err.response.data.message[0].msg, 'red'))  // TO-DO Configurar en servidor con validator
@@ -80,23 +80,23 @@ class EditCourseForm extends Component {
             <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
                 <Container>
                     <Row>
-                        <Col lg={{ span: 6, offset: 3 }}>
+                        <Col lg={{ span: 8, offset: 2 }}>
                             <h1 className="mt-5">Edit Course</h1>
                             <hr />
                             <Form onSubmit={this.handleSubmit}>
                                 <Form.Group controlId="title">
                                     <Form.Label>Title</Form.Label>
-                                    <Form.Control type="text" name="title" value={this.state.course.title} onChange={this.handleInputChange} />
+                                    <Form.Control type="text" name="title" value={this.state.course.title} onChange={this.handleInputChange} required />
                                 </Form.Group>
 
                                 <Form.Group controlId="lead">
                                     <Form.Label>Lead Paragraph</Form.Label>
-                                    <Form.Control type="text" name="lead" value={this.state.course.lead} onChange={this.handleInputChange} />
+                                    <Form.Control type="text" name="lead" value={this.state.course.lead} onChange={this.handleInputChange} required />
                                 </Form.Group>
 
                                 <Form.Group controlId="description">
                                     <Form.Label>Description</Form.Label>
-                                    <Form.Control as='textarea' name="description" value={this.state.course.description} onChange={this.handleInputChange} />
+                                    <Form.Control as='textarea' name="description" value={this.state.course.description} onChange={this.handleInputChange} required />
                                 </Form.Group>
                                 <Row>
                                     <Col md={6}>
@@ -127,20 +127,20 @@ class EditCourseForm extends Component {
                                 </Row>
                                 <Form.Group controlId="whatYouWillLearn">
                                     <Form.Label>Main Topics</Form.Label>
-                                    <Form.Control as='textarea' name="whatYouWillLearn" value={this.state.course.whatYouWillLearn} onChange={this.handleInputChange} />
+                                    <Form.Control as='textarea' name="whatYouWillLearn" value={this.state.course.whatYouWillLearn} onChange={this.handleInputChange} required />
                                     <Form.Text id='whatYouWillLearn' muted>Separate topics with commas</Form.Text>
                                 </Form.Group>
                                 <Row>
                                     <Col md={6}>
                                         <Form.Group controlId="price">
                                             <Form.Label>Price</Form.Label>
-                                            <Form.Control type="number" name="price" value={this.state.course.price} onChange={this.handleInputChange} min='0' />
+                                            <Form.Control type="number" name="price" value={this.state.course.price} onChange={this.handleInputChange} min='0' required />
                                         </Form.Group>
                                     </Col>
                                     <Col md={6}>
                                         <Form.Group controlId="duration">
                                             <Form.Label>Duration</Form.Label>
-                                            <Form.Control type="number" name="duration" value={this.state.course.duration} onChange={this.handleInputChange} min='0' />
+                                            <Form.Control type="number" name="duration" value={this.state.course.duration} onChange={this.handleInputChange} min='0' required />
                                         </Form.Group>
                                     </Col>
                                 </Row>
@@ -153,18 +153,17 @@ class EditCourseForm extends Component {
                                 <Form.Group controlId="requirements">
                                     <Form.Label>Videos</Form.Label>
                                     <Form.Control as='textarea' name="videos" value={this.state.course.videos} onChange={this.handleInputChange} />
-                                    <Form.Text id='videos' muted>Separate requirements with commas</Form.Text>
+                                    <Form.Text id='videos' muted>Separate URLs with commas</Form.Text>
                                 </Form.Group>
 
                                 <Form.Group>
-                                    <Form.Label>Imagen (file) {this.state.uploadingActive && <Loader />}</Form.Label>
+                                    <Form.Label>Imagen (file: jpg or png) {this.state.uploadingActive && <Loader />}</Form.Label>
                                     <Form.Control type="file" onChange={this.handleImageUpload} />
                                 </Form.Group>
 
-                                <Button className="mr-3 mt-3" variant="info" type="submit" disabled={this.state.uploadingActive}>{this.state.uploadingActive ? 'Image loading...' : 'Confirm Edition'}</Button>
-                                <Button className="mt-3" as='a' href='/profile' variant="dark" disabled={this.state.uploadingActive}>{this.state.uploadingActive ? 'Image loading...' : 'Cancel'}</Button>
+                                <Button className="mt-3 add-course" type="submit" disabled={this.state.uploadingActive}>{this.state.uploadingActive ? 'Image loading...' : 'Confirm Edition'}</Button>
                             </Form>
-                            <Link to="/profile-teacher" className="btn btn-outline-dark mt-5">Go back</Link>
+                            {this.state.uploadingActive || <Link to={`/teachers/${this.props.teacherInfo._id}`} className="btn btn-outline-dark mt-5" disabled>Go back</Link>}
                         </Col>
                     </Row>
                 </Container>
