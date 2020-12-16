@@ -9,6 +9,7 @@ import TeachersServices from './../service/teachers.service'
 import UsersService from '../service/users.service'
 
 import Navigation from './layout/navigation/Navigation'
+import Footer from './layout/Footer/Footer'
 import Home from './pages/Home/Home'
 
 import CoursesList from './pages/Courses-list/Courses-list'
@@ -112,6 +113,8 @@ class App extends Component {
           </AnimatePresence>
           <Alert show={this.state.showToast} handleToast={this.handleToast} toastText={this.state.toastText} color={this.state.toastColor} />
         </main>
+
+        <Footer />
       </>
     )
   }
