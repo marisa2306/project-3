@@ -84,7 +84,7 @@ const Home = props => {
       
       <Banner title='Make the most of your online learning experience' text='Our teachers will help you learn while staying home.' />
 
-      <Footer />
+      {/* <Footer /> */}
 
     </motion.div>
   )

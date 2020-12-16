@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { motion } from 'framer-motion'
 import { Link } from 'react-router-dom'
+import ReactPlayer from 'react-player'
 import CoursesService from './../../../service/courses.service'
 import CommentsService from './../../../service/comments.service'
 import AddComments from './../../shared/AddComments/AddComments'
@@ -16,9 +17,12 @@ class CourseDetails extends Component {
         this.state = {
             course: undefined,
             showModal: false,
+<<<<<<< HEAD
             comments: undefined,
+=======
+            videoUrl: undefined
+>>>>>>> 5605df60e67d189891df474edbd9c730b0ad4e6d
         }
-
         this.coursesService = new CoursesService()
         this.commentsService = new CommentsService()
 
@@ -29,7 +33,7 @@ class CourseDetails extends Component {
 
         this.coursesService
             .getCourse(course_id)
-            .then(res => this.setState({ course: res.data }))
+            .then(res => this.setState({ course: res.data, videoUrl: res.data.videos[0] }))
             .catch(() => {
                 this.props.history.push('/courses')
                 this.props.handleToast(true, 'An error has occurred, please try again later', 'red')
@@ -51,6 +55,8 @@ class CourseDetails extends Component {
         //this.setState({ showInput: true })
         this.setState({ showInput: !this.state.showInput })
     }
+
+    setVideoUrl = url => this.setState({ videoUrl: url })
 
     render() {
 
@@ -96,25 +102,42 @@ class CourseDetails extends Component {
                                             {this.state.course.requirements.map(elm => <li key={elm._id}><img src="https://res.cloudinary.com/dodneiokm/image/upload/v1607887317/project3-ironhack/double-check_tm7qmy.png" alt='Double-Checked icon' /><p>{elm}</p></li>)}
                                         </ul>
 
-                                        <Button onClick={this.toggleInput} className="mt-3 mb-3 start-course" >Start the course</Button>
+                                        <Button onClick={this.toggleInput} className="mt-3 mb-3 start-course" >{this.state.showInput ? 'Close media' : 'See course media'}</Button>
 
                                         {/* Videos */}
                                         {this.state.showInput ?
-                                            this.state.course.videos.map(elm =>
-                                                <Card.Header className="video-card" key={elm._id}>
-                                                    <img src="https://res.cloudinary.com/dodneiokm/image/upload/v1607893554/project3-ironhack/play_u6mma0.png" alt="play icon" />
-                                                    <a href={elm} target="_blank" rel="noreferrer">Video {elm._id}</a>
-                                                </Card.Header>
-                                            )
+                                            <motion.div transition={{ type: 'spring', stiffness: 300, duration: 1.2 }}>
+                                                <Row>
+                                                    <Col md={8}>
+                                                        <ReactPlayer
+                                                            url={this.state.videoUrl}
+                                                            controls
+                                                        />
+                                                    </Col>
+
+                                                    <Col md={4}>
+                                                        {this.state.course.videos.map((elm, idx) =>
+                                                            <Card.Header className="video-card" key={elm._id}>
+                                                                <img
+                                                                    src="https://res.cloudinary.com/dodneiokm/image/upload/v1607893554/project3-ironhack/play_u6mma0.png"
+                                                                    alt="play icon"
+                                                                    onClick={() => this.setVideoUrl(elm)}
+                                                                />
+                                                                <p style={{ display: 'inline-flex' }} >Chapter {idx + 1}</p>
+                                                            </Card.Header>
+                                                        )}
+                                                    </Col>
+                                                </Row>
+                                            </motion.div>
                                             : null
                                         }
+
                                     </Col>
                                 </Row>
                             </section>
 
+
                             {/* Comments */}
-
-
 
                             <h2 className="mt-5 mb-3">Comments</h2>
 
