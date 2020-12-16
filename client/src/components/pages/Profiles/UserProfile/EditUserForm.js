@@ -14,8 +14,7 @@ class EditUserForm extends Component {
                 username: '',
                 email: '',
                 password: '',
-                role: '',
-                imageUrl: ''
+                role: ''
             },
             uploadingActive: false
         }
@@ -37,7 +36,10 @@ class EditUserForm extends Component {
                 this.props.history.push('/profile')
                 this.props.handleToast(true, 'Edit successful!', 'green')
             })
-            .catch(err => this.props.handleToast(true, err.response.data.message[0].msg, 'red'))  // TO-DO Configurar en servidor con validator
+            .catch(() => {
+                this.props.history.push('/profile')
+                this.props.handleToast(true, 'An error has occurred, please try again later', 'red')
+            })
     }
 
     handleImageUpload = e => {
@@ -54,12 +56,13 @@ class EditUserForm extends Component {
                     uploadingActive: false
                 })
             })
-            .catch(err => this.props.handleToast(true, err.response.data.message, 'red'))   // TO-DO ¿o mejor así?
+            .catch(err => this.props.handleToast(true, err.response.data.message, 'red'))
     }
 
     render() {
         return (
             <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
+                
                 <Container>
                     <Row>
                         <Col lg={{ span: 6, offset: 3 }}>
@@ -75,24 +78,9 @@ class EditUserForm extends Component {
                                             required
                                             type='text'
                                             name='username'
-                                            placeholder='popinez'
                                             value={this.state.user.username}
                                             onChange={this.handleInputChange} />
                                     </Form.Group>
-
-                                    {/* <Form.Group as={Col} md='7' controlId='password'>
-                                        <Form.Label>Password</Form.Label>
-                                        <Form.Control
-                                            required
-                                            type='password'
-                                            name='password'
-                                            placeholder='fantasía caribeña'
-                                            value={this.state.user.password}
-                                            onChange={this.handleInputChange} />
-                                        <Form.Text id='passwordHelpBlock' muted>
-                                            Your password must be 8-10 characters long
-                                        </Form.Text>
-                                    </Form.Group> */}
                                 </Form.Row>
 
                                 <Form.Row>
@@ -102,7 +90,6 @@ class EditUserForm extends Component {
                                             required
                                             type='email'
                                             name='email'
-                                            placeholder='pop@ino.dog'
                                             value={this.state.user.email}
                                             onChange={this.handleInputChange} />
                                     </Form.Group>
@@ -118,15 +105,13 @@ class EditUserForm extends Component {
                                 </Form.Row>
 
                                 <Form.Group className="mt-3">
-                                    <Form.Label>Imagen (file) {this.state.uploadingActive && <Loader />}</Form.Label>
+                                    <Form.Label>Imagen (file: jpg or png) {this.state.uploadingActive && <Loader />}</Form.Label>
                                     <Form.Control type="file" onChange={this.handleImageUpload} />
                                 </Form.Group>
-
-                                <Form.Group className="mt-5">
-                                    <Button variant='info' type='submit' disabled={this.state.uploadingActive}>{this.state.uploadingActive ? 'Image loading...' : 'Save changes'}</Button>
-                                </Form.Group>
+                                
+                                <Button className="mt-3 add-course" type='submit' disabled={this.state.uploadingActive}>{this.state.uploadingActive ? 'Image loading...' : 'Save changes'}</Button>
                             </Form>
-                            <Link to="/profile" className="btn btn-outline-dark mt-5">Go back</Link>
+                            {this.state.uploadingActive || <Link to='/profile' className="btn btn-outline-dark mt-5" disabled>Go back</Link>}
                         </Col>
                     </Row>
 

@@ -1,6 +1,8 @@
 const express = require('express')
 const router = express.Router()
 const User = require('../models/user.model')
+const Teacher = require('../models/teacher.model')
+const Course = require('../models/course.model')
 const { isLoggedIn, isValidId } = require('../middleware/custom-middleware')
 
 
@@ -26,8 +28,21 @@ router.put('/editUser/:id', isLoggedIn, isValidId, (req, res) => {
 })
 
 router.delete('/deleteUser/:id', isLoggedIn, isValidId, (req, res) => {
+    const userId = req.params.id
+    let teacherId 
+
     User
-        .findByIdAndDelete(req.params.id)
+        .findByIdAndDelete(userId)
+        .then(() => Teacher.find({ user: userId }))
+        .then(res => {
+            if (res.length > 0) {
+                teacherId = res[ 0 ]._id
+                Course.deleteMany({ owner: teacherId })
+                    .then(() => Teacher.findByIdAndDelete(teacherId))
+                    .then(() => res.json({ message: 'User deleted' }))
+                    .catch(err => res.status(500).json(err))
+            }
+        })
         .then(() => res.json({ message: 'User deleted' }))
         .catch(err => res.status(500).json(err))
 })

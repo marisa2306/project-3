@@ -10,7 +10,6 @@ import Popup from '../../../shared/Popup/Popup'
 import DeleteMessage from '../../../shared/Delete-message/DeleteMessage'
 import './TeacherProfile.css'
 
-// import EditorContainer from './wysiwyg/EditorContainer'
 
 class TeacherProfile extends Component {
   constructor() {
@@ -52,37 +51,20 @@ class TeacherProfile extends Component {
       })
   }
 
-  deleteTeacher = () => {                           // TO-DO ==> llevar a servidor
+  deleteTeacher = () => {
     const teacher_Id = this.state.teacher._id
 
-    !this.state.courses
-      ?
-      this.teachersServices
-        .deleteTeacher(teacher_Id)
-        .then(() => {
-          this.props.storeUser(this.props.loggedUser)
-          this.props.history.push('/profile')
-          this.props.handleToast(true, 'Delete successful!', 'green')
-        })
-        .catch(() => {
-          this.props.history.push('/profile')
-          this.props.handleToast(true, 'An error has occurred while deleting, please try again later', 'red')
-        })
-
-      :
-
-      this.coursesServices
-        .deleteTeacherCourses(teacher_Id)
-        .then(() => this.teachersServices.deleteTeacher(teacher_Id))
-        .then(() => {
-          this.props.storeUser(this.props.loggedUser)
-          this.props.history.push('/profile')
-          this.props.handleToast(true, 'Delete successful!', 'green')
-        })
-        .catch(() => {
-          this.props.history.push('/profile')
-          this.props.handleToast(true, 'An error has occurred while deleting, please try again later', 'red')
-        })
+    this.teachersServices
+      .deleteTeacher(teacher_Id)
+      .then(() => {
+        this.props.storeUser(this.props.loggedUser)
+        this.props.history.push('/profile')
+        this.props.handleToast(true, 'Delete successful!', 'green')
+      })
+      .catch(() => {
+        this.props.history.push('/profile')
+        this.props.handleToast(true, 'An error has occurred while deleting, please try again later', 'red')
+      })
   }
 
   handleModal = visible => this.setState({ showModal: visible })
@@ -90,6 +72,7 @@ class TeacherProfile extends Component {
   render() {
     return (
       <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
+        
         <Popup show={this.state.showModal} handleModal={this.handleModal} color={'maroon'}>
           <DeleteMessage />
           <Row className='justify-content-center'>
@@ -126,33 +109,27 @@ class TeacherProfile extends Component {
                     </Row>
 
                     <Row className="mt-3 mb-3">
-                      {/* 
-              {this.props.teacherInfo.url ?
-                this.props.teacherInfo.url.map(elm => <a className="btn btn-success" href={this.props.teacherInfo.url} target="_blank" key={elm._id}{...elm}>Linkedin</a>)
-                : null
-              } */}
-                      {this.state.teacher.linkedin ?
-                        <a className="teacher-links-btn " href={this.state.teacher.linkedin} alt='Linkedin button' target="_blank" rel="noreferrer"><span><img className="links-icon" src="https://res.cloudinary.com/dodneiokm/image/upload/v1607977090/project3-ironhack/linkedin_3_zpvz48.png" alt='Linkedin icon' /></span>Linkedin</a>
-                        : null
-                      }
-                      {this.state.teacher.website ?
-                        <a className="teacher-links-btn" href={this.state.teacher.website} alt='Website button' target="_blank" rel="noreferrer"><span><img className="links-icon" src="https://res.cloudinary.com/dodneiokm/image/upload/v1607977242/project3-ironhack/link_kj6las.png" alt='Website icon' /></span>Website</a>
-                        : null
-                      }
-                      {this.state.teacher.youtube ?
-                        <a className="teacher-links-btn" href={this.state.teacher.youtube} alt='Youtube button' target="_blank" rel="noreferrer"><span><img className="links-icon" src="https://res.cloudinary.com/dodneiokm/image/upload/v1607976945/project3-ironhack/youtube_hgefuo.png" alt='Youtube icon' /></span>Youtube</a>
-                        : null
-                      }
+                      {this.state.teacher.linkedin &&
+                        <a className="teacher-links-btn" href={this.state.teacher.linkedin} alt='Linkedin button' target="_blank" rel="noreferrer">
+                          <span><img className="links-icon" src="https://res.cloudinary.com/dodneiokm/image/upload/v1607977090/project3-ironhack/linkedin_3_zpvz48.png" alt='Linkedin icon' />
+                          </span>Linkedin</a>}
+                      
+                      {this.state.teacher.website &&
+                        <a className="teacher-links-btn" href={this.state.teacher.website} alt='Website button' target="_blank" rel="noreferrer">
+                          <span><img className="links-icon" src="https://res.cloudinary.com/dodneiokm/image/upload/v1607977242/project3-ironhack/link_kj6las.png" alt='Website icon' />
+                          </span>Website</a>}
+                      
+                      {this.state.teacher.youtube &&
+                        <a className="teacher-links-btn" href={this.state.teacher.youtube} alt='Youtube button' target="_blank" rel="noreferrer">
+                          <span><img className="links-icon" src="https://res.cloudinary.com/dodneiokm/image/upload/v1607976945/project3-ironhack/youtube_hgefuo.png" alt='Youtube icon' />
+                          </span>Youtube</a>}
 
-                      {this.props.teacherInfo && this.props.teacherInfo._id === this.state.teacher._id ?
+                      {this.props.teacherInfo && this.props.teacherInfo._id === this.state.teacher._id &&
                         <>
                           <Link to='/profile-teacher/edit-teacher' className="teacher-edit mt-5">Edit details</Link>
                           <Button onClick={() => this.handleModal(true)} className="teacher-delete">Delete</Button>
                           <Link to='/profile-teacher/create-course' className="course-add mt-5">Add course</Link>
-                        </>
-                        :
-                        null
-                      }
+                        </>}
                     </Row>
                   </aside>
                 </Col>
@@ -195,12 +172,10 @@ class TeacherProfile extends Component {
             </>
 
             :
-            <>
-              <Loader />
-            </>
+            <Loader />
           }
 
-          <Link to="/teachers" className="btn btn-outline-dark mt-5">Go back</Link>
+          <Link to="/profile" className="btn btn-outline-dark mt-5">Go back</Link>
         </Container>
       </motion.div>
     )

@@ -42,7 +42,7 @@ class NewCourseForm extends Component {
                 this.props.history.push('/courses')
                 this.props.handleToast(true, 'New course created!', 'green')
             })
-            .catch(err => this.props.handleToast(true, err.response.data.message[0].msg, 'red'))  // TO-DO Configurar en servidor con validator
+            .catch(err => this.props.handleToast(true, err.response.data.message[0].msg, 'red'))
     }
 
     handleImageUpload = e => {
@@ -59,7 +59,7 @@ class NewCourseForm extends Component {
                     uploadingActive: false
                 })
             })
-            .catch(err => this.props.handleToast(true, err.response.data.message, 'red'))   // TO-DO ¿o mejor así?
+            .catch(err => this.props.handleToast(true, err.response.data.message, 'red'))
     }
 
 

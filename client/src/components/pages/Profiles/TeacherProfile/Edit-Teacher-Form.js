@@ -15,10 +15,6 @@ class EditTeacherForm extends Component {
                 surname: '',
                 jobOccupation: '',
                 description: '',
-                // links: [{
-                //     linkName: '',
-                //     url: ''
-                // }],
                 linkedin: '',
                 youtube: '',
                 website: '',
@@ -34,19 +30,22 @@ class EditTeacherForm extends Component {
 
     handleInputChange = e => this.setState({ teacher: { ...this.state.teacher, [e.target.name]: e.target.value } })
 
-    // handleLinksChange = e => this.setState({ links:  [{...this.state.links, [ e.target.name ]: e.target.value }] })
-
     handleSubmit = e => {
         e.preventDefault()
 
+        const teacherId = this.props.teacherInfo._id
+
         this.teachersService
-            .editTeacher(this.props.teacherInfo._id, this.state.teacher)
+            .editTeacher(teacherId, this.state.teacher)
             .then(() => {
                 this.props.storeUser(this.props.loggedUser)
-                this.props.history.push('/profile-teacher')
+                this.props.history.push(`/teachers/${teacherId}`)
                 this.props.handleToast(true, 'Edit successful!', 'green')
             })
-            .catch(err => this.props.handleToast(true, err.response.data.message[0].msg, 'red'))  // TO-DO Configurar en servidor con validator
+            .catch(() => {
+                this.props.history.push(`/teachers/${teacherId}`)
+                this.props.handleToast(true, 'An error has occurred, please try again later', 'red')
+            })
     }
 
     handleImageUpload = e => {
@@ -63,7 +62,7 @@ class EditTeacherForm extends Component {
                     uploadingActive: false
                 })
             })
-            .catch(err => this.props.handleToast(true, err.response.data.message, 'red'))   // TO-DO ¿o mejor así?
+            .catch(err => this.props.handleToast(true, err.response.data.message, 'red'))
     }
 
 
@@ -79,11 +78,11 @@ class EditTeacherForm extends Component {
                             <Form onSubmit={this.handleSubmit}>
                                 <Form.Group controlId="name">
                                     <Form.Label>Name</Form.Label>
-                                    <Form.Control type="text" name="name" value={this.state.teacher.name} onChange={this.handleInputChange} />
+                                    <Form.Control type="text" name="name" value={this.state.teacher.name} onChange={this.handleInputChange} required />
                                 </Form.Group>
                                 <Form.Group controlId="surname">
                                     <Form.Label>Surname</Form.Label>
-                                    <Form.Control type="text" name="surname" value={this.state.teacher.surname} onChange={this.handleInputChange} />
+                                    <Form.Control type="text" name="surname" value={this.state.teacher.surname} onChange={this.handleInputChange} required />
                                 </Form.Group>
 
                                 <Form.Group controlId="jobOccupation">
@@ -95,47 +94,35 @@ class EditTeacherForm extends Component {
                                     <Form.Control as="textarea" name="description" value={this.state.teacher.description} onChange={this.handleInputChange} />
                                 </Form.Group>
 
-                                {/* <Form.Label><strong>Links</strong></Form.Label> 
-                            <Form.Row>
-                                <Form.Group as={Col} md='6' controlId="linkName">
-                                    <Form.Label>Name</Form.Label>
-                                    <Form.Control type="text" name="linkName" value={this.state.links.linkName} onChange={this.handleLinksChange} />
-                                </Form.Group>
-                                <Form.Group as={Col} md='6' controlId="linkUrl">
-                                    <Form.Label>Url</Form.Label>
-                                    <Form.Control type="text" name="url" value={this.state.links.url} onChange={this.handleLinksChange} />
-                                </Form.Group>
-                            </Form.Row> */}
-
                                 <Tabs className="mt-4" defaultActiveKey="linkedin" id="Personal Links">
                                     <Tab eventKey="linkedin" title="Linkedin">
                                         <Form.Group controlId="linkedin">
-                                            <Form.Label>Linkedin url</Form.Label>
+                                            <Form.Label>Linkedin URL</Form.Label>
                                             <Form.Control type="text" name="linkedin" value={this.state.linkedin} onChange={this.handleInputChange} />
                                         </Form.Group>
                                     </Tab>
                                     <Tab eventKey="website" title="Website">
                                         <Form.Group controlId="website">
-                                            <Form.Label>Website url</Form.Label>
+                                            <Form.Label>Website URL</Form.Label>
                                             <Form.Control type="text" name="website" value={this.state.website} onChange={this.handleInputChange} />
                                         </Form.Group>
                                     </Tab>
                                     <Tab eventKey="youtube" title="Youtube">
                                         <Form.Group controlId="linkedin">
-                                            <Form.Label>Youtube url</Form.Label>
+                                            <Form.Label>Youtube URL</Form.Label>
                                             <Form.Control type="text" name="youtube" value={this.state.youtube} onChange={this.handleInputChange} />
                                         </Form.Group>
                                     </Tab>
                                 </Tabs>
 
                                 <Form.Group>
-                                    <Form.Label>Imagen (file) {this.state.uploadingActive && <Loader />}</Form.Label>
+                                    <Form.Label>Imagen (file: jpg or png) {this.state.uploadingActive && <Loader />}</Form.Label>
                                     <Form.Control type="file" onChange={this.handleImageUpload} />
                                 </Form.Group>
 
-                                <Button className="mt-3" variant="info" type="submit" disabled={this.state.uploadingActive}> {this.state.uploadingActive ? 'Image loading...' : 'Edit Teacher profile'}</Button>
+                                <Button className="mt-3 add-course" type="submit" disabled={this.state.uploadingActive}> {this.state.uploadingActive ? 'Image loading...' : 'Edit Teacher profile'}</Button>
                             </Form>
-                            <Link to="/profile-teacher" className="btn btn-outline-dark mt-5">Go back</Link>
+                            {this.state.uploadingActive || <Link to='/profile' className="btn btn-outline-dark mt-5" disabled>Go back</Link>}
                         </Col>
                     </Row>
 

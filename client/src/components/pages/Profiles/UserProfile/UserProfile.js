@@ -5,15 +5,15 @@ import { motion } from 'framer-motion'
 import UsersServices from './../../../../service/users.service'
 import CoursesServices from './../../../../service/courses.service'
 import TeacherServices from './../../../../service/teachers.service'
+
 import CourseCard from './../../../shared/CourseCard/Course-card'
 import TeacherCard from './../../TeachersList/TeacherCard'
 import Popup from '../../../shared/Popup/Popup'
 import DeleteMessage from '../../../shared/Delete-message/DeleteMessage'
-// import Loader from '../../../shared/Spinner/Loader'
-import './UserProfile.css'
 import TabNav from './../../../shared/TabsNav/TabNav'
 import Tab from './../../../shared/TabsNav/Tab'
-import AddComments from './../../../shared/AddComments/AddComments'
+
+import './UserProfile.css'
 
 class UserProfile extends Component {
   constructor() {
@@ -38,10 +38,7 @@ class UserProfile extends Component {
     this.getFavsTeachers()
   }
 
-  setSelected = tab => {
-    this.setState({ selected: tab })
-  }
-
+  setSelected = tab => this.setState({ selected: tab })
 
   refreshCourses = () => {
     this.coursesServices
@@ -87,57 +84,13 @@ class UserProfile extends Component {
     }
   }
 
-  componentDidUpdate = currentProps =>
-    this.state.favCourses.length !== currentProps.loggedUser.favCourses.length ? this.getFavsCourses()
-      : this.state.favTeachers.length !== currentProps.loggedUser.favTeachers.length ? this.getFavsTeachers()
-        : null
-
-
-
-
-  deleteAll = () => {
-    !this.props.teacherInfo ? this.deleteOnlyUser() : !this.state.teacherCourses ? this.deleteTeacherAndUser() : this.deleteCoursesTeacherAndUser()
+  componentDidUpdate = currentProps => {
+    this.state.favCourses.length !== currentProps.loggedUser.favCourses.length && this.getFavsCourses()
+    this.state.favTeachers.length !== currentProps.loggedUser.favTeachers.length && this.getFavsTeachers()
   }
 
-  // deleteCoursesTeacherAndUser = () => {        CONSEJO GERMÁN -- IRÁ EN SERVER ¿?
-  //   this.coursesServices
-  //     .deleteTeacherCourses(this.props.teacherInfo._id)
-  //     .then(() => this.teachersServices.deleteTeacher(this.props.teacherInfo._id))
-  //     .then(() => this.usersServices.deleteUser(this.props.loggedUser._id))
-  //     .then(() => {
-  //       this.props.handleToast(true, 'User deleted', 'green')
-  //       this.props.storeUser(undefined)
-  //       this.props.history.push('/')
-  //     })
-  //     .catch(err => console.log('error al borrar los cursos del teacher', err))   //  TO-DO -- ¿qué hacemos con esto?
-  // }
 
-  //    ******  CHUSTI-FUNCTIONS  --  ESTO DEBERÁ IR EN SERVER
-
-  // delete teacher's courses 
-  deleteCoursesTeacherAndUser = () => {
-    this.coursesServices
-      .deleteTeacherCourses(this.props.teacherInfo._id)
-      .then(() => this.deleteTeacherAndUser())
-      .catch(() => {
-        this.props.history.push('/')
-        this.props.handleToast(true, 'An error has occurred while deleting, please try again later', 'red')
-      })
-  }
-
-  // delete teacher no courses created
-  deleteTeacherAndUser = () => {
-    this.teachersServices
-      .deleteTeacher(this.props.teacherInfo._id)
-      .then(() => this.deleteOnlyUser())
-      .catch(() => {
-        this.props.history.push('/')
-        this.props.handleToast(true, 'An error has occurred while deleting, please try again later', 'red')
-      })
-  }
-
-  // delete user with no teacher no courses created
-  deleteOnlyUser = () => {
+  deleteUser = () => {
     this.usersServices
       .deleteUser(this.props.loggedUser._id)
       .then(() => {
@@ -156,6 +109,7 @@ class UserProfile extends Component {
   render() {
     return (
       <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
+        
         <Popup show={this.state.showModal} handleModal={this.handleModal} color={'maroon'}>
           <DeleteMessage />
           <Row className='justify-content-center'>
@@ -163,7 +117,7 @@ class UserProfile extends Component {
               <Button variant='secondary' onClick={() => this.handleModal(false)}>Close</Button>
             </Col>
             <Col xs='auto'>
-              <Button to={`/profile/delete-user/${this.props.loggedUser._id}`} onClick={this.deleteAll} variant='light'>Delete account</Button>
+              <Button to={`/profile/delete-user/${this.props.loggedUser._id}`} onClick={this.deleteUser} variant='light'>Delete account</Button>
             </Col>
           </Row>
         </Popup>
@@ -198,13 +152,10 @@ class UserProfile extends Component {
             </Row>
           </section>
 
-
-
-
           {/* Your activity*/}
           <Row>
             <TabNav tabs={['Favorite Courses', 'Favorite Teachers', 'Random Courses']} selected={this.state.selected} setSelected={this.setSelected}   >
-              {this.state.favCourses.length > 0 ?
+              {this.state.favCourses.length > 0 &&
                 <Tab isSelected={this.state.selected === 'Favorite Courses'} >
                   <section>
                     <Row>
@@ -214,10 +165,9 @@ class UserProfile extends Component {
                       }
                     </Row>
                   </section>
-                </Tab>
-                : null
-              }
-              {this.state.favTeachers.length > 0 ?
+                </Tab>}
+              
+              {this.state.favTeachers.length > 0 &&
                 <Tab isSelected={this.state.selected === 'Favorite Teachers'} >
                   <Row style={{ width: '100 %' }}>
                     {
@@ -225,82 +175,19 @@ class UserProfile extends Component {
                         <TeacherCard key={elm._id} {...elm} userInfo={this.props.loggedUser} teacher={this.props.teacherInfo} updateFavTeachers={this.props.updateFavTeachers} />)
                     }
                   </Row>
-                </Tab>
-                : null
-              }
-              {this.state.randomCourses.length > 0 ?
+                </Tab>}
+              
+              {this.state.randomCourses.length > 0 &&
                 <Tab isSelected={this.state.selected === 'Random Courses'} >
                   <Row>
                     {
                       this.state.randomCourses.map(elm =>
-                        <CourseCard key={elm._id} {...elm} userInfo={this.props.loggedUser} teacher={this.props.teacherInfo} updateFavTeachers={this.props.updateFavTeachers} />)
+                        <CourseCard key={elm._id} {...elm} userInfo={this.props.loggedUser} teacher={this.props.teacherInfo} updateFavCourses={this.props.updateFavCourses} />)
                     }
                   </Row>
-                </Tab>
-                : null
-              }
+                </Tab>}
             </TabNav>
           </Row>
-
-          {/* Your activity
-          <h2 className="mt-5 mb-3">Your activity</h2>
-          <Row>
-
-            {this.state.favCourses.length > 0 || this.state.favTeachers.length > 0 || this.state.learningActivity.length > 0 ?
-              <Tabs className="mt-3" defaultActiveKey="courses" id="favs">
-                {this.state.favCourses.length > 0 ?
-                  <Tab className="mt-3 mb-3" eventKey="courses" title="Favorite Courses">
-                    <Container>
-                      <Row>
-                        <h2 className="mt-3 mb-3 text-center">Your favorite Courses</h2>
-                      </Row>
-                      <Row>
-                        <Col sm={12}>
-                          {
-                            this.state.favCourses.map(elm =>
-                              <CourseCard key={elm._id} {...elm} userInfo={this.props.loggedUser} teacher={this.props.teacherInfo} updateFavCourses={this.props.updateFavCourses} />)
-                          }
-                        </Col>
-                      </Row>
-                    </Container>
-                  </Tab>
-                  : <Tab eventKey="courses" title="Favorite Teachers" disabled></Tab>
-                }
-                {this.state.favTeachers.length > 0 ?
-                  <Tab eventKey="teachers" title="Favorite Teachers" >
-                    <Container>
-                      <Row>
-                        <h2 className="mt-3 mb-3 text-center">Your Favorite Teachers </h2>
-                      </Row>
-                      <Row>
-                        {
-                          this.state.favTeachers.map(elm =>
-                            <TeacherCard key={elm._id} {...elm} userInfo={this.props.loggedUser} teacher={this.props.teacherInfo} updateFavTeachers={this.props.updateFavTeachers} />)
-                        }
-                      </Row>
-                    </Container>
-                  </Tab>
-                  : <Tab eventKey="teachers" title="Favorite Teachers" disabled></Tab>
-                }
-                {this.state.learningActivity.length > 0 ?
-                  <Tab eventKey="learning" title="Learning" >
-                    <Container>
-                      <Row>
-                        <h2 className="mt-3 mb-3 text-center">Your Learning Activity</h2>
-                      </Row>
-                    </Container>
-                  </Tab>
-                  : <Tab eventKey="learning" title="Learning Activity" disabled></Tab>
-                }
-              </Tabs>
-              : <Col className="cta">
-                <Row className="d-flex justify-content-between">
-                  <p className="mt-2 mb-0">Let's start learning, <strong>{this.props.loggedUser.username}</strong>! Get in-demand skills to impress anyone.</p>
-                  <Link to='/courses' className="btn btn-success">Start a course</Link>
-                </Row>
-              </Col>
-            }
-          </Row> */}
         </Container>
       </motion.div>
     )

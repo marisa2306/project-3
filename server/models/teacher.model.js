@@ -5,6 +5,7 @@ const teacherSchema = new Schema({
     name: {
         type: String,
         required: true,
+        unique: true,
         default: 'unknown',
         trim: true,
         set: text => text.charAt(0).toUpperCase() + text.substring(1)
@@ -12,6 +13,7 @@ const teacherSchema = new Schema({
     surname: {
         type: String,
         required: true,
+        unique: true,
         default: 'unknown',
         trim: true,
         set: text => text.charAt(0).toUpperCase() + text.substring(1)
@@ -28,34 +30,9 @@ const teacherSchema = new Schema({
         type: String,
         default: 'https://images.unsplash.com/photo-1503676260728-1c00da094a0b'
     },
-    // links: [
-    //     {
-    //         linkName: {
-    //             type: String,
-    //             default: 'School'
-    //         },
-    //         url: {
-    //             type: String,
-    //             default: 'https://www.ironhack.com/es/madrid'
-    //         }
-    //     }],
-
-    // linkname: [String],
-    // url: [String],
-
     linkedin: String,
     website: String,
     youtube: String,
-
-
-    // links: [
-    //     {
-    //         linkName: String,
-    //         url: String
-    //     }
-
-    // ],
-
     user: {
         type: Schema.Types.ObjectId,
         ref: 'User'
