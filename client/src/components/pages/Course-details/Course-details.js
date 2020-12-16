@@ -17,11 +17,8 @@ class CourseDetails extends Component {
         this.state = {
             course: undefined,
             showModal: false,
-<<<<<<< HEAD
             comments: undefined,
-=======
             videoUrl: undefined
->>>>>>> 5605df60e67d189891df474edbd9c730b0ad4e6d
         }
         this.coursesService = new CoursesService()
         this.commentsService = new CommentsService()
