@@ -76,7 +76,7 @@ class App extends Component {
         .catch(() => this.props.handleToast(true, 'An error has occurred, please try again later', 'red'))
     }
   }
-  
+
   updateFavTeachers = item_id => {
     if (this.state.loggedInUser) {
       const newList = [...this.state.loggedInUser.favTeachers].some(elm => elm === item_id) ? [...this.state.loggedInUser.favTeachers].filter(elm => elm !== item_id) : [...this.state.loggedInUser.favTeachers, item_id]
@@ -97,7 +97,7 @@ class App extends Component {
           <Switch>
             <Route exact path="/" render={props => <Home {...props} handleToast={this.handleToast} />} />
             <Route exact path="/courses" render={props => <CoursesList {...props} loggedUser={this.state.loggedInUser} teacherInfo={this.state.teacher} updateFavCourses={this.updateFavCourses} handleToast={this.handleToast} />} />
-            <Route path="/courses/:course_id" render={props => <CourseDetails {...props} handleToast={this.handleToast} teacherInfo={this.state.teacher} />} />
+            <Route path="/courses/:course_id" render={props => <CourseDetails {...props} handleToast={this.handleToast} teacherInfo={this.state.teacher} loggedUser={this.state.loggedInUser} />} />
             <Route exact path="/teachers" render={props => <TeachersList {...props} loggedUser={this.state.loggedInUser} teacherInfo={this.state.teacher} updateFavTeachers={this.updateFavTeachers} handleToast={this.handleToast} />} />
             <Route path="/teachers/:teacher_id" render={props => <TeacherProfile {...props} loggedUser={this.state.loggedInUser} teacherInfo={this.state.teacher} storeUser={this.setTheUser} updateFavCourses={this.updateFavCourses} handleToast={this.handleToast} />} />
             <Route path="/signup" render={props => this.state.loggedInUser ? <Redirect to='/courses' /> : <Signup {...props} handleToast={this.handleToast} storeUser={this.setTheUser} />} />

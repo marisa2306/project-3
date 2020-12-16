@@ -12,7 +12,7 @@ import Loader from '../../../shared/Spinner/Loader'
 import './UserProfile.css'
 import TabNav from './../../../shared/TabsNav/TabNav'
 import Tab from './../../../shared/TabsNav/Tab'
-
+import AddComments from './../../../shared/AddComments/AddComments'
 
 class UserProfile extends Component {
   constructor() {
@@ -196,6 +196,8 @@ class UserProfile extends Component {
               </Col>
             </Row>
           </section>
+
+
 
 
           {/* Your activity*/}
