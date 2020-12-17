@@ -1,5 +1,5 @@
 .filter-bar {
   padding: 1em 1em 0 1em;
-  border-radius: 5px;
-  background-color: rgb(90, 124, 153);
+  /* border-radius: 5px; */
+  background-color: rgba(90, 124, 153, 0.459);
 }
