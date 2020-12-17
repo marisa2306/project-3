@@ -35,7 +35,7 @@ router.put('/editComment/:id', isLoggedIn, (req, res) => {
 })
 
 
-router.delete('/deleteComment/:id', (req, res) => {
+router.delete('/deleteComment/:id', isLoggedIn, (req, res) => {
 
     Comment
         .findByIdAndDelete(req.params.id)
