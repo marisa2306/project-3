@@ -6,8 +6,8 @@ const Banner = ({ title, text }) => {
     <section className="banner text-center mt-5">
       <Container fluid>
         <Container>
-          <h2>{ title }</h2>
-          <p>{ text }</p>
+          <h2>{title}</h2>
+          <p>{text}</p>
           <Link className="btn btn-dark btn-lg mt-3" to="/teachers">Explore Resources</Link>
         </Container>
       </Container>
