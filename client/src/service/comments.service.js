@@ -8,15 +8,13 @@ export default class CommentsService {
 
     constructor() {
         this.apiHandler = axios.create({
-            //baseURL: 'http://localhost:5000/api/courses',withCredentials: true
-            // baseURL: `${process.env.REACT_APP_API_URL}/comments`, withCredentials: true
             baseURL: `${env.REACT_APP_API_URL}/comments`, withCredentials: true
         })
     }
 
-    getComments = () => this.apiHandler.get('/getAllComments')
-    getUserComments = userId => this.apiHandler.get(`/getUserComments/${userId}`)
-    getComment = commentId => this.apiHandler.get(`/getOneComment/${commentId}`)
+
+    getCourseComments = courseId => this.apiHandler.get(`/getCourseComments/${courseId}`)
     saveComment = commentInfo => this.apiHandler.post(`/newComment`, commentInfo)
+    deleteComment = commentId => this.apiHandler.delete(`/deleteComment/${commentId}`)
     editComment = (commentId, commentInfo) => this.apiHandler.put(`/editComment/${commentId}`, commentInfo)
 }

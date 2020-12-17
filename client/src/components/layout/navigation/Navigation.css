@@ -1,4 +1,10 @@
 
 .navbar{
-    box-shadow: 0 1px 8px rgba(116, 116, 116, 0.329)
+    box-shadow: 0 1px 8px rgba(116, 116, 116, 0.329);
+   
+}
+
+.navbar a{
+   
+    text-decoration:none;
 }

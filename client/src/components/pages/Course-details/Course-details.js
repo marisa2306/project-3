@@ -29,16 +29,26 @@ class CourseDetails extends Component {
     refreshCourse = () => {
         const course_id = this.props.match.params.course_id
         const getCourse = this.coursesService.getCourse(course_id)
-        const getComments = this.commentsService.getComments()
+        const getComments = this.commentsService.getCourseComments(course_id)
 
-        Promise.all([ getCourse, getComments ])
-            .then(res => {
-                console.log(res)
-                this.setState({ course: res[ 0 ].data, videoUrl: res[0].data.videos[0], comments: res[ 1 ].data })
-            })
+        Promise.all([getCourse, getComments])
+            .then(res => this.setState({ course: res[0].data, videoUrl: res[0].data.videos[0], comments: res[1].data }))
             .catch(() => {
                 this.props.history.push('/courses')
                 this.props.handleToast(true, 'An error has occurred, please try again later', 'red')
+            })
+    }
+
+    deleteComment = commentId => {
+        this.commentsService
+            .deleteComment(commentId)
+            .then(() => {
+                this.refreshCourse()
+                this.props.handleToast(true, 'Delete successful!', 'green')
+            })
+            .catch(() => {
+                this.props.history.push('/courses')
+                this.props.handleToast(true, 'An error has occurred while deleting, please try again later', 'red')
             })
     }
 
@@ -49,6 +59,7 @@ class CourseDetails extends Component {
     render() {
         return (
             <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
+
                 <Container className="course-details ">
                     {this.state.course
                         ?
@@ -117,34 +128,43 @@ class CourseDetails extends Component {
 
 
                             {/* Comments */}
-
                             <h2 className="mt-5 mb-3">Comments</h2>
 
-                            {this.state.comments > 0 &&
-
+                            {this.state.comments ?
                                 this.state.comments.map(elm =>
-                                    <section className="d-flex align-items-center mb-2" key={elm._id} userInfo={this.props.loggedUser} {...elm}>
-                                        <Image className="avatar mr-2" roundedCircle src={elm.user.imageUrl} alt={elm.user.username} />
-                                        <Card style={{ width: '50%' }}  >
-                                            <Card.Body >
-                                                <p className="mb-1"><strong>{elm.user.username} {elm.timestamps}</strong></p>
-                                                <p className="mb-0"><em>" {elm.content} "</em></p>
-                                                <small>{elm.createdAt}</small>
-                                                {this.props.loggedUser &&
+                                    <section className="mb-2" key={elm._id}{...elm}>
+                                        <Card  >
+                                            <Card.Body className="d-flex align-items-center">
+                                                <Col md={1}>
+                                                    <Image className="avatar" roundedCircle src={elm.user.imageUrl} alt={elm.user.username} />
+                                                </Col>
+                                                <Col className="d-flex flex-column" md={{ span: 8 }}>
+                                                    <p className="mb-0"><strong>{elm.user.username} {elm.timestamps}</strong></p>
+                                                    <p className="mb-0"><em>" {elm.content} "</em></p>
+                                                    <small>{elm.createdAt}</small>
+
+                                                </Col>
+                                                {this.props.loggedUser && this.props.loggedUser._id === elm.user._id ?
                                                     <Row as="div" className="mt-2">
-                                                        <Col>
-                                                            <Link to='/edit-comment' className="mr-3">Edit</Link>
-                                                            <Button onClick={() => this.handleModal(true)} variant="outline-danger" className="delete-comment" size="sm">Delete</Button>
+                                                        <Col className="d-flex align-items-center">
+                                                            {/* <Link to='/edit-comment' className="mr-3 btn btn-outline-info btn-sm">Edit</Link> */}
+                                                            <Button onClick={() => this.deleteComment(elm._id)} variant="outline-danger" className="delete-comment" size="sm">Delete</Button>
                                                         </Col>
-                                                    </Row>}
+                                                    </Row>
+                                                    : null
+                                                }
                                             </Card.Body>
                                         </Card>
-                                    </section>)}
+                                    </section>
+                                )
+                                : null
+                            }
 
                             {this.props.loggedUser &&
-                                <section>
-                                    <AddComments courseId={this.state.course._id} loggedUser={this.props.loggedUser} history={this.props.history} />
-                                </section>}
+                                <section >
+                                    <AddComments refreshCourse={this.refreshCourse} courseId={this.state.course._id} loggedUser={this.props.loggedUser} history={this.props.history} />
+                                </section>
+                            }
 
                             <Link to="/courses" className="btn btn-sm btn-outline-dark mt-5">Go back</Link>
                         </>

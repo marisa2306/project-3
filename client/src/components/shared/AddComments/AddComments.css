@@ -1,0 +1,7 @@
+.comment-form{
+    background-color:#fff;
+    padding:20px 40px;
+    border: 1px solid #dee2e6 ;
+    border-radius: .25rem;
+    box-shadow: 0 4px 12px rgba(0,0,0,.08)
+}

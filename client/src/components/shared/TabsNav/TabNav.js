@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import './TabNav.css'
 
 class TabNav extends Component {
     constructor() {
@@ -11,7 +12,7 @@ class TabNav extends Component {
     render() {
         return (
 
-            <div style={{ width: '100%' }}>
+            <div style={{ width: '100%' }} >
 
                 <ul className="nav nav-tabs">
                     {
@@ -28,8 +29,8 @@ class TabNav extends Component {
                     }
 
                 </ul>
+                <div className="tab-content">{this.props.children}</div>
 
-                { this.props.children}
 
             </div>
         )
