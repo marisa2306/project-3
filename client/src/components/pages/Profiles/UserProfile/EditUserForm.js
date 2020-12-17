@@ -1,10 +1,13 @@
 import React, { Component } from 'react'
 import { motion } from 'framer-motion'
+import { pageVariants, pageTransition } from '../../../shared/PageAnimation/PageAnimation'
 import UsersService from '../../../../service/users.service'
 import FilesService from '../../../../service/upload.service'
 import Loader from '../../../shared/Spinner/Loader'
 import { Link } from 'react-router-dom'
 import { Container, Row, Col, Form, Button } from 'react-bootstrap'
+
+
 
 class EditUserForm extends Component {
     constructor() {
@@ -61,7 +64,7 @@ class EditUserForm extends Component {
 
     render() {
         return (
-            <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
+            <motion.div initial='initial' animate='in' exit='out' variants={pageVariants} transition={pageTransition}>
                 
                 <Container>
                     <Row>

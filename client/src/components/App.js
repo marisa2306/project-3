@@ -29,7 +29,6 @@ import EditTeacherForm from './pages/Profiles/TeacherProfile/Edit-Teacher-Form'
 
 import Alert from './shared/Alert/Alert'
 
-
 class App extends Component {
 
   constructor() {

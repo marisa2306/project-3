@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
 import { motion } from 'framer-motion'
+import { pageVariants, pageTransition } from '../../shared/PageAnimation/PageAnimation'
 import CoursesService from './../../../service/courses.service'
 import FilesService from './../../../service/upload.service'
 import { Form, Button, Container, Row, Col } from 'react-bootstrap'
@@ -80,7 +81,7 @@ class EditCourseForm extends Component {
     render() {
 
         return (
-            <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
+            <motion.div initial='initial' animate='in' exit='out' variants={pageVariants} transition={pageTransition}>
                 <Container>
                     <Row>
                         <Col lg={{ span: 8, offset: 2 }}>

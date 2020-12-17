@@ -1,11 +1,14 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
 import { motion } from 'framer-motion'
+import { pageVariants, pageTransition } from '../../../shared/PageAnimation/PageAnimation'
 import TeachersService from '../../../../service/teachers.service'
 import FilesService from '../../../../service/upload.service'
 import Loader from '../../../shared/Spinner/Loader'
 import { Container, Row, Col, Form, Button, Tabs, Tab } from 'react-bootstrap'
 import './Create-Teacher-form.css'
+
+
 
 
 class NewTeacherForm extends Component {
@@ -62,7 +65,7 @@ class NewTeacherForm extends Component {
 
     render() {
         return (
-            <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
+            <motion.div initial='initial' animate='in' exit='out' variants={pageVariants} transition={pageTransition}>
                 
                 <Container>
                     <Row>

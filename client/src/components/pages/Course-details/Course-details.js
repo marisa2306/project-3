@@ -120,7 +120,7 @@ class CourseDetails extends Component {
 
                             <h2 className="mt-5 mb-3">Comments</h2>
 
-                            {this.state.comments &&
+                            {this.state.comments > 0 &&
 
                                 this.state.comments.map(elm =>
                                     <section className="d-flex align-items-center mb-2" key={elm._id} userInfo={this.props.loggedUser} {...elm}>
