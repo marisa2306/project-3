@@ -1,6 +1,13 @@
 .teacher-card {
     margin-bottom: 30px;
-    box-shadow: 0 2px 4px rgba(0,0,0,.08);
+    box-shadow: 0 2px 4px rgba(252, 255, 233, .08);
+
+    height: 340px;
+    border-radius: 10px;
+    background: #fdfdf6;  /* fallback for old browsers */
+    background: -webkit-linear-gradient(to top, #f9feff, #fdfdf6);  /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(to top, #f9feff, #fdfdf6); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+    overflow: hidden;
 }
 
 
@@ -21,10 +28,10 @@
 }  */
 
 .teacher-card-img {
-    width:120px;
-    height:120px;
+    width:130px;
+    height:130px;
     object-fit: cover;
-    position:absolute;
+    /* position:absolute; */
 }  
 
 .rounded-circle{
@@ -52,5 +59,8 @@
 
 
 .teacher-card .card-body{
-    padding-top:70px
+    margin-top: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
 }
