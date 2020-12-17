@@ -46,7 +46,7 @@ class UserProfile extends Component {
       .then(response => this.setState({ randomCourses: response.data }))
       .catch(() => {
         this.props.history.push('/')
-        this.props.handleToast(true, 'An error has occurred, please try again later', 'red')
+        this.props.handleToast(true, 'An error has occurred, please try again later', '#f8d7da')
       })
 
     if (this.props.teacherInfo) {
@@ -55,7 +55,7 @@ class UserProfile extends Component {
         .then(response => this.setState({ teacherCourses: response.data }))
         .catch(() => {
           this.props.history.push('/')
-          this.props.handleToast(true, 'An error has occurred, please try again later', 'red')
+          this.props.handleToast(true, 'An error has occurred, please try again later', '#f8d7da')
         })
     }
   }
@@ -67,7 +67,7 @@ class UserProfile extends Component {
         .then(response => this.setState({ favCourses: response.data }))
         .catch(() => {
           this.props.history.push('/')
-          this.props.handleToast(true, 'An error has occurred, please try again later', 'red')
+          this.props.handleToast(true, 'An error has occurred, please try again later', '#f8d7da')
         })
     }
   }
@@ -79,7 +79,7 @@ class UserProfile extends Component {
         .then(response => this.setState({ favTeachers: response.data }))
         .catch(() => {
           this.props.history.push('/')
-          this.props.handleToast(true, 'An error has occurred, please try again later', 'red')
+          this.props.handleToast(true, 'An error has occurred, please try again later', '#f8d7da')
         })
     }
   }
@@ -94,13 +94,13 @@ class UserProfile extends Component {
     this.usersServices
       .deleteUser(this.props.loggedUser._id)
       .then(() => {
-        this.props.handleToast(true, 'User deleted', 'green')
+        this.props.handleToast(true, 'User deleted', '#d4edda')
         this.props.storeUser(undefined)
         this.props.history.push('/')
       })
       .catch(() => {
         this.props.history.push('/')
-        this.props.handleToast(true, 'An error has occurred while deleting, please try again later', 'red')
+        this.props.handleToast(true, 'An error has occurred while deleting, please try again later', '#f8d7da')
       })
   }
 
@@ -109,15 +109,15 @@ class UserProfile extends Component {
   render() {
     return (
       <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
-        
-        <Popup show={this.state.showModal} handleModal={this.handleModal} color={'maroon'}>
+
+        <Popup show={this.state.showModal} handleModal={this.handleModal} color={'#f8d7da'}>
           <DeleteMessage />
           <Row className='justify-content-center'>
             <Col xs='auto'>
               <Button variant='secondary' onClick={() => this.handleModal(false)}>Close</Button>
             </Col>
             <Col xs='auto'>
-              <Button to={`/profile/delete-user/${this.props.loggedUser._id}`} onClick={this.deleteUser} variant='light'>Delete account</Button>
+              <Button to={`/profile/delete-user/${this.props.loggedUser._id}`} onClick={this.deleteUser} variant='danger'>Delete account</Button>
             </Col>
           </Row>
         </Popup>

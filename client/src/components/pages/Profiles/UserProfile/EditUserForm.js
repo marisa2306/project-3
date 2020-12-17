@@ -37,11 +37,11 @@ class EditUserForm extends Component {
             .then(user => {
                 this.props.storeUser(user.data)
                 this.props.history.push('/profile')
-                this.props.handleToast(true, 'Edit successful!', 'green')
+                this.props.handleToast(true, 'Edit successful!', '#d4edda')
             })
             .catch(() => {
                 this.props.history.push('/profile')
-                this.props.handleToast(true, 'An error has occurred, please try again later', 'red')
+                this.props.handleToast(true, 'An error has occurred, please try again later', '#f8d7da')
             })
     }
 
@@ -59,13 +59,13 @@ class EditUserForm extends Component {
                     uploadingActive: false
                 })
             })
-            .catch(err => this.props.handleToast(true, err.response.data.message, 'red'))
+            .catch(err => this.props.handleToast(true, err.response.data.message, '#f8d7da'))
     }
 
     render() {
         return (
             <motion.div initial='initial' animate='in' exit='out' variants={pageVariants} transition={pageTransition}>
-                
+
                 <Container>
                     <Row>
                         <Col lg={{ span: 6, offset: 3 }}>
@@ -111,7 +111,7 @@ class EditUserForm extends Component {
                                     <Form.Label>Imagen (file: jpg or png) {this.state.uploadingActive && <Loader />}</Form.Label>
                                     <Form.Control type="file" onChange={this.handleImageUpload} />
                                 </Form.Group>
-                                
+
                                 <Button className="mt-3 add-course" type='submit' disabled={this.state.uploadingActive}>{this.state.uploadingActive ? 'Image loading...' : 'Save changes'}</Button>
                             </Form>
                             {this.state.uploadingActive || <Link to='/profile' className="btn btn-outline-dark mt-5" disabled>Go back</Link>}

@@ -25,7 +25,7 @@ class TeachersList extends Component {
             .then(res => this.setState({ teachers: res.data, filteredTeachers: [...res.data] }))
             .catch(() => {
                 this.props.history.push('/')
-                this.props.handleToast(true, 'An error has occurred, please try again later', 'red')
+                this.props.handleToast(true, 'An error has occurred, please try again later', '#f8d7da')
             })
     }
 
@@ -67,7 +67,7 @@ class TeachersList extends Component {
                         </Row>
                     </Container>
                 </section>
-            </motion.div >
+            </motion.div>
         )
     }
 }

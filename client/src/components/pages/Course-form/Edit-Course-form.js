@@ -39,7 +39,7 @@ class EditCourseForm extends Component {
             .then(res => this.setState({ course: res.data }))
             .catch(() => {
                 this.props.history.push('/profile')
-                this.props.handleToast(true, 'An error has occurred, please try again later', 'red')
+                this.props.handleToast(true, 'An error has occurred, please try again later', '#f8d7da')
             })
     }
 
@@ -52,11 +52,11 @@ class EditCourseForm extends Component {
             .editCourse(course_id, this.state.course)
             .then(() => {
                 this.props.history.push('/courses')
-                this.props.handleToast(true, 'Edit successful!', 'green')
+                this.props.handleToast(true, 'Edit successful!', '#d4edda')
             })
             .catch(() => {
                 this.props.history.push(`/teachers/${this.props.teacherInfo._id}`)
-                this.props.handleToast(true, 'An error has occurred, please try again later', 'red')
+                this.props.handleToast(true, 'An error has occurred, please try again later', '#f8d7da')
             })
     }
 
@@ -74,7 +74,7 @@ class EditCourseForm extends Component {
                     uploadingActive: false
                 })
             })
-            .catch(err => this.props.handleToast(true, err.response.data.message, 'red'))
+            .catch(err => this.props.handleToast(true, err.response.data.message, '#f8d7da'))
     }
 
 

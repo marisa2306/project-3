@@ -73,7 +73,7 @@ class App extends Component {
       this.usersServices
         .updateFavCourses(this.state.loggedInUser._id, newList)
         .then(() => this.refreshUser())
-        .catch(() => this.handleToast(true, 'An error has occurred, please try again later', 'red'))
+        .catch(() => this.handleToast(true, 'An error has occurred, please try again later', '#f8d7da'))
     }
   }
 
@@ -83,7 +83,7 @@ class App extends Component {
       this.usersServices
         .updateFavTeachers(this.state.loggedInUser._id, newList)
         .then(() => this.refreshUser())
-        .catch(() => this.handleToast(true, 'An error has occurred, please try again later', 'red'))
+        .catch(() => this.handleToast(true, 'An error has occurred, please try again later', '#f8d7da'))
     }
   }
 

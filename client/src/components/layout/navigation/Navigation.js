@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom'
 import { motion } from 'framer-motion'
 import AuthService from './../../../service/auth.service'
 import logo from './logo2.png'
-import { Navbar, Nav } from 'react-bootstrap'
+import { Navbar, Nav, Image } from 'react-bootstrap'
 import Popup from '../../shared/Popup/Popup'
 import LoginForm from '../../pages/Login-form/LoginForm'
 
@@ -23,9 +23,9 @@ class Navigation extends Component {
             .logout()
             .then(() => {
                 this.props.storeUser(undefined)
-                this.props.handleToast(true, 'Logout successful!', 'green')
+                this.props.handleToast(true, 'Logout successful!', '#d4edda')
             })
-            .catch(err => this.props.handleToast(true, err.message, 'red'))
+            .catch(err => this.props.handleToast(true, err.message, '#f8d7da'))
     }
 
     handleModal = visible => this.setState({ showModal: visible })
@@ -37,7 +37,7 @@ class Navigation extends Component {
                     <LoginForm handleToast={this.props.handleToast} closeModal={() => this.handleModal(false)} storeUser={this.props.storeUser} />
                 </Popup>
 
-                <Navbar bg="light" variant="light" expand="md" className="menu" style={{ borderBottom: '1px solid #ddd'}}>
+                <Navbar bg="light" variant="danger" expand="md" className="menu" style={{ borderBottom: '1px solid #ddd' }}>
                     <Link to="/">
                         <Navbar.Brand >
                             <motion.img
@@ -68,8 +68,10 @@ class Navigation extends Component {
                                     <>
                                         <Nav.Link as="div" onClick={this.logOut}>Log out</Nav.Link>
 
-                                        <Link to="/profile">
-                                            <Nav.Link as="div">{`Welcome back, ${this.props.loggedUser.username}`}</Nav.Link>
+                                        <Link to="/profile" className="d-flex">
+                                            <Nav.Link as="div">{`Hi, ${this.props.loggedUser.username}!`}</Nav.Link>
+                                            <Image style={{ width: '38px', height: '38px' }} className="img-fit ml-1" roundedCircle src={this.props.loggedUser.imageUrl} />
+
                                         </Link>
                                     </>
                                     :

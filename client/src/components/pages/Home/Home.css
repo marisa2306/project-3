@@ -22,6 +22,11 @@
     font-size: 1.4rem;
 }
 
+.about{
+    background:#fff;
+    padding:100px 0;
+}
+
  h2{
     font-family: Helvetica,Arial,sans-serif;
     font-weight: 700;
@@ -85,7 +90,7 @@ h3{
 .banner{
     background-color: rgb(90, 124, 153);
     color:#fff;
-    padding:140px;
+    padding:100px;
 }
 .banner p {
     font-size:1.2em;
