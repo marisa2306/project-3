@@ -1,14 +1,12 @@
 .teacher-hero{
-    /* background-image: url("https://images.unsplash.com/photo-1503676260728-1c00da094a0b"); */
-    
- /* background-image: url("https://res.cloudinary.com/dodneiokm/image/upload/v1608205837/project3-ironhack/portrait-young-pretty-woman-sitting-table-black-shirt-working-laptop-co-working-office_aufbet.jpg");  */
-background-image:url("https://res.cloudinary.com/dodneiokm/image/upload/v1608212541/project3-ironhack/coffee-shop_csitzm.jpg");
+    /* background-image:url("https://preview.colorlib.com/theme/studylab/images/bg_1.jpg"); */
+    background-image:url("https://images.unsplash.com/photo-1558021212-51b6ecfa0db9?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=2561&q=80");
     padding:10px 0;
     background-size: cover;
-    background-position: bottom;
+    background-position: top;
     background-attachment: fixed;
     background-repeat: no-repeat;
-    color:white;
+    color: white;
 }
 
 .teacher-hero h1{
@@ -17,6 +15,7 @@ background-image:url("https://res.cloudinary.com/dodneiokm/image/upload/v1608212
     letter-spacing: -.02rem;
     font-size: 4rem;
     text-shadow: 2px 1px 1px rgb(82, 82, 82);
+    /* text-shadow: 2px 1px 1px #fff; */
 }
 
 .teacher-hero p{
@@ -25,11 +24,12 @@ background-image:url("https://res.cloudinary.com/dodneiokm/image/upload/v1608212
     line-height: 1.3em;
     font-size: 1.4rem;
     text-shadow: 2px 1px 1px rgb(124, 124, 124);
+    /* text-shadow: 2px 1px 1px #fff; */
 }
 
 .teacher-hero .heading{
     margin-top:300px;
- 
+    text-align: right;
 }
 
 .teachers-list{

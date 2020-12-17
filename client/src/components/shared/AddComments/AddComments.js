@@ -1,8 +1,6 @@
 import React, { Component } from 'react'
 import CommentsService from './../../../service/comments.service'
-import Loader from '../../shared/Spinner/Loader'
-import { Link } from 'react-router-dom'
-import { Form, Button, Container, Row, Col } from 'react-bootstrap'
+import { Form, Button, Row, Col } from 'react-bootstrap'
 import './AddComments.css'
 
 
@@ -33,13 +31,12 @@ class AddComments extends Component {
                 this.props.refreshCourse()
                 this.setState({ content: '' })
             })
-            .catch(err => console.log(err))
+            .catch(err => this.props.handleToast(true, 'An error has occurred, please try again later', 'red'))
 
     }
 
 
     render() {
-        console.log(this.props)
         return (
             <Row>
                 <Col>

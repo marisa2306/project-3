@@ -3,14 +3,12 @@ import axios from 'axios'
 
 const env = runtimeEnv()
 
-
 export default class AuthService {
 
     constructor() {
         this.apiHandler = axios.create({
-            //baseURL: 'http://localhost:5000/api', withCredentials: true
-            // baseURL: `${process.env.REACT_APP_API_URL}`, withCredentials: true
-            baseURL: `${env.REACT_APP_API_URL}`, withCredentials: true
+            baseURL: `${ env.REACT_APP_API_URL }`,
+            withCredentials: true
         })
     }
 

@@ -41,9 +41,9 @@ class NewCourseForm extends Component {
             .saveCourse(this.state.course)
             .then(() => {
                 this.props.history.push('/courses')
-                this.props.handleToast(true, 'New course created!', 'green')
+                this.props.handleToast(true, 'New course created!', '#d4edda')
             })
-            .catch(err => this.props.handleToast(true, err.response.data.message[0].msg, 'red'))
+            .catch(err => this.props.handleToast(true, err.response.data.message[0].msg, '#f8d7da'))
     }
 
     handleImageUpload = e => {
@@ -60,7 +60,7 @@ class NewCourseForm extends Component {
                     uploadingActive: false
                 })
             })
-            .catch(err => this.props.handleToast(true, err.response.data.message, 'red'))
+            .catch(err => this.props.handleToast(true, err.response.data.message, '#f8d7da'))
     }
 
 
@@ -85,7 +85,7 @@ class NewCourseForm extends Component {
 
                                 <Form.Group controlId="description">
                                     <Form.Label>Description</Form.Label>
-                                    <Form.Control as='textarea' name="description" value={this.state.description} onChange={this.handleInputChange} placeholder='Describe your course'  required/>
+                                    <Form.Control as='textarea' name="description" value={this.state.description} onChange={this.handleInputChange} placeholder='Describe your course' required />
                                 </Form.Group>
                                 <Row>
                                     <Col md={6}>

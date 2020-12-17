@@ -9,7 +9,6 @@ import Loader from '../../shared/Spinner/Loader'
 import Hero from './Hero'
 import Features from './Features'
 import Banner from './Banner'
-import Footer from '../../layout/Footer/Footer'
 
 
 
@@ -21,7 +20,7 @@ const Home = props => {
       .then(response => setCourses(response.data))
       .catch(() => {
         props.history.push('/courses')
-        props.handleToast(true, 'An error has occurred, please try again later', 'red')
+        props.handleToast(true, 'An error has occurred, please try again later', '#f8d7da')
       })
   })
 
@@ -40,8 +39,8 @@ const Home = props => {
             <Col md={6}>
 
               <h2 className="mb-3">About us</h2>
-              <p>We Are Freedemy, an on-line learning platform. We help organizations of all kinds prepare for the ever-evolving future of work. </p>
-              <p>Connecting millions of students to the skills they need to succeed.</p>
+              <p>We Are Freedemy, an on-line learning platform. We help organizations of all kinds prepare for the ever-evolving future of work.</p>
+              <p>Connecting millions of students to the skills they need to succeed. We offer the opportunity to open access to education, especially for those whose opportunities have historically been limited. To do this, we’ve partnered with a number of organizations.</p>
 
             </Col>
           </Row>
@@ -57,27 +56,23 @@ const Home = props => {
           <h2 className="mt-5 mb-5 text-center ">Explore our schools to find your perfect program</h2>
 
           {courses ?
-            <>
-              <Carousel className='carousel'>
+            <Carousel className='carousel'>
 
-                <Carousel.Item >
-                  <Row>
-                    {[...courses].slice(0, 4).map(elm =>
-                      //console.log([...courses])
-                      <CourseCard key={elm._id} {...elm} />
-                    )}
-                  </Row>
-                </Carousel.Item>
-                <Carousel.Item >
-                  <Row>
-                    {[...courses].slice(4, 8).map(elm =>
-                      //console.log([...courses])
-                      <CourseCard key={elm._id} {...elm} />
-                    )}
-                  </Row>
-                </Carousel.Item>
-              </Carousel>
-            </>
+              <Carousel.Item >
+                <Row>
+                  {[...courses].slice(0, 4).map(elm =>
+                    <CourseCard key={elm._id} {...elm} />
+                  )}
+                </Row>
+              </Carousel.Item>
+              <Carousel.Item >
+                <Row>
+                  {[...courses].slice(4, 8).map(elm =>
+                    <CourseCard key={elm._id} {...elm} />
+                  )}
+                </Row>
+              </Carousel.Item>
+            </Carousel>
             : <Loader />
           }
 
@@ -90,8 +85,6 @@ const Home = props => {
         <Features />
       </Container>
 
-
-      {/* <Footer /> */}
 
     </motion.div>
   )
