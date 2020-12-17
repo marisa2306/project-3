@@ -38,11 +38,9 @@ router.delete('/deleteUser/:id', isLoggedIn, isValidId, (req, res) => {
             if (res.length > 0) {
                 teacherId = res[ 0 ]._id
                 Course.deleteMany({ owner: teacherId })
-                    .then(() => Teacher.findByIdAndDelete(teacherId))
-                    .then(() => res.json({ message: 'User deleted' }))
-                    .catch(err => res.status(500).json(err))
             }
         })
+        .then(() => Teacher.findByIdAndDelete(teacherId))
         .then(() => res.json({ message: 'User deleted' }))
         .catch(err => res.status(500).json(err))
 })

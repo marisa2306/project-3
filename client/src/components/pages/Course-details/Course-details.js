@@ -87,11 +87,11 @@ class CourseDetails extends Component {
 
                                         <h3 className="mt-5 mb-4">What you will learn:</h3>
                                         <ul className="whatYouWillLearn">
-                                            {this.state.course.whatYouWillLearn.map(elm => <li key={elm._id}><img src="https://res.cloudinary.com/dodneiokm/image/upload/v1607883391/project3-ironhack/checked_ib75gx.png" alt='Checked icon' /><p>{elm}</p></li>)}
+                                            {this.state.course.whatYouWillLearn.map((elm, idx) => <li key={idx}><img src="https://res.cloudinary.com/dodneiokm/image/upload/v1607883391/project3-ironhack/checked_ib75gx.png" alt='Checked icon' /><p>{elm}</p></li>)}
                                         </ul>
                                         <h3 className="mt-4 mb-4">Requirements:</h3>
                                         <ul className="requirements mb-4">
-                                            {this.state.course.requirements.map(elm => <li key={elm._id}><img src="https://res.cloudinary.com/dodneiokm/image/upload/v1607887317/project3-ironhack/double-check_tm7qmy.png" alt='Double-Checked icon' /><p>{elm}</p></li>)}
+                                            {this.state.course.requirements.map((elm, idx) => <li key={idx}><img src="https://res.cloudinary.com/dodneiokm/image/upload/v1607887317/project3-ironhack/double-check_tm7qmy.png" alt='Double-Checked icon' /><p>{elm}</p></li>)}
                                         </ul>
 
                                         <Button onClick={this.toggleInput} className="mt-3 mb-3 start-course" >{this.state.showInput ? 'Close media' : 'See course media'}</Button>
@@ -130,32 +130,34 @@ class CourseDetails extends Component {
                             {/* Comments */}
                             <h2 className="mt-5 mb-3">Comments</h2>
 
-                            {this.state.comments ?
+                            {this.state.comments.length > 0 ?
                                 this.state.comments.map(elm =>
-                                    <section className="mb-2" key={elm._id}{...elm}>
-                                        <Card  >
-                                            <Card.Body className="d-flex align-items-center">
-                                                <Col md={1}>
-                                                    <Image className="avatar" roundedCircle src={elm.user.imageUrl} alt={elm.user.username} />
-                                                </Col>
-                                                <Col className="d-flex flex-column" md={{ span: 8 }}>
-                                                    <p className="mb-0"><strong>{elm.user.username} {elm.timestamps}</strong></p>
-                                                    <p className="mb-0"><em>" {elm.content} "</em></p>
-                                                    <small>{elm.createdAt}</small>
+                                    <div className="mb-2" key={elm._id}{...elm}>
+                                        {elm.user &&
+                                            <Card  >
+                                                <Card.Body className="d-flex align-items-center">
+                                                    <Col md={1}>
+                                                        <Image className="avatar" roundedCircle src={elm.user.imageUrl} alt={elm.user.username} />
+                                                    </Col>
+                                                    <Col className="d-flex flex-column" md={{ span: 8 }}>
+                                                        <p className="mb-0"><strong>{elm.user.username} {elm.timestamps}</strong></p>
+                                                        <p className="mb-0"><em>" {elm.content} "</em></p>
+                                                        <small>{elm.createdAt}</small>
 
-                                                </Col>
-                                                {this.props.loggedUser && this.props.loggedUser._id === elm.user._id ?
-                                                    <Row as="div" className="mt-2">
-                                                        <Col className="d-flex align-items-center">
-                                                            {/* <Link to='/edit-comment' className="mr-3 btn btn-outline-info btn-sm">Edit</Link> */}
-                                                            <Button onClick={() => this.deleteComment(elm._id)} variant="outline-danger" className="delete-comment" size="sm">Delete</Button>
-                                                        </Col>
-                                                    </Row>
-                                                    : null
-                                                }
-                                            </Card.Body>
-                                        </Card>
-                                    </section>
+                                                    </Col>
+                                                    {this.props.loggedUser && this.props.loggedUser._id === elm.user._id ?
+                                                        <Row as="div" className="mt-2">
+                                                            <Col className="d-flex align-items-center">
+                                                                {/* <Link to='/edit-comment' className="mr-3 btn btn-outline-info btn-sm">Edit</Link> */}
+                                                                <Button onClick={() => this.deleteComment(elm._id)} variant="outline-danger" className="delete-comment" size="sm">Delete</Button>
+                                                            </Col>
+                                                        </Row>
+                                                        : null
+                                                    }
+                                                </Card.Body>
+                                            </Card>
+                                        }
+                                    </div>
                                 )
                                 : null
                             }
