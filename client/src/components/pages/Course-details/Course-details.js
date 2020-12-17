@@ -16,7 +16,7 @@ class CourseDetails extends Component {
         super()
         this.state = {
             course: undefined,
-            //showModal: false,
+            showModal: false,
             comments: undefined,
             videoUrl: undefined
         }
@@ -25,47 +25,64 @@ class CourseDetails extends Component {
 
     }
 
-    componentDidMount = () => {
-        const course_id = this.props.match.params.course_id
+    // componentDidMount = () => {
+    //     const course_id = this.props.match.params.course_id
 
-        this.coursesService
-            .getCourse(course_id)
-            .then(res => this.setState({ course: res.data, videoUrl: res.data.videos[0] }))
+    //     this.coursesService
+    //         .getCourse(course_id)
+    //         .then(res => this.setState({ course: res.data, videoUrl: res.data.videos[0] }))
+    //         .catch(() => {
+    //             this.props.history.push('/courses')
+    //             this.props.handleToast(true, 'An error has occurred, please try again later', 'red')
+    //         })
+
+    //     this.commentsService
+    //         .getCourseComments(course_id)
+    //         .then(res => this.setState({ comments: res.data }))
+    //         .catch(() => {
+    //             this.props.history.push('/courses')
+    //             this.props.handleToast(true, 'An error has occurred, please try again later', 'red')
+    //         })
+
+    //     // this.refreshComments()
+
+    // }
+
+
+    componentDidMount = () => this.refreshCourse()
+    refreshCourse = () => {
+        const course_id = this.props.match.params.course_id
+        const getCourse = this.coursesService.getCourse(course_id)
+        const getComments = this.commentsService.getCourseComments(course_id)
+        Promise.all([getCourse, getComments])
+            .then(res => {
+                console.log(res)
+                this.setState({ course: res[0].data, videoUrl: res[0].data.videos[0], comments: res[1].data })
+            })
             .catch(() => {
                 this.props.history.push('/courses')
                 this.props.handleToast(true, 'An error has occurred, please try again later', 'red')
             })
-
-        this.commentsService
-            .getCourseComments(course_id)
-            .then(res => this.setState({ comments: res.data }))
-            .catch(() => {
-                this.props.history.push('/courses')
-                this.props.handleToast(true, 'An error has occurred, please try again later', 'red')
-            })
-
-        this.refreshComments()
-
     }
 
 
-    refreshComments = () => {
-        const course_id = this.props.match.params.course_id
-        this.commentsService
-            .getCourseComments(course_id)
-            .then(res => this.setState({ comments: res.data }))
-            .catch(() => {
-                this.props.history.push('/')
-                this.props.handleToast(true, 'An error has occurred, please try again later', 'red')
-            })
-    }
+    // refreshComments = () => {
+    //     const course_id = this.props.match.params.course_id
+    //     this.commentsService
+    //         .getCourseComments(course_id)
+    //         .then(res => this.setState({ comments: res.data }))
+    //         .catch(() => {
+    //             this.props.history.push('/')
+    //             this.props.handleToast(true, 'An error has occurred, please try again later', 'red')
+    //         })
+    // }
 
 
     deleteComment = commentId => {
         this.commentsService
             .deleteComment(commentId)
             .then(() => {
-                this.refreshComments()
+                this.refreshCourse()
                 this.props.handleToast(true, 'Delete successful!', 'green')
             })
             .catch(() => {
@@ -76,8 +93,7 @@ class CourseDetails extends Component {
 
 
     toggleInput = () => {
-        //alert('funoncia!!!')
-        //this.setState({ showInput: true })
+
         this.setState({ showInput: !this.state.showInput })
     }
 
@@ -165,11 +181,11 @@ class CourseDetails extends Component {
                             {/* Comments */}
                             <h2 className="mt-5 mb-3">Comments</h2>
 
-                            {this.state.comments &&
+                            {this.state.comments ?
                                 this.state.comments.map(elm =>
                                     <section className="mb-2" key={elm._id}{...elm}>
                                         <Card  >
-                                            <Card.Body className="d-flex align-items-center ">
+                                            <Card.Body className="d-flex align-items-center">
                                                 <Col md={1}>
                                                     <Image className="avatar" roundedCircle src={elm.user.imageUrl} alt={elm.user.username} />
                                                 </Col>
@@ -179,23 +195,26 @@ class CourseDetails extends Component {
                                                     <small>{elm.createdAt}</small>
 
                                                 </Col>
-                                                {this.props.loggedUser && this.props.loggedUser._id === elm.user._id &&
+                                                {this.props.loggedUser && this.props.loggedUser._id === elm.user._id ?
                                                     < Row as="div" className="mt-2">
                                                         <Col className="d-flex align-items-center">
                                                             {/* <Link to='/edit-comment' className="mr-3 btn btn-outline-info btn-sm">Edit</Link> */}
                                                             <Button onClick={() => this.deleteComment(elm._id)} variant="outline-danger" className="delete-comment" size="sm">Delete</Button>
                                                         </Col>
                                                     </Row>
+                                                    : null
                                                 }
                                             </Card.Body>
                                         </Card>
                                     </section>
                                 )
+                                : null
+
                             }
 
                             {this.props.loggedUser &&
                                 < section >
-                                    <AddComments refreshComments={this.refreshComments} courseId={this.state.course._id} loggedUser={this.props.loggedUser} history={this.props.history} />
+                                    <AddComments refreshCourse={this.refreshCourse} courseId={this.state.course._id} loggedUser={this.props.loggedUser} history={this.props.history} />
                                 </section>
                             }
 

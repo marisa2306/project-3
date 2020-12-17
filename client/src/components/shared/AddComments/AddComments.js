@@ -30,10 +30,10 @@ class AddComments extends Component {
         this.commentsService
             .saveComment(this.state.comment)
             .then(() => {
-                this.props.refreshComments()
+                this.props.refreshCourse()
                 this.setState({ content: '' })
             })
-            .catch(err => this.props.handleToast(true, err.response.data.message[0].msg, 'red'))
+            .catch(err => console.log(err))
 
     }
 
