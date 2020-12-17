@@ -9,7 +9,6 @@ import Loader from '../../shared/Spinner/Loader'
 import Hero from './Hero'
 import Features from './Features'
 import Banner from './Banner'
-import Footer from '../../layout/Footer/Footer'
 
 
 
@@ -58,7 +57,6 @@ const Home = props => {
               <Carousel.Item >
                 <Row>
                   {[...courses].slice(0, 4).map(elm =>
-                    //console.log([...courses])
                     <CourseCard key={elm._id} {...elm} />
                   )}
                 </Row>
@@ -66,7 +64,6 @@ const Home = props => {
               <Carousel.Item >
                 <Row>
                   {[...courses].slice(4, 8).map(elm =>
-                    //console.log([...courses])
                     <CourseCard key={elm._id} {...elm} />
                   )}
                 </Row>
@@ -83,8 +80,6 @@ const Home = props => {
       </Container>
       
       <Banner title='Make the most of your online learning experience' text='Our teachers will help you learn while staying home.' />
-
-      {/* <Footer /> */}
 
     </motion.div>
   )

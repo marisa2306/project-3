@@ -164,7 +164,7 @@ class CourseDetails extends Component {
 
                             {this.props.loggedUser &&
                                 <section >
-                                    <AddComments refreshCourse={this.refreshCourse} courseId={this.state.course._id} loggedUser={this.props.loggedUser} history={this.props.history} />
+                                    <AddComments refreshCourse={this.refreshCourse} courseId={this.state.course._id} loggedUser={this.props.loggedUser} history={this.props.history} handleToast={this.props.handleToast} />
                                 </section>
                             }
 
