@@ -56,7 +56,6 @@ const Home = props => {
           <h2 className="mt-5 mb-5 text-center ">Explore our schools to find your perfect program</h2>
 
           {courses ?
-<<<<<<< HEAD
             <Carousel className='carousel'>
 
               <Carousel.Item >
@@ -74,29 +73,6 @@ const Home = props => {
                 </Row>
               </Carousel.Item>
             </Carousel>
-=======
-            <>
-              <Carousel className='carousel'>
-
-                <Carousel.Item >
-                  <Row>
-                    {[...courses].slice(0, 4).map(elm =>
-                      //console.log([...courses])
-                      <CourseCard key={elm._id} {...elm} />
-                    )}
-                  </Row>
-                </Carousel.Item>
-                <Carousel.Item >
-                  <Row>
-                    {[...courses].slice(4, 8).map(elm =>
-                      //console.log([...courses])
-                      <CourseCard key={elm._id} {...elm} />
-                    )}
-                  </Row>
-                </Carousel.Item>
-              </Carousel>
-            </>
->>>>>>> 545ecb62717bb6fe1ef49c65b34aaf3422054713
             : <Loader />
           }
 
