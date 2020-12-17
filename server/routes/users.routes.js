@@ -4,30 +4,31 @@ const User = require('../models/user.model')
 const Teacher = require('../models/teacher.model')
 const Course = require('../models/course.model')
 const { isLoggedIn, isValidId } = require('../middleware/custom-middleware')
+const { ensureLoggedIn, ensureLoggedOut } = require('connect-ensure-login')
 
 
-router.get('/getAllUsers', isLoggedIn, (req, res) => {
+router.get('/getAllUsers', ensureLoggedIn(), (req, res) => {
     User
         .find()
         .then(response => res.json(response))
         .catch(err => res.status(500).json(err))
 })
 
-router.get('/getOneUser/:id', isLoggedIn, isValidId, (req, res) => {
+router.get('/getOneUser/:id', ensureLoggedIn(), isValidId, (req, res) => {
     User
         .findById(req.params.id)
         .then(response => res.json(response))
         .catch(err => res.status(500).json(err))
 })
 
-router.put('/editUser/:id', isLoggedIn, isValidId, (req, res) => {
+router.put('/editUser/:id', ensureLoggedIn(), isValidId, (req, res) => {
     User
         .findByIdAndUpdate(req.params.id, req.body, { new: true })
         .then(response => res.json(response))
         .catch(err => res.status(500).json(err))
 })
 
-router.delete('/deleteUser/:id', isLoggedIn, isValidId, (req, res) => {
+router.delete('/deleteUser/:id', ensureLoggedIn(), isValidId, (req, res) => {
     const userId = req.params.id
     let teacherId 
 
@@ -47,14 +48,14 @@ router.delete('/deleteUser/:id', isLoggedIn, isValidId, (req, res) => {
 
 // Manage Favorites
 
-router.put('/editUser/updateFavCourses/:id', isLoggedIn, isValidId, (req, res) => {
+router.put('/editUser/updateFavCourses/:id', ensureLoggedIn(), isValidId, (req, res) => {
     User
         .findByIdAndUpdate(req.params.id, { favCourses: req.body }, { new: true })
         .then(response => res.json(response))
         .catch(err => res.status(500).json(err))
 })
 
-router.get('/userFavCourses/:id', isLoggedIn, isValidId, (req, res) => {
+router.get('/userFavCourses/:id', ensureLoggedIn(), isValidId, (req, res) => {
     User
         .findById(req.params.id)
         .populate('favCourses')
@@ -62,14 +63,14 @@ router.get('/userFavCourses/:id', isLoggedIn, isValidId, (req, res) => {
         .catch(err => res.status(500).json(err))
 })
 
-router.put('/editUser/updateFavTeachers/:id', isLoggedIn, isValidId, (req, res) => {
+router.put('/editUser/updateFavTeachers/:id', ensureLoggedIn(), isValidId, (req, res) => {
     User
         .findByIdAndUpdate(req.params.id, { favTeachers: req.body }, { new: true })
         .then(response => res.json(response))
         .catch(err => res.status(500).json(err))
 })
 
-router.get('/userFavTeachers/:id', isLoggedIn, isValidId, (req, res) => {
+router.get('/userFavTeachers/:id', ensureLoggedIn(), isValidId, (req, res) => {
     User
         .findById(req.params.id)
         .populate('favTeachers')
