@@ -157,7 +157,7 @@ class UserProfile extends Component {
           <h2 className="mt-5 mb-3">Your activity</h2>
           <Row className="mt-5">
             <Col>
-              <TabNav tabs={['Favorite Courses', 'Favorite Teachers', 'Random Courses']} selected={this.state.selected} setSelected={this.setSelected}   >
+              <TabNav tabs={['Favorite Courses', 'Favorite Teachers', 'Suggested Courses']} selected={this.state.selected} setSelected={this.setSelected}   >
                 {this.state.favCourses.length > 0 &&
                   <Tab isSelected={this.state.selected === 'Favorite Courses'} >
                     <section>
@@ -183,7 +183,7 @@ class UserProfile extends Component {
 
                 }
                 {this.state.randomCourses.length > 0 &&
-                  <Tab isSelected={this.state.selected === 'Random Courses'} >
+                  <Tab isSelected={this.state.selected === 'Suggested Courses'} >
                     <Row>
                       {
                         this.state.randomCourses.map(elm =>

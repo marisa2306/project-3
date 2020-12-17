@@ -8,7 +8,7 @@ const Banner = ({ title, text }) => {
         <Container>
           <h2>{title}</h2>
           <p>{text}</p>
-          <Link className="btn btn-dark btn-lg mt-3" to="/teachers">Explore Resources</Link>
+          <Link className="btn btn-dark btn-lg mt-3" to="/courses">Explore Resources</Link>
         </Container>
       </Container>
     </section>
