@@ -4,6 +4,7 @@ import CoursesService from './../../../service/courses.service'
 import SearchBar from './../../shared/SearchBar/SearchBar'
 import CourseCard from '../../shared/CourseCard/Course-card'
 import Loader from './../../shared/Spinner/Loader'
+import './Course-list.css'
 
 import { Container, Row } from 'react-bootstrap'
 
@@ -59,22 +60,30 @@ class CoursesList extends Component {
     render() {
         return (
             <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} >
-                <Container>
+                <section className="container-fluid courses-hero">
 
-                    <h1 className="mt-5">Our courses</h1>
+                    <Container>
+                        <div className="heading">
+                            <h1 className="mt-5">Our courses</h1>
+                            <p>Help individuals reach their goals and pursue their dreams.</p>
+                            <SearchBar filterBySearch={this.filterBySearch} filterByCategory={this.filterByCategory} filterByLevel={this.filterByLevel} sortBy={this.sortBy} />
+                        </div>
+                    </Container>
 
-                    <SearchBar filterBySearch={this.filterBySearch} filterByCategory={this.filterByCategory} filterByLevel={this.filterByLevel} sortBy={this.sortBy} />
+                </section>
+                <section className="courses-list">
+                    <Container >
+                        <Row>
+                            {this.state.courses ?
+                                this.state.filteredCourses.map(elm =>
+                                    <CourseCard key={elm._id} {...elm} userInfo={this.props.loggedUser} teacher={this.props.teacherInfo} updateFavCourses={this.props.updateFavCourses} />)
+                                :
+                                <Loader />
+                            }
+                        </Row>
+                    </Container>
+                </section>
 
-                    <Row>
-
-                        {this.state.courses ?
-                            this.state.filteredCourses.map(elm =>
-                                <CourseCard key={elm._id} {...elm} userInfo={this.props.loggedUser} teacher={this.props.teacherInfo} updateFavCourses={this.props.updateFavCourses} />)
-                            :
-                            <Loader />
-                        }
-                    </Row>
-                </Container>
             </motion.div>
         )
     }
