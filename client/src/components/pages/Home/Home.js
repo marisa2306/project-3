@@ -9,7 +9,6 @@ import Loader from '../../shared/Spinner/Loader'
 import Hero from './Hero'
 import Features from './Features'
 import Banner from './Banner'
-import Footer from '../../layout/Footer/Footer'
 
 
 
@@ -57,27 +56,23 @@ const Home = props => {
           <h2 className="mt-5 mb-5 text-center ">Explore our schools to find your perfect program</h2>
 
           {courses ?
-            <>
-              <Carousel className='carousel'>
+            <Carousel className='carousel'>
 
-                <Carousel.Item >
-                  <Row>
-                    {[...courses].slice(0, 4).map(elm =>
-                      //console.log([...courses])
-                      <CourseCard key={elm._id} {...elm} />
-                    )}
-                  </Row>
-                </Carousel.Item>
-                <Carousel.Item >
-                  <Row>
-                    {[...courses].slice(4, 8).map(elm =>
-                      //console.log([...courses])
-                      <CourseCard key={elm._id} {...elm} />
-                    )}
-                  </Row>
-                </Carousel.Item>
-              </Carousel>
-            </>
+              <Carousel.Item >
+                <Row>
+                  {[...courses].slice(0, 4).map(elm =>
+                    <CourseCard key={elm._id} {...elm} />
+                  )}
+                </Row>
+              </Carousel.Item>
+              <Carousel.Item >
+                <Row>
+                  {[...courses].slice(4, 8).map(elm =>
+                    <CourseCard key={elm._id} {...elm} />
+                  )}
+                </Row>
+              </Carousel.Item>
+            </Carousel>
             : <Loader />
           }
 
@@ -90,8 +85,6 @@ const Home = props => {
         <Features />
       </Container>
 
-
-      {/* <Footer /> */}
 
     </motion.div>
   )

@@ -196,6 +196,8 @@ class UserProfile extends Component {
               </TabNav>
             </Col>
           </Row>
+
+          <Link to="/courses" className="btn btn-outline-dark mt-5">Go back</Link>
         </Container>
       </motion.div>
     )

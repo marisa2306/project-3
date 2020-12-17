@@ -67,7 +67,7 @@ class TeachersList extends Component {
                         </Row>
                     </Container>
                 </section>
-            </motion.div >
+            </motion.div>
         )
     }
 }
