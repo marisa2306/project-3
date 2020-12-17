@@ -2,6 +2,8 @@
     margin-bottom: 30px;
     box-shadow: 0 2px 4px rgba(0,0,0,.08);
     overflow: hidden;
+    height: 310px;
+
 }
 
 .course-title{
@@ -14,7 +16,7 @@
 }
 
 .course-card img {
-    height: 150px;
+    height: 130px;
     object-fit: cover;
 } 
 
@@ -22,14 +24,18 @@
     text-decoration: none;
     color:#000;
 }
-.details{
+
+/* .details{
     overflow: hidden;
     font-family: Helvetica,Arial,sans-serif;
     line-height: 1.2;
     letter-spacing: -.02rem;
     font-size: 0.95rem;
-}
+} */
 
-.card-body{
-    padding:15px
+.course-card .card-body {
+    margin-top: 5px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
 }
