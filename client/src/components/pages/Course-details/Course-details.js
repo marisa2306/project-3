@@ -70,7 +70,7 @@ class CourseDetails extends Component {
                                         <h1>{this.state.course.title}</h1>
                                         <p><em> {this.state.course.lead}</em></p>
 
-                                        {this.state.course.owner && <p style={{ color: '#73726c', fontWeight: 700 }}>Created by {this.state.course.owner.name} {this.state.course.owner.surname}</p>}
+                                        {this.state.course.owner && <p style={{ color: '#73726c', fontWeight: 700 }}>Created by <Link to={`/teachers/${this.state.course.owner._id}`}>{this.state.course.owner.name} {this.state.course.owner.surname}</Link></p>}
                                         <p><strong>Category:</strong> {this.state.course.category} | <strong>Difficulty Level:</strong>  {this.state.course.difficultyLevel} | <strong>Price:</strong>  {this.state.course.price} € | <strong>Duration:</strong>  {this.state.course.duration} hrs.</p>
                                     </Col>
                                     <Col md={{ span: 4 }} >
