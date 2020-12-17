@@ -1,7 +1,6 @@
 .teacher-card {
     margin-bottom: 30px;
     box-shadow: 0 2px 4px rgba(252, 255, 233, .08);
-
     height: 340px;
     border-radius: 10px;
     background: #fdfdf6;  /* fallback for old browsers */
@@ -10,12 +9,6 @@
     overflow: hidden;
 }
 
-
-.teacher-card-header {
-    position:relative;
-    padding: 45px 0px;
-    background-color:rgb(90, 124, 153);
-} 
 /* 
 .teacher-card-img {
     width:80px;
@@ -31,7 +24,6 @@
     width:130px;
     height:130px;
     object-fit: cover;
-    /* position:absolute; */
 }  
 
 .rounded-circle{

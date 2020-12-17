@@ -175,7 +175,7 @@ class TeacherProfile extends Component {
             <Loader />
           }
 
-          <Link to="/profile" className="btn btn-outline-dark mt-5">Go back</Link>
+          <Link to="/teachers" className="btn btn-outline-dark mt-5">Go back</Link>
         </Container>
       </motion.div>
     )

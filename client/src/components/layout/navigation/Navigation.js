@@ -33,7 +33,7 @@ class Navigation extends Component {
     render() {
         return (
             <>
-                <Popup show={this.state.showModal} handleModal={this.handleModal}>
+                <Popup show={this.state.showModal} handleModal={this.handleModal} color={'#fafafa'}>
                     <LoginForm handleToast={this.props.handleToast} closeModal={() => this.handleModal(false)} storeUser={this.props.storeUser} />
                 </Popup>
 

@@ -1,3 +1,11 @@
-.signup-page {
-  height: 70vh;
+
+.signup-form {
+  border: 2px solid #eee;
+  padding: 1em 2em;
+  border-radius: 10px;
+  box-shadow: 0 2px 4px rgba(0,0,0,.08);
+}
+
+.form-logo img {
+  height: 40px;
 }
