@@ -41,9 +41,9 @@ class NewTeacherForm extends Component {
             .then(() => {
                 this.props.storeUser(this.props.loggedUser)
                 this.props.history.push('/profile')
-                this.props.handleToast(true, 'Congratulations!, now you have a teacher\'s profile', 'green')
+                this.props.handleToast(true, 'Congratulations!, now you have a teacher\'s profile', '#d4edda')
             })
-            .catch(err => this.props.handleToast(true, err.response.data.message[0].msg, 'red'))
+            .catch(err => this.props.handleToast(true, err.response.data.message[0].msg, '#f8d7da'))
     }
 
     handleImageUpload = e => {
@@ -60,13 +60,13 @@ class NewTeacherForm extends Component {
                     uploadingActive: false
                 })
             })
-            .catch(err => this.props.handleToast(true, err.response.data.message, 'red'))
+            .catch(err => this.props.handleToast(true, err.response.data.message, '#f8d7da'))
     }
 
     render() {
         return (
             <motion.div initial='initial' animate='in' exit='out' variants={pageVariants} transition={pageTransition}>
-                
+
                 <Container>
                     <Row>
                         <Col md={{ span: 8, offset: 2 }}>

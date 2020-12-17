@@ -1,6 +1,6 @@
 import { Toast } from 'react-bootstrap'
-import logo from './logo.ico'
-
+//import logo from './logo.ico'
+import logo from './logo2.png'
 const Alert = ({ show, toastText, color, handleToast }) => {
   return (
     <Toast show={show} onClose={() => handleToast(false)} delay={3000} autohide style={{ position: 'fixed', bottom: 30, right: 10, width: 500, backgroundColor: `${color}` }}>

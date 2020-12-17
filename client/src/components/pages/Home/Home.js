@@ -21,7 +21,7 @@ const Home = props => {
       .then(response => setCourses(response.data))
       .catch(() => {
         props.history.push('/courses')
-        props.handleToast(true, 'An error has occurred, please try again later', 'red')
+        props.handleToast(true, 'An error has occurred, please try again later', '#f8d7da')
       })
   })
 

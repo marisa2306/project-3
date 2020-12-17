@@ -35,7 +35,7 @@ class CourseDetails extends Component {
             .then(res => this.setState({ course: res[0].data, videoUrl: res[0].data.videos[0], comments: res[1].data }))
             .catch(() => {
                 this.props.history.push('/courses')
-                this.props.handleToast(true, 'An error has occurred, please try again later', 'red')
+                this.props.handleToast(true, 'An error has occurred, please try again later', '#f8d7da')
             })
     }
 
@@ -44,11 +44,11 @@ class CourseDetails extends Component {
             .deleteComment(commentId)
             .then(() => {
                 this.refreshCourse()
-                this.props.handleToast(true, 'Delete successful!', 'green')
+                this.props.handleToast(true, 'Delete successful!', '#d4edda')
             })
             .catch(() => {
                 this.props.history.push('/courses')
-                this.props.handleToast(true, 'An error has occurred while deleting, please try again later', 'red')
+                this.props.handleToast(true, 'An error has occurred while deleting, please try again later', '#f8d7da')
             })
     }
 

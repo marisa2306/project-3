@@ -34,7 +34,7 @@ class TeacherProfile extends Component {
       .then(response => this.setState({ teacher: response[0].data, courses: response[1].data }))
       .catch(() => {
         this.props.history.push('/teachers')
-        this.props.handleToast(true, 'An error has occurred, please try again later', 'red')
+        this.props.handleToast(true, 'An error has occurred, please try again later', '#f8d7da')
       })
   }
 
@@ -43,11 +43,11 @@ class TeacherProfile extends Component {
       .deleteCourse(course_Id)
       .then(() => {
         this.refreshTeacher()
-        this.props.handleToast(true, 'Delete successful!', 'green')
+        this.props.handleToast(true, 'Delete successful!', '#d4edda')
       })
       .catch(() => {
         this.props.history.push('/profile')
-        this.props.handleToast(true, 'An error has occurred while deleting, please try again later', 'red')
+        this.props.handleToast(true, 'An error has occurred while deleting, please try again later', '#f8d7da')
       })
   }
 
@@ -59,11 +59,11 @@ class TeacherProfile extends Component {
       .then(() => {
         this.props.storeUser(this.props.loggedUser)
         this.props.history.push('/profile')
-        this.props.handleToast(true, 'Delete successful!', 'green')
+        this.props.handleToast(true, 'Delete successful!', '#d4edda')
       })
       .catch(() => {
         this.props.history.push('/profile')
-        this.props.handleToast(true, 'An error has occurred while deleting, please try again later', 'red')
+        this.props.handleToast(true, 'An error has occurred while deleting, please try again later', '#f8d7da')
       })
   }
 
@@ -72,15 +72,15 @@ class TeacherProfile extends Component {
   render() {
     return (
       <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
-        
-        <Popup show={this.state.showModal} handleModal={this.handleModal} color={'maroon'}>
+
+        <Popup show={this.state.showModal} handleModal={this.handleModal} color={'#f8d7da'}>
           <DeleteMessage />
           <Row className='justify-content-center'>
             <Col xs='auto'>
               <Button variant='secondary' onClick={() => this.handleModal(false)}>Close</Button>
             </Col>
             <Col xs='auto'>
-              <Button onClick={this.deleteTeacher} variant='light'>Delete teacher</Button>
+              <Button onClick={this.deleteTeacher} variant='danger'>Delete teacher</Button>
             </Col>
           </Row>
         </Popup>
@@ -113,12 +113,12 @@ class TeacherProfile extends Component {
                         <a className="teacher-links-btn" href={this.state.teacher.linkedin} alt='Linkedin button' target="_blank" rel="noreferrer">
                           <span><img className="links-icon" src="https://res.cloudinary.com/dodneiokm/image/upload/v1607977090/project3-ironhack/linkedin_3_zpvz48.png" alt='Linkedin icon' />
                           </span>Linkedin</a>}
-                      
+
                       {this.state.teacher.website &&
                         <a className="teacher-links-btn" href={this.state.teacher.website} alt='Website button' target="_blank" rel="noreferrer">
                           <span><img className="links-icon" src="https://res.cloudinary.com/dodneiokm/image/upload/v1607977242/project3-ironhack/link_kj6las.png" alt='Website icon' />
                           </span>Website</a>}
-                      
+
                       {this.state.teacher.youtube &&
                         <a className="teacher-links-btn" href={this.state.teacher.youtube} alt='Youtube button' target="_blank" rel="noreferrer">
                           <span><img className="links-icon" src="https://res.cloudinary.com/dodneiokm/image/upload/v1607976945/project3-ironhack/youtube_hgefuo.png" alt='Youtube icon' />

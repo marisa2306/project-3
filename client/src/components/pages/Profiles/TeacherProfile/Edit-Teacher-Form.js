@@ -43,11 +43,11 @@ class EditTeacherForm extends Component {
             .then(() => {
                 this.props.storeUser(this.props.loggedUser)
                 this.props.history.push(`/teachers/${teacherId}`)
-                this.props.handleToast(true, 'Edit successful!', 'green')
+                this.props.handleToast(true, 'Edit successful!', '#d4edda')
             })
             .catch(() => {
                 this.props.history.push(`/teachers/${teacherId}`)
-                this.props.handleToast(true, 'An error has occurred, please try again later', 'red')
+                this.props.handleToast(true, 'An error has occurred, please try again later', '#f8d7da')
             })
     }
 
@@ -65,7 +65,7 @@ class EditTeacherForm extends Component {
                     uploadingActive: false
                 })
             })
-            .catch(err => this.props.handleToast(true, err.response.data.message, 'red'))
+            .catch(err => this.props.handleToast(true, err.response.data.message, '#f8d7da'))
     }
 
 

@@ -27,7 +27,7 @@ class CoursesList extends Component {
             .then(res => this.setState({ courses: res.data, filteredCourses: [...res.data] }))
             .catch(() => {
                 this.props.history.push('/')
-                this.props.handleToast(true, 'An error has occurred, please try again later', 'red')
+                this.props.handleToast(true, 'An error has occurred, please try again later', '#f8d7da')
             })
     }
 
