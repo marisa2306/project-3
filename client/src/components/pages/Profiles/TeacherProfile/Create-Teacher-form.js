@@ -70,7 +70,7 @@ class NewTeacherForm extends Component {
                 <Container>
                     <Row>
                         <Col md={{ span: 8, offset: 2 }}>
-                            <h1>Create your Teacher Profile</h1>
+                            <h1 className='mt-5' >Create your Teacher Profile</h1>
                             <hr />
 
                             <Form onSubmit={this.handleSubmit}>
