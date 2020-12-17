@@ -1,12 +1,11 @@
 import React, { Component } from 'react'
 import CommentsService from './../../../service/comments.service'
 import Loader from '../../shared/Spinner/Loader'
-import { Link } from 'react-router-dom'
 import { Form, Button, Container, Row, Col } from 'react-bootstrap'
-import './AddComments.css'
 
 
-class AddComments extends Component {
+
+class EditComments extends Component {
     constructor(props) {
         super(props)
         this.state = {
@@ -26,12 +25,13 @@ class AddComments extends Component {
 
     handleSubmit = e => {
         e.preventDefault()
-
+        const comment_id = this.props.match.params.comment_id
         this.commentsService
-            .saveComment(this.state.comment)
+            .editComment(comment_id, this.state.comment)
             .then(() => {
                 this.props.refreshComments()
-                this.setState({ content: '' })
+                // this.setState({ content: '' })
+                this.props.handleToast(true, 'Edit successful!', 'green')
             })
             .catch(err => this.props.handleToast(true, err.response.data.message[0].msg, 'red'))
 
@@ -43,7 +43,7 @@ class AddComments extends Component {
         return (
             <Row>
                 <Col>
-                    <h2 className="mt-4 mb-3">Add a Comment</h2>
+                    <h2 className="mt-4 mb-3">Edit Comment</h2>
                     <Form className="comment-form" onSubmit={this.handleSubmit}>
                         <Form.Group controlId="content">
                             <Form.Control as='textarea' name="content" value={this.state.content} onChange={this.handleInputChange} placeholder="Write your comment..." />
@@ -56,4 +56,4 @@ class AddComments extends Component {
     }
 }
 
-export default AddComments
+export default EditComments

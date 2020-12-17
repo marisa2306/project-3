@@ -199,47 +199,48 @@ class UserProfile extends Component {
           </section>
 
 
-
-
           {/* Your activity*/}
-          <Row>
-            <TabNav tabs={['Favorite Courses', 'Favorite Teachers', 'Random Courses']} selected={this.state.selected} setSelected={this.setSelected}   >
-              {this.state.favCourses.length > 0 ?
-                <Tab isSelected={this.state.selected === 'Favorite Courses'} >
-                  <section>
-                    <Row>
+          <h2 className="mt-5 mb-3">Your activity</h2>
+          <Row className="mt-5">
+            <Col>
+              <TabNav tabs={['Favorite Courses', 'Favorite Teachers', 'Random Courses']} selected={this.state.selected} setSelected={this.setSelected}   >
+                {this.state.favCourses.length > 0 &&
+                  <Tab isSelected={this.state.selected === 'Favorite Courses'} >
+                    <section>
+                      <Row>
+                        {
+                          this.state.favCourses.map(elm =>
+                            <CourseCard key={elm._id} {...elm} userInfo={this.props.loggedUser} teacher={this.props.teacherInfo} updateFavCourses={this.props.updateFavCourses} />)
+                        }
+                      </Row>
+                    </section>
+                  </Tab>
+
+                }
+                {this.state.favTeachers.length > 0 &&
+                  <Tab isSelected={this.state.selected === 'Favorite Teachers'} >
+                    <Row style={{ width: '100 %' }}>
                       {
-                        this.state.favCourses.map(elm =>
-                          <CourseCard key={elm._id} {...elm} userInfo={this.props.loggedUser} teacher={this.props.teacherInfo} updateFavCourses={this.props.updateFavCourses} />)
+                        this.state.favTeachers.map(elm =>
+                          <TeacherCard key={elm._id} {...elm} userInfo={this.props.loggedUser} teacher={this.props.teacherInfo} updateFavTeachers={this.props.updateFavTeachers} />)
                       }
                     </Row>
-                  </section>
-                </Tab>
-                : null
-              }
-              {this.state.favTeachers.length > 0 ?
-                <Tab isSelected={this.state.selected === 'Favorite Teachers'} >
-                  <Row style={{ width: '100 %' }}>
-                    {
-                      this.state.favTeachers.map(elm =>
-                        <TeacherCard key={elm._id} {...elm} userInfo={this.props.loggedUser} teacher={this.props.teacherInfo} updateFavTeachers={this.props.updateFavTeachers} />)
-                    }
-                  </Row>
-                </Tab>
-                : null
-              }
-              {this.state.randomCourses.length > 0 ?
-                <Tab isSelected={this.state.selected === 'Random Courses'} >
-                  <Row>
-                    {
-                      this.state.randomCourses.map(elm =>
-                        <CourseCard key={elm._id} {...elm} userInfo={this.props.loggedUser} teacher={this.props.teacherInfo} updateFavTeachers={this.props.updateFavTeachers} />)
-                    }
-                  </Row>
-                </Tab>
-                : null
-              }
-            </TabNav>
+                  </Tab>
+
+                }
+                {this.state.randomCourses.length > 0 &&
+                  <Tab isSelected={this.state.selected === 'Random Courses'} >
+                    <Row>
+                      {
+                        this.state.randomCourses.map(elm =>
+                          <CourseCard key={elm._id} {...elm} userInfo={this.props.loggedUser} teacher={this.props.teacherInfo} updateFavTeachers={this.props.updateFavTeachers} />)
+                      }
+                    </Row>
+                  </Tab>
+
+                }
+              </TabNav>
+            </Col>
           </Row>
 
           {/* Your activity
