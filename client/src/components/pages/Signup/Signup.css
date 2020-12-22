@@ -4,12 +4,9 @@
   padding: 1em 2em;
   border-radius: 10px;
   box-shadow: 0 2px 4px rgba(0,0,0,.08);
+  margin-bottom: 58px;
 }
 
 .form-logo img {
   height: 40px;
-}
-
-.signup-page{
-  height: 78vh;
 }

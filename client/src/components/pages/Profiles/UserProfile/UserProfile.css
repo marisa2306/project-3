@@ -9,13 +9,12 @@
         box-shadow: 0 4px 12px rgba(0,0,0,.08)
  
 }
+
 .user-img{
     width:150px;
     height:150px;
     object-fit: cover;
 }
-
-
 
 .cta{
     
@@ -25,10 +24,6 @@
     background-position: 0 -2.4rem;
     color:white
 
-}
-
-.user-profile {
-  height: 90vh;
 }
 
 .user-profile h1{
@@ -45,7 +40,3 @@
     letter-spacing: -.02rem;
     font-size: 1.75rem;
 }
-
-
-
-

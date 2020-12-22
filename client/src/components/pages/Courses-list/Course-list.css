@@ -1,7 +1,5 @@
 .courses-hero{
     background-image: url("https://res.cloudinary.com/dodneiokm/image/upload/v1608205837/project3-ironhack/portrait-young-pretty-woman-sitting-table-black-shirt-working-laptop-co-working-office_aufbet.jpg");
-    /* background-image: url("https://res.cloudinary.com/dodneiokm/image/upload/v1608215061/project3-ironhack/teacher-one-min_adzesz.jpg"); */
-
     padding:10px 0;
     background-size: cover;
     background-position: center;
@@ -17,7 +15,6 @@
 }
 
 .courses-hero p{
-
     letter-spacing: -.02rem;
     line-height: 1.3em;
     font-size: 1.4rem;
