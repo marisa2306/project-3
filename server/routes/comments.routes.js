@@ -4,8 +4,7 @@ const Comment = require('../models/comment.model');
 const { isLoggedIn, isValidId } = require('../middleware/custom-middleware')
 
 
-router.get('/getCourseComments/:id', (req, res) => {
-
+router.get('/getCourseComments/:id', isValidId, (req, res) => {
     Comment
         .find({ course: req.params.id })
         .populate('user')
@@ -14,9 +13,7 @@ router.get('/getCourseComments/:id', (req, res) => {
         .catch(err => res.status(500).json(err))
 })
 
-
-router.post('/newComment', isLoggedIn, (req, res) => {
-
+router.post('/newComment', isLoggedIn, isValidId, (req, res) => {
     Comment
         .create(req.body)
         .then(response => res.json(response))
@@ -24,9 +21,7 @@ router.post('/newComment', isLoggedIn, (req, res) => {
 
 })
 
-
-router.put('/editComment/:id', isLoggedIn, (req, res) => {
-
+router.put('/editComment/:id', isLoggedIn, isValidId, (req, res) => {
     Comment
         .findByIdAndUpdate(req.params.id, req.body, { new: true })
         .then(response => res.json(response))
@@ -34,16 +29,13 @@ router.put('/editComment/:id', isLoggedIn, (req, res) => {
 
 })
 
-
-router.delete('/deleteComment/:id', isLoggedIn, (req, res) => {
-
+router.delete('/deleteComment/:id', isLoggedIn, isValidId, (req, res) => {
     Comment
         .findByIdAndDelete(req.params.id)
         .then(() => res.json({ message: 'Comment Deleted' }))
         .catch(err => res.status(500).json(err))
 
 })
-
 
 
 
