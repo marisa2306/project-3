@@ -114,7 +114,7 @@ class EditUserForm extends Component {
 
                                 <Button className="mt-3 add-course" type='submit' disabled={this.state.uploadingActive}>{this.state.uploadingActive ? 'Image loading...' : 'Save changes'}</Button>
                             </Form>
-                            {this.state.uploadingActive || <Link to='/profile' className="btn btn-outline-dark mt-5" disabled>Go back</Link>}
+                            {this.state.uploadingActive || <Link to='/profile' className="btn btn-outline-dark mt-5" style={{ marginBottom: '200px'}} disabled>Go back</Link>}
                         </Col>
                     </Row>
 

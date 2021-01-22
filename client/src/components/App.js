@@ -93,7 +93,7 @@ class App extends Component {
       <>
         <Navigation storeUser={this.setTheUser} loggedUser={this.state.loggedInUser} handleToast={this.handleToast} />
 
-        <main style={{ overflowX: 'hidden' }}>
+        <main>
           <AnimatePresence>
             <Switch>
               <Route exact path="/" render={props => <Home {...props} handleToast={this.handleToast} />} />

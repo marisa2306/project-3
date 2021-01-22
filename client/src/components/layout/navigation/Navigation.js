@@ -37,7 +37,7 @@ class Navigation extends Component {
                     <LoginForm handleToast={this.props.handleToast} closeModal={() => this.handleModal(false)} storeUser={this.props.storeUser} />
                 </Popup>
 
-                <Navbar bg="light" variant="danger" expand="md" className="menu" style={{ borderBottom: '1px solid #ddd' }}>
+                <Navbar bg="light" variant="light" expand="md" className="menu" style={{ borderBottom: '1px solid #ddd' }}>
                     <Link to="/">
                         <Navbar.Brand >
                             <motion.img
