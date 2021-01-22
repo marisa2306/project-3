@@ -10,6 +10,13 @@
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.39)
 }
 
+
+.btn-primary.disabled, .btn-primary:disabled {
+    color: #fff;
+    background-color: #ec5252;
+    border: 1px solid #ec5252;
+}
+
 .course-bckg{
     background-color:#fff;
     padding:20px 40px;
