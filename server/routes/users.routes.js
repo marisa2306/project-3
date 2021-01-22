@@ -48,49 +48,33 @@ router.delete('/deleteUser/:id', isLoggedIn, isValidId, (req, res) => {
 // Manage Favorites
 
 router.put('/editUser/updateFavCourses/:id', isValidId, (req, res) => {
-    if (req.isAuthenticated()) {
-        User
-            .findByIdAndUpdate(req.params.id, { favCourses: req.body }, { new: true })
-            .then(response => res.json(response))
-            .catch(err => res.status(500).json(err))
-    } else {
-        res.status(403).json({ message: 'Log in to access' })
-    }
+    User
+        .findByIdAndUpdate(req.params.id, { favCourses: req.body }, { new: true })
+        .then(response => res.json(response))
+        .catch(err => res.status(500).json(err))
 })
 
 router.get('/userFavCourses/:id', isValidId, (req, res) => {
-    if (req.isAuthenticated()) {
-        User
-            .findById(req.params.id)
-            .populate('favCourses')
-            .then(response => res.json(response.favCourses))
-            .catch(err => res.status(500).json(err))
-    } else {
-        res.status(403).json({ message: 'Log in to access' })
-    }
+    User
+        .findById(req.params.id)
+        .populate('favCourses')
+        .then(response => res.json(response.favCourses))
+        .catch(err => res.status(500).json(err))
 })
 
 router.put('/editUser/updateFavTeachers/:id', isValidId, (req, res) => {
-    if (req.isAuthenticated()) {
-        User
-            .findByIdAndUpdate(req.params.id, { favTeachers: req.body }, { new: true })
-            .then(response => res.json(response))
-            .catch(err => res.status(500).json(err))
-    } else {
-        res.status(403).json({ message: 'Log in to access' })
-    }
+    User
+        .findByIdAndUpdate(req.params.id, { favTeachers: req.body }, { new: true })
+        .then(response => res.json(response))
+        .catch(err => res.status(500).json(err))
 })
 
 router.get('/userFavTeachers/:id', isValidId, (req, res) => {
-    if (req.isAuthenticated()) {
-        User
-            .findById(req.params.id)
-            .populate('favTeachers')
-            .then(response => res.json(response.favTeachers))
-            .catch(err => res.status(500).json(err))
-    } else {
-        res.status(403).json({ message: 'Log in to access' })
-    }
+    User
+        .findById(req.params.id)
+        .populate('favTeachers')
+        .then(response => res.json(response.favTeachers))
+        .catch(err => res.status(500).json(err))
 })
 
 module.exports = router
