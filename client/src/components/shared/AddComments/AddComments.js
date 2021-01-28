@@ -29,7 +29,7 @@ class AddComments extends Component {
             .saveComment(this.state.comment)
             .then(() => {
                 this.props.refreshCourse()
-                this.setState({ content: '' })
+                this.setState({ comment: { ...this.state.comment, content: '' } })
             })
             .catch(err => this.props.handleToast(true, 'An error has occurred, please try again later', 'red'))
 
@@ -43,7 +43,7 @@ class AddComments extends Component {
                     <h2 className="mt-4 mb-3">Add a Comment</h2>
                     <Form className="comment-form" onSubmit={this.handleSubmit}>
                         <Form.Group controlId="content">
-                            <Form.Control as='textarea' name="content" value={this.state.content} onChange={this.handleInputChange} placeholder="Write your comment..." />
+                            <Form.Control as='textarea' name="content" value={this.state.comment.content} onChange={this.handleInputChange} placeholder="Write your comment..." />
                         </Form.Group>
                         <Button className="btn start-course" type="submit"> Submit</Button>
                     </Form>
