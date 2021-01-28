@@ -41,3 +41,34 @@
     flex-direction: column;
     justify-content: space-around;
 }
+
+@media (max-width: 1200px) {
+  .teacher-card .card-body {
+    margin-top: 0;
+  }
+}
+
+@media (max-width: 991px) {
+  .teacher-card .card-body {
+    padding: 1.25em 15px;
+  }
+  .teacher-card .teacher-view-more {
+    font-size: .9em;
+  }
+  .teacher-card .details {
+    margin-bottom: 0;
+    font-size: 0.9rem;
+  }
+}
+
+@media (max-width: 767px) {
+  .teacher-card .card-body {
+    padding: 20px;
+  }
+  .teacher-card .teacher-view-more {
+    font-size: 1em;
+  }
+  .teacher-card .details {
+    font-size: 1rem;
+  }
+}
