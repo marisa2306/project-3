@@ -94,8 +94,6 @@ class CourseDetails extends Component {
                                             {this.state.course.requirements.map((elm, idx) => <li key={idx}><img src="https://res.cloudinary.com/dodneiokm/image/upload/v1607887317/project3-ironhack/double-check_tm7qmy.png" alt='Double-Checked icon' /><p>{elm}</p></li>)}
                                         </ul>
 
-                                        {/* <Button onClick={this.toggleInput} className="mt-3 mb-3 start-course" >{this.state.showInput ? 'Close media' : 'See course media'}</Button> */}
-
                                         {this.props.loggedUser ?
                                             <Button onClick={this.toggleInput} className="mt-3 mb-3 start-course" >{this.state.showInput ? 'Close media' : 'See course media'}</Button>
                                             :

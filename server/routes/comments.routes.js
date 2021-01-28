@@ -13,7 +13,7 @@ router.get('/getCourseComments/:id', isValidId, (req, res) => {
         .catch(err => res.status(500).json(err))
 })
 
-router.post('/newComment', isLoggedIn, isValidId, (req, res) => {
+router.post('/newComment', isLoggedIn, (req, res) => {
     Comment
         .create(req.body)
         .then(response => res.json(response))

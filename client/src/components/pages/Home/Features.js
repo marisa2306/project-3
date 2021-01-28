@@ -1,4 +1,4 @@
-import { Row, Col, Container } from 'react-bootstrap'
+import { Row, Col } from 'react-bootstrap'
 import FeaturesCard from './FeaturesCard'
 
 const Features = () => {
