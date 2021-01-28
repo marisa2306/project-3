@@ -3,7 +3,6 @@ import { Link } from 'react-router-dom'
 import { motion } from 'framer-motion'
 import { Row, Col, Card, Button } from 'react-bootstrap'
 import './Course-card.css'
-// import mine from './mine.ico'
 import FavButton from '../../shared/FavButton/FavButton'
 import Popup from '../Popup/Popup'
 import DeleteMessage from '../Delete-message/DeleteMessage'
@@ -27,7 +26,7 @@ const CourseCard = props => {
                     </Link>
                 </motion.div>
                 <Card.Body>
-                    <Card.Title className="course-title mb-2">{props.title}</Card.Title>
+                    <Card.Title className="course-title mb-2">{props.title.substring(0, 35)}...</Card.Title>
                     <Card.Text className="details  mb-2">{props.category} - {props.difficultyLevel} - {props.price} € - {props.duration} hrs.</Card.Text>
                     <Row as='div' className="d-flex justify-content-around align-items-center">
                         <Col md={8} as='div' className="d-flex justify-content-between">
@@ -36,17 +35,12 @@ const CourseCard = props => {
                                 <>
                                     <Link to={`/profile-teacher/edit-course/${props._id}`} className="btn btn-info mx-2">Edit</Link>
                                     <Button onClick={() => handleModal(true)} className="btn btn-danger">Delete</Button>
-                                    {/* <Button to={`/profile-teacher/delete-course/${props._id}`} onClick={() => props.deleteCourse(props._id)} className="btn btn-danger">Delete</Button> */}
-                                    {/* <span><img src={mine} style={{ width: 20, height: 20 }} alt={props.title} /></span> */}
                                 </>
                                 : null
                             }
                         </Col>
                         <Col md={{ span: 3, offset: 1 }} >
-                            {props.userInfo ?
-                                <FavButton updateFavCourses={props.updateFavCourses} userInfo={props.userInfo} itemInfo={props} />
-                                : null
-                            }
+                            {props.userInfo && <FavButton updateFavCourses={props.updateFavCourses} userInfo={props.userInfo} itemInfo={props} />}
                         </Col>
                     </Row>
                 </Card.Body>

@@ -9,17 +9,6 @@
     overflow: hidden;
 }
 
-/* 
-.teacher-card-img {
-    width:80px;
-    height:80px;
-    object-fit: cover;
-    position:absolute;
-    top:30%;
-    left:33%;
-    z-index:10;
-}  */
-
 .teacher-card-img {
     width:130px;
     height:130px;
@@ -31,9 +20,7 @@
     border-radius: 50%!important;
 }
 
-
 .teacher-title{
-    overflow: hidden;
     font-family: Helvetica,Arial,sans-serif;
     font-weight: 700;
     line-height: 1.2;
@@ -42,16 +29,14 @@
 }
 
 .details{
-    overflow: hidden;
     font-family: Helvetica,Arial,sans-serif;
     line-height: 1.2;
     letter-spacing: -.02rem;
     font-size: 0.95rem;
 }
 
-
 .teacher-card .card-body{
-    margin-top: 20px;
+    margin-top: .9em;
     display: flex;
     flex-direction: column;
     justify-content: space-around;
