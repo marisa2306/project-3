@@ -33,13 +33,30 @@
 }
 
 @media (max-width: 767px) {
+
     .teacher-hero .heading{
-    text-align: center;
+        text-align: center;
+        margin-top:150px;
     }
 }
 
 @media (max-width: 575px) {
     .teacher-hero{
         margin: 0;
+    }
+
+    .teacher-hero .heading{
+        margin-top:0px;
+    }
+
+    .teacher-hero h1{
+        font-size: 3.5rem;
+    }
+
+    .teacher-hero p{
+        letter-spacing: 0rem;
+        line-height: 1em;
+        font-size: 1.4rem;
+        
     }
 }

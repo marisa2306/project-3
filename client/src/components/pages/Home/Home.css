@@ -100,6 +100,25 @@ h3{
     .home-card{
         height: 18.75rem;
     }
-
 }
 
+
+@media (max-width: 1200px) {
+    .hero {
+        background-position: center;
+    }
+   
+}
+
+
+@media (max-width: 768px) {
+    .hero {
+        text-align:center;
+    }
+
+    .hero {
+        background-position: right;
+    }
+   
+   
+}
