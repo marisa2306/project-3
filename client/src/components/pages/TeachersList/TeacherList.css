@@ -1,5 +1,4 @@
 .teacher-hero{
-    /* background-image:url("https://preview.colorlib.com/theme/studylab/images/bg_1.jpg"); */
     background-image:url("https://images.unsplash.com/photo-1558021212-51b6ecfa0db9?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=2561&q=80");
     padding:10px 0;
     background-size: cover;
@@ -15,16 +14,13 @@
     letter-spacing: -.02rem;
     font-size: 4rem;
     text-shadow: 2px 1px 1px rgb(82, 82, 82);
-    /* text-shadow: 2px 1px 1px #fff; */
 }
 
 .teacher-hero p{
-
     letter-spacing: -.02rem;
     line-height: 1.3em;
     font-size: 1.4rem;
     text-shadow: 2px 1px 1px rgb(124, 124, 124);
-    /* text-shadow: 2px 1px 1px #fff; */
 }
 
 .teacher-hero .heading{
@@ -34,4 +30,16 @@
 
 .teachers-list{
     margin-top:50px
+}
+
+@media (max-width: 767px) {
+    .teacher-hero .heading{
+    text-align: center;
+    }
+}
+
+@media (max-width: 575px) {
+    .teacher-hero{
+        margin: 0;
+    }
 }

@@ -9,17 +9,6 @@
     overflow: hidden;
 }
 
-/* 
-.teacher-card-img {
-    width:80px;
-    height:80px;
-    object-fit: cover;
-    position:absolute;
-    top:30%;
-    left:33%;
-    z-index:10;
-}  */
-
 .teacher-card-img {
     width:130px;
     height:130px;
@@ -31,9 +20,7 @@
     border-radius: 50%!important;
 }
 
-
 .teacher-title{
-    overflow: hidden;
     font-family: Helvetica,Arial,sans-serif;
     font-weight: 700;
     line-height: 1.2;
@@ -42,17 +29,46 @@
 }
 
 .details{
-    overflow: hidden;
     font-family: Helvetica,Arial,sans-serif;
     line-height: 1.2;
     letter-spacing: -.02rem;
     font-size: 0.95rem;
 }
 
-
 .teacher-card .card-body{
-    margin-top: 20px;
+    margin-top: .9em;
     display: flex;
     flex-direction: column;
     justify-content: space-around;
+}
+
+@media (max-width: 1200px) {
+  .teacher-card .card-body {
+    margin-top: 0;
+  }
+}
+
+@media (max-width: 991px) {
+  .teacher-card .card-body {
+    padding: 1.25em 15px;
+  }
+  .teacher-card .teacher-view-more {
+    font-size: .9em;
+  }
+  .teacher-card .details {
+    margin-bottom: 0;
+    font-size: 0.9rem;
+  }
+}
+
+@media (max-width: 767px) {
+  .teacher-card .card-body {
+    padding: 20px;
+  }
+  .teacher-card .teacher-view-more {
+    font-size: 1em;
+  }
+  .teacher-card .details {
+    font-size: 1rem;
+  }
 }

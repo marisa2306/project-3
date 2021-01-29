@@ -3,11 +3,9 @@
     box-shadow: 0 2px 4px rgba(0,0,0,.08);
     overflow: hidden;
     height: 310px;
-
 }
 
 .course-title{
-    overflow: hidden;
     font-family: Helvetica,Arial,sans-serif;
     font-weight: 700;
     line-height: 1.2;
@@ -24,14 +22,6 @@
     text-decoration: none;
     color:#000;
 }
-
-/* .details{
-    overflow: hidden;
-    font-family: Helvetica,Arial,sans-serif;
-    line-height: 1.2;
-    letter-spacing: -.02rem;
-    font-size: 0.95rem;
-} */
 
 .course-card .card-body {
     margin-top: 5px;
