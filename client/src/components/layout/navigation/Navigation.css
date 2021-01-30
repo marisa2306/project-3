@@ -1,16 +1,27 @@
 
 .navbar{
     box-shadow: 0 1px 8px rgba(116, 116, 116, 0.329);
+    border-bottom: 1px solid #ced4da!important;
 }
 
 .navbar a{
     text-decoration:none;
 }
 
-/* .navbar-toggler{
-    border: 1px solid grey
-} */
-
 .img-fit{
     object-fit: cover;
+}
+
+
+@media (max-width: 767px) {
+
+    .navbar-light .navbar-nav .nav-link{
+        border-top: 1px solid #ced4da!important;
+    }
+
+    #basic-navbar-nav{
+        margin-top:10px
+    }
+
+ 
 }
