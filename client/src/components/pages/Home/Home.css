@@ -96,6 +96,14 @@ h3{
     font-size:1.2em;
 }
 
+.features{
+    padding: 50px 0px;
+}
+
+.features .card-text:last-child{
+    font-size:1em;
+}
+
 @media screen and (min-width: 992px){
     .home-card{
         height: 18.75rem;
@@ -108,6 +116,9 @@ h3{
         background-position: center;
     }
    
+    .features{
+        padding: 0px;
+    }
 }
 
 
@@ -120,7 +131,17 @@ h3{
         background-position: right;
     }
    
-   
+    .banner{
+        padding: 100px 8px;
+    }
+
+    .features{
+        padding: 0px 10px;
+    }
+
+    .features .home-card{
+        margin-bottom:10px
+    }
 }
 
 
@@ -133,4 +154,10 @@ h3{
     .about{
         padding: 50px 8px;
     }
+
+    .banner{
+        padding: 100px 8px;
+    }
+
+   
 }
