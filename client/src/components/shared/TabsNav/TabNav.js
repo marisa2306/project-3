@@ -20,7 +20,7 @@ class TabNav extends Component {
                             const active = (tab === this.props.selected ? 'active ' : '');
                             return (
                                 <li className="nav-item" key={tab}>
-                                    <a className={"nav-link " + active} href='' onClick={() => this.props.setSelected(tab)}>
+                                    <a className={"nav-link " + active} href='#' onClick={() => this.props.setSelected(tab)}>
                                         {tab}
                                     </a>
                                 </li>
