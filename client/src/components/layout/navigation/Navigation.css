@@ -27,6 +27,10 @@
         border-top: 1px solid #ced4da!important;
     }
 
+    .padding-top {
+        padding-top:10px
+    } 
+
     #basic-navbar-nav{
         margin-top:10px
     }

@@ -68,7 +68,7 @@ class Navigation extends Component {
                                     <>
                                         <Nav.Link as="div" className="border-top" onClick={this.logOut}>Log out</Nav.Link>
 
-                                        <Link to="/profile" className="d-flex align-items-center border-top">
+                                        <Link to="/profile" className="d-flex align-items-center border-top padding-top">
                                             <Nav.Link as="div">{`Hi, ${this.props.loggedUser.username}!`}</Nav.Link>
                                             <Image style={{ width: '38px', height: '38px' }} className="img-fit ml-1" roundedCircle src={this.props.loggedUser.imageUrl} />
 
