@@ -199,7 +199,7 @@ class UserProfile extends Component {
 
           <Link to="/courses" className="btn btn-outline-dark mt-5">Go back</Link>
         </Container>
-      </motion.div>
+      </motion.div >
     )
   }
 }

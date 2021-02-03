@@ -14,7 +14,7 @@ const CourseCard = props => {
     function handleModal(visible) { modalState(visible) }
     return (
 
-        <Col sm={6} md={4} lg={3} >
+        <Col xs={{ span: 10, offset: 1 }} sm={{ span: 6, offset: 0 }} md={4} lg={3}>
             <Card className="course-card">
                 <motion.div
                     whileHover={{ scale: 1.05 }}

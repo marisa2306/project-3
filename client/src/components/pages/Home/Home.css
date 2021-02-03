@@ -1,11 +1,8 @@
-
-
 .hero{
     background-image: url("https://img-a.udemycdn.com/notices/featured_banner/image_udlite/1999ee6d-47cd-42f2-baca-747713a0228b.jpg?MzUx5UU2vKPLJogS0c1LrgUimABMhgbwU5_KuBQ7c23xIC0TcCw4vYanZ_giYmZNBevR5pQlaAjqAZ_Zo7QLu9G_2WxvnLqOF7p_8LqPF4j9jFSipAUSM5zzmbsTrDruJc144iOoOKJ08SuCyf_qLgXVKikzQ0cyooyggMTz1wEKotYCoyzWQZKAkQc");
     background-size: cover;
     padding:200px 0;
     background-position: top right;
-
 }
 
 .hero h1{
@@ -16,7 +13,6 @@
 }
 
 .hero p{
-
     letter-spacing: -.02rem;
     line-height: 1.3em;
     font-size: 1.4rem;
@@ -27,14 +23,13 @@
     padding:100px 0;
 }
 
- h2{
+h2{
     font-family: Helvetica,Arial,sans-serif;
     font-weight: 700;
     line-height: 1.2;
     letter-spacing: -.02rem;
     font-size: 1.75rem;
 }
-
 
 h3{
     font-family: Helvetica,Arial,sans-serif;
@@ -96,10 +91,77 @@ h3{
     font-size:1.2em;
 }
 
-@media screen and (min-width: 992px){
-    .home-card{
-        height: 18.75rem;
+.features{
+    padding: 50px 0px;
+}
+
+.features .home-card{
+    font-size:1em;
+    margin-bottom:20px;
+    height: 19rem;
+}
+
+
+
+@media (max-width: 1200px) {
+    .hero {
+        background-position: center;
+    }
+   
+    .features{
+        padding: 0px;
+    }
+
+    .features .home-card{
+        height: 22rem;
+    }
+}
+
+@media (max-width: 992px) {
+    .features .home-card{
+        height: 19rem;
     }
 
 }
 
+@media (max-width: 768px) {
+    .hero {
+        text-align:center;
+    }
+
+    .hero {
+        background-position: right;
+    }
+   
+    .banner{
+        padding: 100px 8px;
+    }
+
+    .features{
+        padding: 0px 10px;
+    }
+
+    .features .home-card{
+        height: 15rem;
+    }
+
+}
+
+@media (max-width: 425px) {
+    .hero{
+        padding:50px 0;
+        background-position: left;
+    }
+
+    .about{
+        padding: 50px 8px;
+    }
+
+    .banner{
+        padding: 100px 8px;
+    }
+
+    .features .home-card{
+        height: 18rem;
+    }
+}

@@ -104,14 +104,15 @@ class CourseDetails extends Component {
                                         {this.state.showInput &&
                                             <motion.div transition={{ type: 'spring', stiffness: 300, duration: 1.2 }}>
                                                 <Row>
-                                                    <Col md={8}>
+                                                    <Col md={12} lg={8}>
                                                         <ReactPlayer
+                                                            width='100%'
                                                             url={this.state.videoUrl}
                                                             controls
                                                         />
                                                     </Col>
 
-                                                    <Col md={4}>
+                                                    <Col md={12} lg={4}>
                                                         {this.state.course.videos.map((elm, idx) =>
                                                             <Card.Header className="video-card" key={elm._id}>
                                                                 <img
@@ -132,18 +133,19 @@ class CourseDetails extends Component {
 
 
                             {/* Comments */}
-                            <h2 className="mt-5 mb-3">Comments</h2>
+
+                            <h3 className="mt-5 mb-3">Comments</h3>
 
                             {this.state.comments.length > 0 ?
                                 this.state.comments.map(elm =>
                                     <div className="mb-2" key={elm._id}{...elm}>
                                         {elm.user &&
-                                            <Card  >
+                                            <Card>
                                                 <Card.Body className="d-flex align-items-center">
-                                                    <Col md={1}>
+                                                    <Col sm={4} md={1} lg={1}>
                                                         <Image className="avatar" roundedCircle src={elm.user.imageUrl} alt={elm.user.username} />
                                                     </Col>
-                                                    <Col className="d-flex flex-column" md={{ span: 8 }}>
+                                                    <Col className="d-flex flex-column" sm={{ span: 6, offset: 1 }} md={{ span: 8, offset: 1 }} lg={8}>
                                                         <p className="mb-0"><strong>{elm.user.username} {elm.timestamps}</strong></p>
                                                         <p className="mb-0"><em>" {elm.content} "</em></p>
                                                         <small>{elm.createdAt}</small>
@@ -153,7 +155,7 @@ class CourseDetails extends Component {
                                                         <Row as="div" className="mt-2">
                                                             <Col className="d-flex align-items-center">
                                                                 {/* <Link to='/edit-comment' className="mr-3 btn btn-outline-info btn-sm">Edit</Link> */}
-                                                                <Button onClick={() => this.deleteComment(elm._id)} variant="outline-danger" className="delete-comment" size="sm">Delete</Button>
+                                                                <Button sm={2} onClick={() => this.deleteComment(elm._id)} variant="outline-danger" className="delete-comment" size="sm">Delete</Button>
                                                             </Col>
                                                         </Row>
                                                         : null
@@ -163,7 +165,7 @@ class CourseDetails extends Component {
                                         }
                                     </div>
                                 )
-                                : null
+                                : <p className="mb-3 ml-3">No comments yet</p>
                             }
 
                             {this.props.loggedUser &&
