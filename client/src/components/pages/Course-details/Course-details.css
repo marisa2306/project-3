@@ -44,7 +44,7 @@
 .whatYouWillLearn li{
     list-style-type: none;
     display: flex;
-    align-items:baseline;
+    align-items:flex-start;
 
 }
 
@@ -53,14 +53,13 @@
     font-size: 1rem;
     font-family: "Roboto", "Helvetica", "Arial", sans-serif;
     font-weight: 400;
-    line-height: 0.8em;
     letter-spacing: 0.00938em;
 
 }
 
 
 .requirements img{
-    width:30px;
+    width:25px;
     margin-right:0.8em;
     
 }
@@ -68,7 +67,7 @@
 .requirements li{
     list-style-type: none;
     display: flex;
-    align-items:baseline;
+    align-items:flex-start;
 
 }
 
@@ -77,7 +76,6 @@
     font-size: 1rem;
     font-family: "Roboto", "Helvetica", "Arial", sans-serif;
     font-weight: 400;
-    line-height: 0.8em;
     letter-spacing: 0.00938em;
 
 }
@@ -129,4 +127,61 @@
     height:70px;
     object-fit: cover;
 }
+
+
+@media (max-width: 992px) {
+
+    .start-course{
+        width:30%;
+    }
+
+    .course-details{
+        margin-top:40px;
+    }  
+
+}
+
+@media (max-width: 767px) {
+
+    .course-bckg ul{
+        padding-inline-start:20px!important;
+        margin-bottom:0px;
+    }
+ 
+    .start-course{
+        width:100%;
+    }
+   
+    .course-bckg{
+        padding:20px 40px;
+    }  
+}
+
+
+
+@media (max-width: 375px) {
+
+    .course-bckg{
+        padding:20px 20px;
+    }  
+
+    .course-details{
+        margin:20px 0px;
+    }  
+
+    .course-details .header{
+        padding:40px 30px 30px;
+    }
+
+    .course-details h1{
+       font-size:2em;
+        font-weight: bold;
+    }
+
+    .course-details h3{
+       margin-top:30px!important;
+
+     }
+}
+
 

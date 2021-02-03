@@ -40,3 +40,20 @@
     letter-spacing: -.02rem;
     font-size: 1.75rem;
 }
+
+@media (max-width: 522px) {
+    .user-img{
+        margin-bottom: 20px
+    }
+
+    .nav {
+        display:flex;
+        flex-direction:column;
+        
+       
+    }
+ 
+    .nav-tabs .nav-link:first-child {
+        order:2
+    }
+}

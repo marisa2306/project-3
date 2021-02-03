@@ -53,22 +53,22 @@ class Navigation extends Component {
                     <Navbar.Toggle aria-controls="basic-navbar-nav" />
                     <Navbar.Collapse id="basic-navbar-nav">
                         <Nav className="ml-auto">
-                            <Link to="/">
+                            <Link to="/" className="border-top">
                                 <Nav.Link as="div">Home</Nav.Link>
                             </Link>
-                            <Link to="/courses">
+                            <Link to="/courses" className="border-top">
                                 <Nav.Link as="div">Courses</Nav.Link>
                             </Link>
-                            <Link to="/teachers">
+                            <Link to="/teachers" className="border-top">
                                 <Nav.Link as="div">Teachers</Nav.Link>
                             </Link>
                             {
                                 this.props.loggedUser
                                     ?
                                     <>
-                                        <Nav.Link as="div" onClick={this.logOut}>Log out</Nav.Link>
+                                        <Nav.Link as="div" className="border-top" onClick={this.logOut}>Log out</Nav.Link>
 
-                                        <Link to="/profile" className="d-flex">
+                                        <Link to="/profile" className="d-flex align-items-center border-top">
                                             <Nav.Link as="div">{`Hi, ${this.props.loggedUser.username}!`}</Nav.Link>
                                             <Image style={{ width: '38px', height: '38px' }} className="img-fit ml-1" roundedCircle src={this.props.loggedUser.imageUrl} />
 
@@ -76,10 +76,10 @@ class Navigation extends Component {
                                     </>
                                     :
                                     <>
-                                        <Nav.Link as="div" onClick={() => this.handleModal(true)}>Log in</Nav.Link>
+                                        <Nav.Link as="div" onClick={() => this.handleModal(true)} className="border-top">Log in</Nav.Link>
 
                                         <Link to="/signup">
-                                            <Nav.Link as="div">Sign up</Nav.Link>
+                                            <Nav.Link as="div" className="border-top">Sign up</Nav.Link>
                                         </Link>
                                     </>
                             }
