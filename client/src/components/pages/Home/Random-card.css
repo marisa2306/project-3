@@ -1,0 +1,31 @@
+.random-card {
+    margin-bottom: 30px;
+    box-shadow: 0 2px 4px rgba(0,0,0,.08);
+    text-align: center;
+}
+
+.random-title.card-title {
+    font-family: Helvetica,Arial,sans-serif;
+    font-weight: 700;
+    line-height: 1.2;
+    font-size: 1rem;
+    color: white;
+    text-shadow: 0px 0px 3px #000;
+    margin-top: 10%;
+    transition: all 1.2s;
+}
+
+.random-title:hover {
+    scale: 1.2;
+}
+
+.random-card img {
+    height: 150px;
+    object-fit: cover;
+    filter: blur(1px) grayscale(40%);
+} 
+
+.random-card-link:hover{
+    text-decoration: none;
+    color:#000;
+}

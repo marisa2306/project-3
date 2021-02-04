@@ -3,7 +3,8 @@ import { motion } from 'framer-motion'
 import CoursesService from '../../../service/courses.service'
 import { Container, Row, Carousel, Col, Image } from 'react-bootstrap'
 import './Home.css'
-import CourseCard from './../../shared/CourseCard/Course-card'
+// import CourseCard from './../../shared/CourseCard/Course-card'
+import RandomCard from './Random-card'
 import Loader from '../../shared/Spinner/Loader'
 
 import Hero from './Hero'
@@ -61,14 +62,16 @@ const Home = props => {
               <Carousel.Item >
                 <Row>
                   {[...courses].slice(0, 4).map(elm =>
-                    <CourseCard key={elm._id} {...elm} />
+                    /* <CourseCard key={elm._id} {...elm} /> */
+                    <RandomCard key={elm._id} {...elm} />
                   )}
                 </Row>
               </Carousel.Item>
               <Carousel.Item >
                 <Row>
                   {[...courses].slice(4, 8).map(elm =>
-                    <CourseCard key={elm._id} {...elm} />
+                    /* <CourseCard key={elm._id} {...elm} /> */
+                    <RandomCard key={elm._id} {...elm} />
                   )}
                 </Row>
               </Carousel.Item>
