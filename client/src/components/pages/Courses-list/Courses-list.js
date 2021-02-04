@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { motion } from 'framer-motion'
 import CoursesService from './../../../service/courses.service'
 import SearchBar from './../../shared/SearchBar/SearchBar'
+import NoMatchesMsg from '../../shared/NoMatches-message/NoMatches-msg.js'
 import CourseCard from '../../shared/CourseCard/Course-card'
 import Loader from './../../shared/Spinner/Loader'
 import './Course-list.css'
@@ -14,7 +15,6 @@ class CoursesList extends Component {
         this.state = {
             courses: undefined,
             filteredCourses: []
-
         }
         this.coursesService = new CoursesService()
     }
@@ -74,12 +74,22 @@ class CoursesList extends Component {
                 <section className="courses-list">
                     <Container >
                         <Row>
-                            {this.state.courses ?
+                            {this.state.courses && this.state.filteredCourses ?
+                                this.state.filteredCourses.length === 0 ?
+                                    <NoMatchesMsg />
+                                    :
                                 this.state.filteredCourses.map(elm =>
                                     <CourseCard key={elm._id} {...elm} userInfo={this.props.loggedUser} teacher={this.props.teacherInfo} updateFavCourses={this.props.updateFavCourses} />)
                                 :
                                 <Loader />
                             }
+                            
+                            {/* {this.state.courses ?
+                                this.state.filteredCourses.map(elm =>
+                                    <CourseCard key={elm._id} {...elm} userInfo={this.props.loggedUser} teacher={this.props.teacherInfo} updateFavCourses={this.props.updateFavCourses} />)
+                                :
+                                <Loader />
+                            } */}
                         </Row>
                     </Container>
                 </section>

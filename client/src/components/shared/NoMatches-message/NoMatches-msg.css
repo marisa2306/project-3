@@ -1,0 +1,18 @@
+.noMatch-msg {
+  font-weight: 100;
+  text-align: center;
+  margin: 0;
+  padding: .6em;
+}
+
+@media (max-width: 575px) {
+  .noMatch-msg {
+    font-size: 1.5em;
+  }
+}
+
+@media (max-width: 575px) {
+  .noMatch-msg {
+    font-size: 1.2em;
+  }
+}
