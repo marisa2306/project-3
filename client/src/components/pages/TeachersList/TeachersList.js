@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { motion } from 'framer-motion'
 import TeachersService from '../../../service/teachers.service'
 import SearchBar from './../../shared/SearchBar/SearchBar'
+import NoMatchesMsg from './../../shared/NoMatches-message/NoMatches-msg'
 import TeacherCard from './TeacherCard'
 import Loader from '../../shared/Spinner/Loader'
 import './TeacherList.css'
@@ -59,11 +60,21 @@ class TeachersList extends Component {
                 <section className="teachers-list">
                     <Container>
                         <Row>
-                            {this.state.teachers ? this.state.filteredTeachers.map(elm =>
-                                <TeacherCard key={elm._id} {...elm} userInfo={this.props.loggedUser} teacher={this.props.teacherInfo} updateFavTeachers={this.props.updateFavTeachers} />)
+                            {this.state.teachers && this.state.filteredTeachers ?
+                                this.state.filteredTeachers.length === 0 ?
+                                    <NoMatchesMsg />
+                                    :
+                                    this.state.filteredTeachers.map(elm =>
+                                    <TeacherCard key={elm._id} {...elm} userInfo={this.props.loggedUser} teacher={this.props.teacherInfo} updateFavTeachers={this.props.updateFavTeachers} />)
                                 :
                                 <Loader />
                             }
+                            
+                            {/* {this.state.teachers ? this.state.filteredTeachers.map(elm =>
+                                <TeacherCard key={elm._id} {...elm} userInfo={this.props.loggedUser} teacher={this.props.teacherInfo} updateFavTeachers={this.props.updateFavTeachers} />)
+                                :
+                                <Loader />
+                            } */}
                         </Row>
                     </Container>
                 </section>
