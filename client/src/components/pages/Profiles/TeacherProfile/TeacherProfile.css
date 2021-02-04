@@ -173,3 +173,17 @@
     }
 
 }
+
+@media (max-width: 425px) {
+
+    .teacher-profile{   
+        margin-top: 50px;
+     
+    }
+
+    .teacher-profile h2{   
+        margin-top: 30px!important;
+        text-align: center;
+    }
+
+}

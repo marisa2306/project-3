@@ -157,8 +157,6 @@
     }  
 }
 
-
-
 @media (max-width: 375px) {
 
     .course-bckg{
@@ -180,8 +178,8 @@
 
     .course-details h3{
        margin-top:30px!important;
-
-     }
+    }
+    
 }
 
 

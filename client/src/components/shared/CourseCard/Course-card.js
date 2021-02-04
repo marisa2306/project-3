@@ -28,21 +28,21 @@ const CourseCard = props => {
                 <Card.Body>
                     <Card.Title className="course-title mb-2">{props.title.substring(0, 35)}...</Card.Title>
                     <Card.Text className="details  mb-2">{props.category} - {props.difficultyLevel} - {props.price} € - {props.duration} hrs.</Card.Text>
-                    <Row as='div' className="d-flex justify-content-around align-items-center">
-                        <Col md={8} as='div' className="d-flex justify-content-between">
+                    <div className="d-flex justify-content-between align-items-center">
+                        <div className="d-flex justify-content-around align-items-center">
                             {props.teacher && props.owner === props.teacher._id
                                 ?
                                 <>
-                                    <Link to={`/profile-teacher/edit-course/${props._id}`} className="btn btn-info mx-2">Edit</Link>
+                                    <Link to={`/profile-teacher/edit-course/${props._id}`} className="btn btn-info mr-2">Edit</Link>
                                     <Button onClick={() => handleModal(true)} className="btn btn-danger">Delete</Button>
                                 </>
                                 : null
                             }
-                        </Col>
-                        <Col md={{ span: 3, offset: 1 }} >
+                        </div>
+                        <div>
                             {props.userInfo && <FavButton updateFavCourses={props.updateFavCourses} userInfo={props.userInfo} itemInfo={props} />}
-                        </Col>
-                    </Row>
+                        </div>
+                    </div>
                 </Card.Body>
             </Card>
 
