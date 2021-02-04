@@ -10,7 +10,6 @@
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.39)
 }
 
-
 .btn-primary.disabled, .btn-primary:disabled {
     color: #fff;
     background-color: #ec5252;
@@ -25,7 +24,6 @@
     box-shadow: 0 4px 12px rgba(0,0,0,.08)
 }
 
-
 .course-img{
     width:100%;
     border: 5px solid #fff ;
@@ -36,6 +34,7 @@
 .whatYouWillLearn li{
     padding:0px;
 }
+
 .whatYouWillLearn img{
     width:20px;
     margin-right:0.8em;
@@ -54,21 +53,17 @@
     font-family: "Roboto", "Helvetica", "Arial", sans-serif;
     font-weight: 400;
     letter-spacing: 0.00938em;
-
 }
-
 
 .requirements img{
     width:25px;
     margin-right:0.8em;
-    
 }
 
 .requirements li{
     list-style-type: none;
     display: flex;
     align-items:flex-start;
-
 }
 
 .requirements p{
@@ -77,7 +72,6 @@
     font-family: "Roboto", "Helvetica", "Arial", sans-serif;
     font-weight: 400;
     letter-spacing: 0.00938em;
-
 }
 
 .card-header {
@@ -91,7 +85,6 @@
     width:20px;
     margin-right:0.8em;
 }
-
 
 .start-course{
     align-items: center;
@@ -128,6 +121,28 @@
     object-fit: cover;
 }
 
+.comments-card {
+    background-color: #fff;
+    background-clip: border-box;
+    border: 1px solid rgba(0,0,0,.125);
+    border-radius: .25rem;
+    padding: 20px 15px;
+    display:flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.comment-body{
+    display:flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.comment-text{
+    display:flex;
+    flex-direction:column;
+}
+
 
 @media (max-width: 992px) {
 
@@ -152,9 +167,19 @@
         width:100%;
     }
    
-    .course-bckg{
-        padding:20px 40px;
-    }  
+    .comments-card {
+        flex-direction:column;
+    }
+
+    .comment-body {
+        flex-direction:column;
+    }
+
+    .comment-text{
+        align-items: center;
+        margin:20px 0px;
+    }
+   
 }
 
 @media (max-width: 375px) {

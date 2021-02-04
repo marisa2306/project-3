@@ -140,28 +140,23 @@ class CourseDetails extends Component {
                                 this.state.comments.map(elm =>
                                     <div className="mb-2" key={elm._id}{...elm}>
                                         {elm.user &&
-                                            <Card>
-                                                <Card.Body className="d-flex align-items-center">
-                                                    <Col sm={4} md={1} lg={1}>
-                                                        <Image className="avatar" roundedCircle src={elm.user.imageUrl} alt={elm.user.username} />
-                                                    </Col>
-                                                    <Col className="d-flex flex-column" sm={{ span: 6, offset: 1 }} md={{ span: 8, offset: 1 }} lg={8}>
+                                            <div className="comments-card">
+                                                <div className="comment-body" style={{ width: '90%' }}>
+                                                    <Image className="avatar" roundedCircle src={elm.user.imageUrl} alt={elm.user.username} />
+                                                    <div className="comment-text" style={{ width: '80%' }}>
                                                         <p className="mb-0"><strong>{elm.user.username} {elm.timestamps}</strong></p>
                                                         <p className="mb-0"><em>" {elm.content} "</em></p>
                                                         <small>{elm.createdAt}</small>
+                                                    </div>
+                                                </div>
+                                                {this.props.loggedUser && this.props.loggedUser._id === elm.user._id ?
 
-                                                    </Col>
-                                                    {this.props.loggedUser && this.props.loggedUser._id === elm.user._id ?
-                                                        <Row as="div" className="mt-2">
-                                                            <Col className="d-flex align-items-center">
-                                                                {/* <Link to='/edit-comment' className="mr-3 btn btn-outline-info btn-sm">Edit</Link> */}
-                                                                <Button sm={2} onClick={() => this.deleteComment(elm._id)} variant="outline-danger" className="delete-comment" size="sm">Delete</Button>
-                                                            </Col>
-                                                        </Row>
-                                                        : null
-                                                    }
-                                                </Card.Body>
-                                            </Card>
+                                                    <Button onClick={() => this.deleteComment(elm._id)} variant="outline-danger" size="sm">Delete</Button>
+
+                                                    : null
+                                                }
+
+                                            </div>
                                         }
                                     </div>
                                 )
