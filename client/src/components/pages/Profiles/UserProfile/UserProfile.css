@@ -1,13 +1,37 @@
 .user-details{
+    background-color:#fff;
+    padding:40px 40px;
+    display:flex;
+    justify-content: space-between;
+    width:100%;
+    align-items: center;
+    border: 1px solid #dee2e6 ;
+    border-bottom-left-radius: .25rem;
+    border-top-right-radius: .25rem;
+    border-bottom-right-radius: .25rem;
+    box-shadow: 0 4px 12px rgba(0,0,0,.08)
+}
 
-        background-color:#fff;
-        padding:40px 40px;
-        border: 1px solid #dee2e6 ;
-        border-bottom-left-radius: .25rem;
-        border-top-right-radius: .25rem;
-        border-bottom-right-radius: .25rem;
-        box-shadow: 0 4px 12px rgba(0,0,0,.08)
- 
+.user-details article {
+    display:flex;
+    justify-content: space-between;
+    align-items: center;
+    width:40%;
+}
+
+.user-fields{
+    display:flex;
+    flex-direction: column;
+}
+
+.user-buttons{
+    display:flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.user-buttons .btn{
+    margin-top: 15px;
 }
 
 .user-img{
@@ -17,13 +41,11 @@
 }
 
 .cta{
-    
     padding:20px 40px;
     background: url(https://s.udemycdn.com/browse_components/shared-assets/purple-intersect.svg) repeat-x #003645;
     background-size: auto 120%;
     background-position: 0 -2.4rem;
     color:white
-
 }
 
 .user-profile h1{
@@ -41,7 +63,50 @@
     font-size: 1.75rem;
 }
 
+
+@media (max-width: 1200px) {
+    .user-details article {
+        width:50%
+    }
+}
+
+@media (max-width: 1024px) {
+
+    .user-details {
+        justify-content: space-around;
+    }
+    
+    .user-details article {
+        width:70%;
+        justify-content: space-evenly;
+    }
+}
+
+@media (max-width: 768px) {
+    .user-details{
+        flex-direction: column;
+    }
+    
+    .user-details article {
+        justify-content: space-evenly;
+        width:100%
+    }
+
+    .user-buttons{
+        flex-direction: row;
+        justify-content: space-around;
+        margin-top:30px;
+        width:100%;
+    }
+}
+
+
 @media (max-width: 522px) {
+
+    h1{
+        font-size: 2.8em;
+    }
+
     .user-img{
         margin-bottom: 20px
     }
@@ -49,11 +114,19 @@
     .nav {
         display:flex;
         flex-direction:column;
-        
-       
     }
  
     .nav-tabs .nav-link:first-child {
         order:2
+    }
+
+    .user-buttons{
+        flex-direction: column;
+        width: 80%; 
+    }
+
+    .user-details article {
+        flex-direction: column;
+        align-items:center
     }
 }

@@ -127,29 +127,27 @@ class UserProfile extends Component {
 
           {/* User details */}
           <section className="user-details">
-            <Row>
-              <Col md={1} lg={1}>
-                <Image src={this.props.loggedUser.imageUrl} className="user-img" roundedCircle alt={this.props.loggedUser.username} />
-              </Col>
-              <Col md={{ span: 8, offset: 3 }} lg={{ span: 9, offset: 2 }}>
+            <article>
+              <Image src={this.props.loggedUser.imageUrl} className="user-img" roundedCircle alt={this.props.loggedUser.username} />
+              <div className="user-fields">
                 <p><strong>Username:</strong> {this.props.loggedUser.username}</p>
                 <p><strong>Email:</strong> {this.props.loggedUser.email}</p>
                 <p><strong>Role:</strong> {this.props.loggedUser.role}</p>
-                <Row className="d-flex">
+              </div>
+            </article>
 
-                  <Link to='/profile/edit-user' className="btn btn-info mr-3">Edit details</Link>
-                  <Button onClick={() => this.handleModal(true)} className="btn btn-danger mr-5">Delete user</Button>
+            <div className="user-buttons">
+              <Link to='/profile/edit-user' className="btn btn-info">Edit details</Link>
+              <Button onClick={() => this.handleModal(true)} className="btn btn-danger">Delete user</Button>
 
-                  {this.props.loggedUser.role === 'Teacher' && this.props.teacherInfo
-                    ?
-                    <Link to={`/teachers/${this.props.teacherInfo._id}`} className="btn btn-warning">Teacher profile</Link>
-                    : this.props.loggedUser.role === 'Teacher' && !this.props.teacherInfo ?
-                      <Link to='/profile/create-teacher' className="btn btn-success">Create teacher profile</Link>
-                      : null
-                  }
-                </Row>
-              </Col>
-            </Row>
+              {this.props.loggedUser.role === 'Teacher' && this.props.teacherInfo
+                ?
+                <Link to={`/teachers/${this.props.teacherInfo._id}`} className="btn btn-warning">Teacher profile</Link>
+                : this.props.loggedUser.role === 'Teacher' && !this.props.teacherInfo ?
+                  <Link to='/profile/create-teacher' className="btn btn-success">Create teacher profile</Link>
+                  : null
+              }
+            </div>
           </section>
 
 
